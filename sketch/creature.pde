@@ -27,18 +27,22 @@ class Creature {
 
   void moveLeft() {
     drawX = drawX - X_VELOCITY;
-  } 
+    drawY = cuantizeCoord(drawY) + (SCALE / 2); // Forces Pacman to stay in the middle of the corridor
+  }
 
   void moveRight() {
     drawX = drawX + X_VELOCITY;
-  } 
+    drawY = cuantizeCoord(drawY) + (SCALE / 2);
+  }
   
   void moveUp() {
     drawY = drawY - Y_VELOCITY;
-  } 
+    drawX = cuantizeCoord(drawX) + (SCALE / 2);
+  }
 
   void moveDown() {
     drawY = drawY + Y_VELOCITY;
+    drawX = cuantizeCoord(drawX) + (SCALE / 2);
   }
 
   int getDrawX() {

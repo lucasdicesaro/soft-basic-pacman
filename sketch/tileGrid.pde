@@ -37,6 +37,7 @@ class TileGrid {
           case PACMAN_TYPE:
             pacman = new Pacman(cellToCoord(x) + SCALE / 2, cellToCoord(y) + SCALE / 2);
             break;
+          // TODO: Add the ghosts
         }
       }
     }
@@ -45,7 +46,7 @@ class TileGrid {
   void refreshGrid() {
     cleanPreviousPosition(pacman);
     
-    // TODO: Add the remaining creatures.
+    // TODO: Add the ghosts.
     pacman.drawYourSelf();
   }
   
@@ -105,29 +106,39 @@ class TileGrid {
           case PACMAN_TYPE:
             drawCorridorInCellGrid(x, y);
             break;
+          // TODO: Add the ghosts
+          case 3: // 3 red
+            drawCorridorInCellGrid(x, y);
+            break;
         }
       }
     }
   }
   
+  // Movement is only validated when creature is in the center of the cell.
   boolean isNotWallOnCreatureLeft(Creature creature) {
-    return !isWall(creature.getDrawX()-X_VELOCITY, creature.getDrawY());
+    return !isCenterOfTheCell(creature.getDrawX()) || !isWall(coordToCell(creature.getDrawX())-1, coordToCell(creature.getDrawY()));
   }
 
   boolean isNotWallOnCreatureRight(Creature creature) {
-    return !isWall(creature.getDrawX()+X_VELOCITY, creature.getDrawY());
+    return !isCenterOfTheCell(creature.getDrawX()) || !isWall(coordToCell(creature.getDrawX())+1, coordToCell(creature.getDrawY()));
   }
 
   boolean isNotWallOnCreatureUp(Creature creature) {
-    return !isWall(creature.getDrawX(), creature.getDrawY()-Y_VELOCITY);
+    return !isCenterOfTheCell(creature.getDrawY()) || !isWall(coordToCell(creature.getDrawX()), coordToCell(creature.getDrawY())-1);
   }
 
   boolean isNotWallOnCreatureDown(Creature creature) {
-    return !isWall(creature.getDrawX(), creature.getDrawY()+Y_VELOCITY);
+    return !isCenterOfTheCell(creature.getDrawY()) || !isWall(coordToCell(creature.getDrawX()), coordToCell(creature.getDrawY())+1);
   }
 
   boolean isWall(int x, int y) {
-    return getTileValue(coordToCell(x), coordToCell(y)) == WALL;
+    return getTileValue(x, y) == WALL;
+  }
+
+  // Checks if coord is the center of the cell
+  boolean isCenterOfTheCell(int coord) {
+    return coord == cuantizeCoord(coord) + (SCALE / 2);
   }
 
   void cleanTile(int x, int y) {
