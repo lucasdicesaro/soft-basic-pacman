@@ -1,6 +1,11 @@
 final int MAX_COLS = 28;
 final int MAX_ROWS = 36;
 
+final int WALL = 0;
+final int PELLET = 1;
+final int POWER_PELLET = 7;
+final int CORRIDOR = 8;
+
 class TileGrid {
   int[][] grid;
 
@@ -16,15 +21,31 @@ class TileGrid {
   void renderGrid() {
     for (int y = 0; y < MAX_ROWS; y++) {
       for (int x = 0; x < MAX_COLS; x++) {
-        drawWallCellGridToWindow(x, y);
+        switch (getTileValue(x, y)) {
+          case WALL:
+            drawWallInCellGrid(x, y);
+            break;
+          case CORRIDOR:
+            drawCorridorInCellGrid(x, y);
+            break;
+          case PELLET:
+            drawPelletInCellGrid(x, y);
+            break;
+          case POWER_PELLET:
+            drawPowerPelletInCellGrid(x, y);
+            break;
+          case PACMAN_TYPE:
+            pacman = new Pacman(cellToCoord(x) + SCALE / 2, cellToCoord(y) + SCALE / 2);
+            break;
+        }
       }
     }
   }
 
   void refreshGrid() {
-    
     cleanPreviousPosition(pacman);
     
+    // TODO: Add the remaining creatures.
     pacman.drawYourSelf();
   }
   
@@ -68,7 +89,23 @@ class TileGrid {
   void cleanSection(int fromX, int toX, int fromY, int toY) {
     for(int x = fromX; x <= toX; x++) {
       for(int y = fromY; y <= toY; y++) {
-        drawBlackWallCell(cellToCoord(x), cellToCoord(y));
+        switch (getTileValue(x, y)) {
+          case WALL:
+            drawWallInCellGrid(x, y);
+            break;
+          case CORRIDOR:
+            drawCorridorInCellGrid(x, y);
+            break;
+          case PELLET:
+            drawPelletInCellGrid(x, y);
+            break;
+          case POWER_PELLET:
+            drawPowerPelletInCellGrid(x, y);
+            break;
+          case PACMAN_TYPE:
+            drawCorridorInCellGrid(x, y);
+            break;
+        }
       }
     }
   }

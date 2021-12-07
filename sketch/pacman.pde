@@ -12,7 +12,7 @@ class Pacman extends Creature {
     
     drawCreatureCenter(drawX, drawY);
     
-    drawBlackWallCell(drawX, drawY);
+    drawBlackCell(drawX, drawY);
   }
   
   void processMovement() {

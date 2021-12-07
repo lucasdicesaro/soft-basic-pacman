@@ -1,21 +1,18 @@
 
-
 final int X_VELOCITY = 3;
 final int Y_VELOCITY = 3;
 
-
+MapFile mapFile;
 TileGrid tileGrid;
 
 Pacman pacman;
-
 
 void setup() {
   //size(224 * PIXEL_SIZE, 288 * PIXEL_SIZE);
   size(672, 864);
 
-  tileGrid = new TileGrid();
-  pacman = new Pacman(240 + SCALE / 2, 
-                      240 + SCALE / 2);
+  mapFile = new MapFile();
+  tileGrid = mapFile.fillGrid();
   tileGrid.renderGrid();
 }
 

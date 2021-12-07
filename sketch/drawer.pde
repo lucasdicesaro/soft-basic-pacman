@@ -1,3 +1,5 @@
+final int PELLET_SIZE = 5;
+final int POWER_PELLET_SIZE = 13;
 
 void drawCreature(int drawX, int drawY, color c) {
   fill(c);
@@ -11,12 +13,12 @@ void drawCreatureCenter(int drawX, int drawY) {
 }
 
 /* Square drawing starts from left-up corner */
-void drawWhiteWallCell(int drawX, int drawY) {
+void drawWallCell(int drawX, int drawY) {
   fill(255);
   drawSquare(drawX, drawY);
 }
 
-void drawBlackWallCell(int drawX, int drawY) {
+void drawBlackCell(int drawX, int drawY) {
   fill(0);
   drawSquare(drawX, drawY);
 }
@@ -27,8 +29,28 @@ void drawSquare(int drawX, int drawY) {
   square(cuantizeCoord(drawX), cuantizeCoord(drawY), SCALE);
 }
 
-void drawWallCellGridToWindow(int x, int y) {
+
+/* These methods are used when we are working with grid positions */
+
+void drawWallInCellGrid(int x, int y) {
   fill(255);
   /* drawX, drawY are the left-up corner of the square */
   square(cellToCoord(x), cellToCoord(y), SCALE);
+}
+
+void drawCorridorInCellGrid(int x, int y) {
+  fill(0);
+  drawSquare(cellToCoord(x), cellToCoord(y));
+}
+
+void drawPelletInCellGrid(int x, int y) {
+  drawCorridorInCellGrid(x, y);
+  fill(255);
+  circle(cellToCoord(x) + (SCALE / 2), cellToCoord(y) + (SCALE / 2), PELLET_SIZE);
+}
+
+void drawPowerPelletInCellGrid(int x, int y) {
+  drawCorridorInCellGrid(x, y);
+  fill(255);
+  circle(cellToCoord(x) + (SCALE / 2), cellToCoord(y) + (SCALE / 2), POWER_PELLET_SIZE);
 }
