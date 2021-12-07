@@ -110,6 +110,26 @@ class TileGrid {
     }
   }
   
+  boolean isNotWallOnCreatureLeft(Creature creature) {
+    return !isWall(creature.getDrawX()-X_VELOCITY, creature.getDrawY());
+  }
+
+  boolean isNotWallOnCreatureRight(Creature creature) {
+    return !isWall(creature.getDrawX()+X_VELOCITY, creature.getDrawY());
+  }
+
+  boolean isNotWallOnCreatureUp(Creature creature) {
+    return !isWall(creature.getDrawX(), creature.getDrawY()-Y_VELOCITY);
+  }
+
+  boolean isNotWallOnCreatureDown(Creature creature) {
+    return !isWall(creature.getDrawX(), creature.getDrawY()+Y_VELOCITY);
+  }
+
+  boolean isWall(int x, int y) {
+    return getTileValue(coordToCell(x), coordToCell(y)) == WALL;
+  }
+
   void cleanTile(int x, int y) {
     setTileValue(x, y, 0);
   }

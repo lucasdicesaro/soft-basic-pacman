@@ -17,17 +17,25 @@ class Pacman extends Creature {
   
   void processMovement() {
     switch(selectedMovement) {
-      case UP:
-        moveUp();
-        break;
-      case DOWN:
-        moveDown();
-        break;
       case LEFT:
-        moveLeft();
+        if (tileGrid.isNotWallOnCreatureLeft(this)) {
+          moveLeft();
+        }
         break;
       case RIGHT:
-        moveRight();
+        if (tileGrid.isNotWallOnCreatureRight(this)) {
+          moveRight();
+        }
+        break;
+      case UP:
+        if (tileGrid.isNotWallOnCreatureUp(this)) {
+          moveUp();
+        }
+        break;
+      case DOWN:
+        if (tileGrid.isNotWallOnCreatureDown(this)) {
+          moveDown();
+        }
         break;
     }
   }
@@ -40,10 +48,10 @@ class Pacman extends Creature {
 
   boolean isValidMovement() {
     return isValidMovementKey() &&
-    (keyCode == LEFT ||
-     keyCode == RIGHT ||
-     keyCode == UP ||
-     keyCode == DOWN
+    (keyCode == LEFT && tileGrid.isNotWallOnCreatureLeft(this) ||
+     keyCode == RIGHT && tileGrid.isNotWallOnCreatureRight(this) ||
+     keyCode == UP && tileGrid.isNotWallOnCreatureUp(this) ||
+     keyCode == DOWN && tileGrid.isNotWallOnCreatureDown(this)
     );
   }
 
