@@ -35,7 +35,12 @@ class TileGrid {
             drawPowerPelletInCellGrid(x, y);
             break;
           case PACMAN_TYPE:
-            pacman = new Pacman(cellToCoord(x) + SCALE / 2, cellToCoord(y) + SCALE / 2);
+            pacman = new Pacman(convertToCoordInCellCenter(x), convertToCoordInCellCenter(y));
+            creatures.add(pacman);
+            break;
+          case RED_GHOST_TYPE:
+            red = new Red(convertToCoordInCellCenter(x), convertToCoordInCellCenter(y));
+            creatures.add(red);
             break;
           // TODO: Add the ghosts
         }
@@ -44,10 +49,13 @@ class TileGrid {
   }
 
   void refreshGrid() {
-    cleanPreviousPosition(pacman);
-    
-    // TODO: Add the ghosts.
-    pacman.drawYourSelf();
+    for(Creature creature : creatures) {
+      cleanPreviousPosition(creature);
+    }
+
+    for(Creature creature : creatures) {
+      creature.drawYourSelf();
+    }
   }
   
   
@@ -106,8 +114,8 @@ class TileGrid {
           case PACMAN_TYPE:
             drawCorridorInCellGrid(x, y);
             break;
-          // TODO: Add the ghosts
-          case 3: // 3 red
+          case RED_GHOST_TYPE:
+            // It's the only ghost initially outside its house.
             drawCorridorInCellGrid(x, y);
             break;
         }
@@ -117,19 +125,19 @@ class TileGrid {
   
   // Movement is only validated when creature is in the center of the cell.
   boolean isNotWallOnCreatureLeft(Creature creature) {
-    return !isCenterOfTheCell(creature.getDrawX()) || !isWall(coordToCell(creature.getDrawX())-1, coordToCell(creature.getDrawY()));
+    return !isHorizontalCenterOfTheCell(creature) || !isWall(coordToCell(creature.getDrawX())-1, coordToCell(creature.getDrawY()));
   }
 
   boolean isNotWallOnCreatureRight(Creature creature) {
-    return !isCenterOfTheCell(creature.getDrawX()) || !isWall(coordToCell(creature.getDrawX())+1, coordToCell(creature.getDrawY()));
+    return !isHorizontalCenterOfTheCell(creature) || !isWall(coordToCell(creature.getDrawX())+1, coordToCell(creature.getDrawY()));
   }
 
   boolean isNotWallOnCreatureUp(Creature creature) {
-    return !isCenterOfTheCell(creature.getDrawY()) || !isWall(coordToCell(creature.getDrawX()), coordToCell(creature.getDrawY())-1);
+    return !isVerticalCenterOfTheCell(creature) || !isWall(coordToCell(creature.getDrawX()), coordToCell(creature.getDrawY())-1);
   }
 
   boolean isNotWallOnCreatureDown(Creature creature) {
-    return !isCenterOfTheCell(creature.getDrawY()) || !isWall(coordToCell(creature.getDrawX()), coordToCell(creature.getDrawY())+1);
+    return !isVerticalCenterOfTheCell(creature) || !isWall(coordToCell(creature.getDrawX()), coordToCell(creature.getDrawY())+1);
   }
 
   boolean isWall(int x, int y) {
@@ -137,7 +145,19 @@ class TileGrid {
   }
 
   // Checks if coord is the center of the cell
-  boolean isCenterOfTheCell(int coord) {
+  boolean isCenterOfTheCell(Creature creature) {
+    return isHorizontalCenterOfTheCell(creature) && isVerticalCenterOfTheCell(creature);
+  }
+
+  boolean isHorizontalCenterOfTheCell(Creature creature) {
+    return isCenterInOneDimensionOfTheCell(creature.getDrawX());
+  }
+
+  boolean isVerticalCenterOfTheCell(Creature creature) {
+    return isCenterInOneDimensionOfTheCell(creature.getDrawY());
+  }
+
+  boolean isCenterInOneDimensionOfTheCell(int coord) {
     return coord == cuantizeCoord(coord) + (SCALE / 2);
   }
 

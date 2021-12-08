@@ -14,3 +14,8 @@ int coordToCell(int coord) {
 int cuantizeCoord(int coord) {
   return cellToCoord(coordToCell(coord));
 }
+
+/* Converts a cell position into a pixel coordinate in the center of asociated cell */
+int convertToCoordInCellCenter(int cell) {
+  return cellToCoord(cell) + SCALE / 2;
+}

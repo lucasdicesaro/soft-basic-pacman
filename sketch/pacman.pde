@@ -9,10 +9,8 @@ class Pacman extends Creature {
   
   void drawYourSelf() {
     drawCreature(drawX, drawY, c);
-    
-    drawCreatureCenter(drawX, drawY);
-    
-    drawBlackCell(drawX, drawY);
+    //drawCreatureCenter(drawX, drawY);
+    //drawBlackCell(drawX, drawY);
   }
   
   void processMovement() {

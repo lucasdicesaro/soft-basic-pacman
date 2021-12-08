@@ -2,9 +2,11 @@ final int PELLET_SIZE = 5;
 final int POWER_PELLET_SIZE = 13;
 
 void drawCreature(int drawX, int drawY, color c) {
+  noStroke();
   fill(c);
   /* drawX, drawY are the center of the circle */
   circle(drawX, drawY, CREATURE_SIZE);
+  stroke(0);
 }
 
 void drawCreatureCenter(int drawX, int drawY) {
@@ -53,4 +55,11 @@ void drawPowerPelletInCellGrid(int x, int y) {
   drawCorridorInCellGrid(x, y);
   fill(255);
   circle(cellToCoord(x) + (SCALE / 2), cellToCoord(y) + (SCALE / 2), POWER_PELLET_SIZE);
+}
+
+void drawTarget(int x, int y, color c) {
+  stroke(c);
+  noFill();
+  square(cellToCoord(x), cellToCoord(y), SCALE);
+  stroke(0);
 }

@@ -72,6 +72,7 @@ class Creature {
   }
 
   void debug() {
-    println(name + " draw X,Y: " + drawX + "," + drawY + " grid pos X,Y: " + coordToCell(drawX) + "," + coordToCell(drawY) + " CREATURE_SCALE: " + CREATURE_SCALE + " CREATURE_SIZE: " + CREATURE_SIZE + " creatureRadiusCells: " + creatureRadiusCells);
+    //println(name + " CREATURE_SCALE: " + CREATURE_SCALE + " CREATURE_SIZE: " + CREATURE_SIZE + " creatureRadiusCells: " + creatureRadiusCells);
+    println(name + " draw X,Y: " + drawX + "," + drawY + " grid pos X,Y: " + coordToCell(drawX) + "," + coordToCell(drawY) + " selectedMovement: " + selectedMovement + " isCenterOfTheCell: " + tileGrid.isCenterOfTheCell(this));
   }
 } 
