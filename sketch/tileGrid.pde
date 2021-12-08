@@ -67,7 +67,6 @@ class TileGrid {
     for(Creature creature : creatures) {
       cleanPreviousPosition(creature);
     }
-
     for(Creature creature : creatures) {
       creature.drawYourSelf();
     }
@@ -137,7 +136,11 @@ class TileGrid {
       }
     }
   }
-  
+
+  void setCorridor(Creature creature) {
+    setTileValue(coordToCell(creature.getDrawX()), coordToCell(creature.getDrawY()), CORRIDOR);
+  }
+
   // Movement is only validated when creature is in the center of the cell.
   boolean isNotWallOnCreatureLeft(Creature creature) {
     return !isHorizontalCenterOfTheCell(creature) || !isWall(coordToCell(creature.getDrawX())-1, coordToCell(creature.getDrawY()));
@@ -155,8 +158,24 @@ class TileGrid {
     return !isVerticalCenterOfTheCell(creature) || !isWall(coordToCell(creature.getDrawX()), coordToCell(creature.getDrawY())+1);
   }
 
+  boolean isPellet(Creature creature) {
+    return isPellet(coordToCell(creature.getDrawX()), coordToCell(creature.getDrawY()));
+  }
+
+  boolean isPowerPellet(Creature creature) {
+    return isPowerPellet(coordToCell(creature.getDrawX()), coordToCell(creature.getDrawY()));
+  }
+
   boolean isWall(int x, int y) {
     return getTileValue(x, y) == WALL;
+  }
+
+  boolean isPellet(int x, int y) {
+    return getTileValue(x, y) == PELLET;
+  }
+
+  boolean isPowerPellet(int x, int y) {
+    return getTileValue(x, y) == POWER_PELLET;
   }
 
   // Checks if coord is the center of the cell

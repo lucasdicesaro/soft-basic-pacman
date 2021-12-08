@@ -36,6 +36,14 @@ class Pacman extends Creature {
         }
         break;
     }
+
+    if (tileGrid.isPellet(this) || tileGrid.isPowerPellet(this)) {
+      //globalGame.addPelletCounter();
+      if (tileGrid.isPowerPellet(this)) {
+        gameMode.changeModeTo(FRIGHTENED);
+      }
+      tileGrid.setCorridor(this); // Remove pellet from maze
+    }
   }
 
   void setSelectedMovement(int movement) {
