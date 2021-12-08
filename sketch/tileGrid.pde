@@ -42,21 +42,25 @@ class TileGrid {
             red = new Red(convertToCoordInCellCenter(x), convertToCoordInCellCenter(y));
             creatures.add(red);
             ghosts.add(red);
+            setCorridor(red); // Once ghost has spawn, we clean its mark in the internal maze.
             break;
           case PINK_GHOST_TYPE:
             pink = new Pink(convertToCoordInCellCenter(x), convertToCoordInCellCenter(y));
             creatures.add(pink);
             ghosts.add(pink);
+            setCorridor(pink); // Once ghost has spawn, we clean its mark in the internal maze.
             break;
           case BLUE_GHOST_TYPE:
             blue = new Blue(convertToCoordInCellCenter(x), convertToCoordInCellCenter(y));
             creatures.add(blue);
             ghosts.add(blue);
+            setCorridor(blue); // Once ghost has spawn, we clean its mark in the internal maze.
             break;
           case ORANGE_GHOST_TYPE:
             orange = new Orange(convertToCoordInCellCenter(x), convertToCoordInCellCenter(y));
             creatures.add(orange);
             ghosts.add(orange);
+            setCorridor(orange); // Once ghost has spawn, we clean its mark in the internal maze.
             break;
         }
       }

@@ -30,7 +30,6 @@ class Orange extends Ghost {
   }
 
   boolean hasToGoOutFromHouse() {
-    //return globalGame.getPelletCounter() > 60;
-    return true;
+    return pelletCounter > 60;
   }
 }

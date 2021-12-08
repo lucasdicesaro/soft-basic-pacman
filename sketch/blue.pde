@@ -37,8 +37,7 @@ class Blue extends Ghost {
   }
 
   boolean hasToGoOutFromHouse() {
-    //return globalGame.getPelletCounter() > 30;
-    return true;
+    return pelletCounter > 30;
   }
 
   int calculateTarget(int ghostCell, int pacmanCell) {

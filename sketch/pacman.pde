@@ -38,7 +38,7 @@ class Pacman extends Creature {
     }
 
     if (tileGrid.isPellet(this) || tileGrid.isPowerPellet(this)) {
-      //globalGame.addPelletCounter();
+      pelletCounter++;
       if (tileGrid.isPowerPellet(this)) {
         gameMode.changeModeTo(FRIGHTENED);
       }

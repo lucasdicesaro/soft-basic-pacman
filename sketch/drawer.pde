@@ -63,3 +63,12 @@ void drawTarget(int x, int y, color c) {
   square(cellToCoord(x), cellToCoord(y), SCALE);
   stroke(0);
 }
+
+void drawPalletCounter() {
+  int x = 4;
+  int y = 0;
+  tileGrid.cleanSection(x, x+1, y, y);
+  textFont(f,16);
+  fill(255);
+  text(nf(pelletCounter, 3),cellToCoord(x), cellToCoord(y+1));
+}

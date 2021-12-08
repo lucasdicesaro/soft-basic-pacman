@@ -14,11 +14,16 @@ Pink pink;
 Blue blue;
 Orange orange;
 
+int pelletCounter;
+PFont f;
+
 void setup() {
   //size(224 * PIXEL_SIZE, 288 * PIXEL_SIZE);
   size(672, 864);
+  f = createFont("Arial",16,true); // STEP 2 Create Font
 
   gameMode = new GameMode();
+  pelletCounter = 0;
 
   mapFile = new MapFile();
   tileGrid = mapFile.fillGrid();
@@ -30,6 +35,7 @@ void draw() {
     creature.processMovement();
   }
   tileGrid.refreshGrid();
+  drawPalletCounter();
 }
 
 void keyPressed() {

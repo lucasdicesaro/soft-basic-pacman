@@ -134,10 +134,8 @@ class Ghost extends Creature {
   }
 
   void setFrightenedTarget() {
-    //if (delayCounter == 0) {
-      targetX = int(random(MAX_COLS));
-      targetY = int(random(MAX_ROWS));
-    //}
+    targetX = int(random(MAX_COLS));
+    targetY = int(random(MAX_ROWS));
   }
 
   boolean hasToGoOutFromHouse() {
@@ -148,6 +146,7 @@ class Ghost extends Creature {
     drawX = convertToCoordInCellCenter(GHOSTS_HOUSE_EXIT_X);
     drawY = convertToCoordInCellCenter(GHOSTS_HOUSE_EXIT_Y);
     selectedMovement = LEFT;
+    tileGrid.cleanSection(10, 17, 15, 19); // Ghosts house.
   }
 
   void scheduleReverseDirection() {
