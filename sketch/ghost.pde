@@ -58,8 +58,8 @@ class Ghost extends Creature {
 
     int newMovement = -1;
     int min = 99999;
-    int x = coordToCell(drawX);
-    int y = coordToCell(drawY);
+    int x = getGridCellX();
+    int y = getGridCellY();
     int distance = 0;
     if (selectedMovement != DOWN && tileGrid.isNotWallOnCreatureUp(this)) {
       distance = (int) dist(x, y-1, targetX, targetY);

@@ -9,8 +9,8 @@ class Red extends Ghost {
   }
 
   void setChaseTarget() {
-    targetX = coordToCell(pacman.getDrawX());
-    targetY = coordToCell(pacman.getDrawY());
+    targetX = pacman.getGridCellX();
+    targetY = pacman.getGridCellY();
   }
 
   void setScatterTarget() {

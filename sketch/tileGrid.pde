@@ -74,8 +74,8 @@ class TileGrid {
   
   
   void cleanPreviousPosition(Creature creature) {
-    int currentXgrid = coordToCell(creature.getDrawX());
-    int currentYgrid = coordToCell(creature.getDrawY());
+    int currentXgrid = creature.getGridCellX();
+    int currentYgrid = creature.getGridCellY();
     
      switch(creature.getSelectedMovement()) {
       case UP:
@@ -138,32 +138,32 @@ class TileGrid {
   }
 
   void setCorridor(Creature creature) {
-    setTileValue(coordToCell(creature.getDrawX()), coordToCell(creature.getDrawY()), CORRIDOR);
+    setTileValue(creature.getGridCellX(), creature.getGridCellY(), CORRIDOR);
   }
 
   // Movement is only validated when creature is in the center of the cell.
   boolean isNotWallOnCreatureLeft(Creature creature) {
-    return !isHorizontalCenterOfTheCell(creature) || !isWall(coordToCell(creature.getDrawX())-1, coordToCell(creature.getDrawY()));
+    return !isHorizontalCenterOfTheCell(creature) || !isWall(creature.getGridCellX()-1, creature.getGridCellY());
   }
 
   boolean isNotWallOnCreatureRight(Creature creature) {
-    return !isHorizontalCenterOfTheCell(creature) || !isWall(coordToCell(creature.getDrawX())+1, coordToCell(creature.getDrawY()));
+    return !isHorizontalCenterOfTheCell(creature) || !isWall(creature.getGridCellX()+1, creature.getGridCellY());
   }
 
   boolean isNotWallOnCreatureUp(Creature creature) {
-    return !isVerticalCenterOfTheCell(creature) || !isWall(coordToCell(creature.getDrawX()), coordToCell(creature.getDrawY())-1);
+    return !isVerticalCenterOfTheCell(creature) || !isWall(creature.getGridCellX(), creature.getGridCellY()-1);
   }
 
   boolean isNotWallOnCreatureDown(Creature creature) {
-    return !isVerticalCenterOfTheCell(creature) || !isWall(coordToCell(creature.getDrawX()), coordToCell(creature.getDrawY())+1);
+    return !isVerticalCenterOfTheCell(creature) || !isWall(creature.getGridCellX(), creature.getGridCellY()+1);
   }
 
   boolean isPellet(Creature creature) {
-    return isPellet(coordToCell(creature.getDrawX()), coordToCell(creature.getDrawY()));
+    return isPellet(creature.getGridCellX(), creature.getGridCellY());
   }
 
   boolean isPowerPellet(Creature creature) {
-    return isPowerPellet(coordToCell(creature.getDrawX()), coordToCell(creature.getDrawY()));
+    return isPowerPellet(creature.getGridCellX(), creature.getGridCellY());
   }
 
   boolean isWall(int x, int y) {

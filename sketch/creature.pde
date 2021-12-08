@@ -53,6 +53,14 @@ class Creature {
     return drawY;
   }
 
+  int getGridCellX() {
+    return coordToCell(drawX);
+  }
+
+  int getGridCellY() {
+    return coordToCell(drawY);
+  }
+
   int getType() {
     return type;
   }

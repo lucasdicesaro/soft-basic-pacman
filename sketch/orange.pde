@@ -8,10 +8,10 @@ class Orange extends Ghost {
   }
 
   void setChaseTarget() {
-    int pacmanX = coordToCell(pacman.getDrawX());
-    int pacmanY = coordToCell(pacman.getDrawY());    
-    int thisX = coordToCell(this.getDrawX());
-    int thisY = coordToCell(this.getDrawY());
+    int pacmanX = pacman.getGridCellX();
+    int pacmanY = pacman.getGridCellY();
+    int thisX = this.getGridCellX();
+    int thisY = this.getGridCellY();
     int distanceBetweenOrangeAndPacman = (int) dist(thisX, thisY, pacmanX, pacmanY);
 
     if (distanceBetweenOrangeAndPacman > 8) {

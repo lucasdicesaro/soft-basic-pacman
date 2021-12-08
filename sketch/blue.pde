@@ -8,8 +8,8 @@ class Blue extends Ghost {
   }
 
   void setChaseTarget() {
-    int pacmanX = coordToCell(pacman.getDrawX());
-    int pacmanY = coordToCell(pacman.getDrawY());
+    int pacmanX = pacman.getGridCellX();
+    int pacmanY = pacman.getGridCellY();
     switch(pacman.getSelectedMovement()){
       case UP:
         pacmanY = pacmanY - 2;
@@ -26,26 +26,9 @@ class Blue extends Ghost {
         break;
     }
 
-    // Double of distance between Blinky and projected pacman (pacman + 2).
-    int redX = coordToCell(red.getDrawX());
-    int distX = abs(pacmanX - redX) * 2;
-    if (pacmanX < redX) {
-      // Pacman is on the LEFT of Blinky
-      targetX = redX - distX;
-    } else if (pacmanX > redX) {
-      // Pacman is on the RIGHT of Blinky
-      targetX = redX + distX;
-    }
-
-    int redY = coordToCell(red.getDrawY());
-    int distY = abs(pacmanY - redY) * 2;
-    if (pacmanY < redY) {
-      // Pacman is on top (UP) of Blinky
-      targetY = redY - distY;
-    } else if (pacmanY > redY) {
-      // Pacman is under (DOWN) Blinky
-      targetY = redY + distY;
-    }
+    // Double of distance between Blinky and projected pacman (pacman + 2)
+    targetX = calculateTarget(red.getGridCellX(), pacmanX);
+    targetY = calculateTarget(red.getGridCellY(), pacmanY);
   }
 
   void setScatterTarget() {
@@ -56,5 +39,18 @@ class Blue extends Ghost {
   boolean hasToGoOutFromHouse() {
     //return globalGame.getPelletCounter() > 30;
     return true;
+  }
+
+  int calculateTarget(int ghostCell, int pacmanCell) {
+    int target = 0;
+    int distY = abs(pacmanCell - ghostCell) * 2;
+    if (pacmanCell < ghostCell) {
+      // Pacman is on top (UP) of Red
+      target = ghostCell - distY;
+    } else if (pacmanCell > ghostCell) {
+      // Pacman is under (DOWN) Red
+      target = ghostCell + distY;
+    }
+    return target;
   }
 }

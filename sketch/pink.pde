@@ -8,8 +8,8 @@ class Pink extends Ghost {
   }
 
   void setChaseTarget() {
-    int pacmanX = coordToCell(pacman.getDrawX());
-    int pacmanY = coordToCell(pacman.getDrawY());
+    int pacmanX = pacman.getGridCellX();
+    int pacmanY = pacman.getGridCellY();
     targetX = pacmanX;
     targetY = pacmanY;
     switch(pacman.getSelectedMovement()){
