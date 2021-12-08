@@ -1,6 +1,6 @@
 final int RED_GHOST_TYPE = 3;
-final int RED_SCATTER_GRID_X = 25;
-final int RED_SCATTER_GRID_Y = 0;
+final int RED_GHOST_SCATTER_GRID_X = 25;
+final int RED_GHOST_SCATTER_GRID_Y = 0;
 
 class Red extends Ghost {
   Red (int drawX, int drawY) {  
@@ -8,13 +8,13 @@ class Red extends Ghost {
     insideHouse = false;
   }
 
-  void calculateChaseTarget() {
+  void setChaseTarget() {
     targetX = coordToCell(pacman.getDrawX());
     targetY = coordToCell(pacman.getDrawY());
   }
 
-  void calculateScatterTarget() {
-    targetX = RED_SCATTER_GRID_X;
-    targetY = RED_SCATTER_GRID_Y;
+  void setScatterTarget() {
+    targetX = RED_GHOST_SCATTER_GRID_X;
+    targetY = RED_GHOST_SCATTER_GRID_Y;
   }
 }

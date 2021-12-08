@@ -120,21 +120,21 @@ class Ghost extends Creature {
 
   void setTarget() {
     //if (globalGame.isChase()) {
-      calculateChaseTarget();
+      setChaseTarget();
     //} else if (globalGame.isScatter()) {
-    //  calculateScatterTarget();
+    //  setScatterTarget();
     //} else if (globalGame.isFrightened()) {
-    //  calculateFrightenedTarget();
+    //  setFrightenedTarget();
     //}
   }
 
-  void calculateChaseTarget() {
+  void setChaseTarget() {
   }
 
-  void calculateScatterTarget() {
+  void setScatterTarget() {
   }
 
-  void calculateFrightenedTarget() {
+  void setFrightenedTarget() {
     //if (delayCounter == 0) {
       targetX = int(random(MAX_COLS));
       targetY = int(random(MAX_ROWS));

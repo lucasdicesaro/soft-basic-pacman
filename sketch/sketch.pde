@@ -8,6 +8,9 @@ TileGrid tileGrid;
 java.util.List<Creature> creatures = new ArrayList<>();
 Pacman pacman;
 Red red;
+Pink pink;
+Blue blue;
+Orange orange;
 
 void setup() {
   //size(224 * PIXEL_SIZE, 288 * PIXEL_SIZE);
