@@ -41,18 +41,22 @@ class TileGrid {
           case RED_GHOST_TYPE:
             red = new Red(convertToCoordInCellCenter(x), convertToCoordInCellCenter(y));
             creatures.add(red);
+            ghosts.add(red);
             break;
           case PINK_GHOST_TYPE:
             pink = new Pink(convertToCoordInCellCenter(x), convertToCoordInCellCenter(y));
             creatures.add(pink);
+            ghosts.add(pink);
             break;
           case BLUE_GHOST_TYPE:
             blue = new Blue(convertToCoordInCellCenter(x), convertToCoordInCellCenter(y));
             creatures.add(blue);
+            ghosts.add(blue);
             break;
           case ORANGE_GHOST_TYPE:
             orange = new Orange(convertToCoordInCellCenter(x), convertToCoordInCellCenter(y));
             creatures.add(orange);
+            ghosts.add(orange);
             break;
         }
       }

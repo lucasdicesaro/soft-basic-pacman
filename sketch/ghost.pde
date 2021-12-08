@@ -17,8 +17,7 @@ class Ghost extends Creature {
   }
   
   void drawYourSelf() {
-    //drawCreature(drawX, drawY, !globalGame.isFrightened() ? c : frightenedColor);
-    drawCreature(drawX, drawY, c);
+    drawCreature(drawX, drawY, !gameMode.isFrightened() ? c : frightenedColor);
     //drawBlackCell(drawX, drawY);
     //drawTarget(targetX, targetY, c);
   }
@@ -119,13 +118,13 @@ class Ghost extends Creature {
   }
 
   void setTarget() {
-    //if (globalGame.isChase()) {
+    if (gameMode.isChase()) {
       setChaseTarget();
-    //} else if (globalGame.isScatter()) {
-    //  setScatterTarget();
-    //} else if (globalGame.isFrightened()) {
-    //  setFrightenedTarget();
-    //}
+    } else if (gameMode.isScatter()) {
+      setScatterTarget();
+    } else if (gameMode.isFrightened()) {
+      setFrightenedTarget();
+    }
   }
 
   void setChaseTarget() {
