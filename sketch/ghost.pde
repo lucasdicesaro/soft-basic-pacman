@@ -57,33 +57,33 @@ class Ghost extends Creature {
     setTarget();
 
     int newMovement = -1;
-    int min = 99999;
+    float min = 99999;
     int x = getGridCellX();
     int y = getGridCellY();
-    int distance = 0;
+    float distance = 0;
     if (selectedMovement != DOWN && tileGrid.isNotWallOnCreatureUp(this)) {
-      distance = (int) dist(x, y-1, targetX, targetY);
+      distance = dist(x, y-1, targetX, targetY);
       if (min > distance) {
         min = distance;
         newMovement = UP;
       }
     }
     if (selectedMovement != RIGHT && tileGrid.isNotWallOnCreatureLeft(this)) {
-      distance = (int) dist(x-1, y, targetX, targetY);
+      distance = dist(x-1, y, targetX, targetY);
       if (min > distance) {
         min = distance;
         newMovement = LEFT;
       }
     }
     if (selectedMovement != UP && tileGrid.isNotWallOnCreatureDown(this)) {
-      distance = (int) dist(x, y+1, targetX, targetY);
+      distance = dist(x, y+1, targetX, targetY);
       if (min > distance) {
         min = distance;
         newMovement = DOWN;
       }
     }
     if (selectedMovement != LEFT && tileGrid.isNotWallOnCreatureRight(this)) {
-      distance = (int) dist(x+1, y, targetX, targetY);
+      distance = dist(x+1, y, targetX, targetY);
       if (min > distance) {
         min = distance;
         newMovement = RIGHT;

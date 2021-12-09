@@ -45,7 +45,7 @@ void draw() {
 
 void keyPressed() {
   if (key == CODED) {
-     keyboard.setUserKeyPressed();
+    keyboard.setUserKeyPressed();
   } else if (key == 'd') {
     //tileGrid.debug();
     for(Creature creature : creatures) {
