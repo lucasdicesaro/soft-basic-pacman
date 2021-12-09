@@ -5,6 +5,7 @@ final int Y_VELOCITY = 3;
 MapFile mapFile;
 TileGrid tileGrid;
 GameMode gameMode;
+Keyboard keyboard;
 
 java.util.List<Creature> creatures = new ArrayList<>();
 java.util.List<Ghost> ghosts = new ArrayList<>();
@@ -23,6 +24,7 @@ void setup() {
   f = createFont("Arial",16,true); // STEP 2 Create Font
 
   gameMode = new GameMode();
+  keyboard = new Keyboard();
   pelletCounter = 0;
 
   mapFile = new MapFile();
@@ -31,6 +33,9 @@ void setup() {
 }
 
 void draw() {
+  if (!keyboard.isUserKeyReleased()) {
+    pacman.setSelectedMovement(keyboard.getUserKeyPressed());
+  }
   for(Creature creature : creatures) {
     creature.processMovement();
   }
@@ -40,7 +45,7 @@ void draw() {
 
 void keyPressed() {
   if (key == CODED) {
-     pacman.setSelectedMovement(keyCode);
+     keyboard.setUserKeyPressed();
   } else if (key == 'd') {
     //tileGrid.debug();
     for(Creature creature : creatures) {
@@ -53,4 +58,8 @@ void keyPressed() {
   } else if (key == 'f') {
     gameMode.changeModeTo(FRIGHTENED);
   }
+}
+
+void keyReleased() {
+  keyboard.releaseUserKey();
 }
