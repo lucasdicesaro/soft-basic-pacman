@@ -4,7 +4,6 @@ final int Y_VELOCITY = 2;
 
 MapFile mapFile;
 TileGrid tileGrid;
-GameMode gameMode;
 Keyboard keyboard;
 
 java.util.List<Creature> creatures = new ArrayList<>();
@@ -23,7 +22,6 @@ void setup() {
   size(672, 864);
   f = createFont("Arial",16,true); // STEP 2 Create Font
 
-  gameMode = new GameMode();
   keyboard = new Keyboard();
   pelletCounter = 0;
 
@@ -40,11 +38,14 @@ void draw() {
     creature.processMovement();
   }
   tileGrid.refreshGrid();
+  tileGrid.processCollisions();
+
   drawPalletCounter();
 }
 
 void keyPressed() {
   if (key == CODED) {
+    // https://forum.processing.org/one/topic/holding-down-a-key-bug.html
     keyboard.setUserKeyPressed();
   } else if (key == 'd') {
     //tileGrid.debug();
@@ -52,11 +53,17 @@ void keyPressed() {
       creature.debug();
     }
   } else if (key == 'c') {
-    gameMode.changeModeTo(CHASE);
+    for(Ghost ghost : ghosts) {
+      ghost.changeModeTo(CHASE);
+    }
   } else if (key == 's') {
-    gameMode.changeModeTo(SCATTER);
+    for(Ghost ghost : ghosts) {
+      ghost.changeModeTo(SCATTER);
+    }
   } else if (key == 'f') {
-    gameMode.changeModeTo(FRIGHTENED);
+    for(Ghost ghost : ghosts) {
+      ghost.changeModeTo(FRIGHTENED);
+    }
   }
 }
 

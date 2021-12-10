@@ -1,6 +1,10 @@
 final int GHOSTS_HOUSE_EXIT_X = 14;
 final int GHOSTS_HOUSE_EXIT_Y = 14;
 
+final int CHASE = 0;
+final int SCATTER = 1;
+final int FRIGHTENED = 2;
+
 class Ghost extends Creature {
 
   int targetX;
@@ -9,6 +13,9 @@ class Ghost extends Creature {
   int previousTargetY;
   boolean insideHouse;
   boolean scheduleReverseDirection;
+  boolean eaten;
+  int currentMode;
+  int previousMode;
   color frightenedColor = color(33, 33, 222);
   Ghost (int drawX, int drawY, int type, String name, color c) {  
     super(drawX, drawY, type, name, c);
@@ -18,13 +25,19 @@ class Ghost extends Creature {
     previousTargetY = targetY;
     insideHouse = true;
     scheduleReverseDirection = false;
+    currentMode = CHASE;
+    previousMode = CHASE;
+    eaten = false;
   }
   
   void drawYourSelf() {
-    drawCreature(drawX, drawY, !gameMode.isFrightened() ? c : frightenedColor);
+    if (eaten) {
+      drawCreatureCenter(drawX, drawY, c);
+    } else {
+      drawCreature(drawX, drawY, !isFrightened() ? c : frightenedColor);
+    }
     //drawBlackCell(drawX, drawY);
-    tileGrid.cleanCell(previousTargetX, previousTargetY);
-    drawTarget(targetX, targetY, c);
+    showTarget();
   }
   
   void processMovement() {
@@ -35,6 +48,10 @@ class Ghost extends Creature {
     }
 
     checkIfShouldReverseDirection();
+
+    if (eaten && hasArrivedToDoor()) {
+      respawn();
+    }
 
     // Ghost only change its move, when it is in the center of the cell.
     if (tileGrid.isCenterOfTheCell(this)) {
@@ -98,6 +115,24 @@ class Ghost extends Creature {
     return newMovement;
   }
 
+  void changeModeTo(int newMode) {
+    previousMode = currentMode;
+    currentMode = newMode;
+    scheduleReverseDirection();
+  }
+
+  boolean isChase() {
+    return CHASE == currentMode;
+  }
+
+  boolean isScatter() {
+    return SCATTER == currentMode;
+  }
+
+  boolean isFrightened() {
+    return FRIGHTENED == currentMode;
+  }
+
   void checkIfShouldReverseDirection() {
     if (scheduleReverseDirection) {
       reverseDirection();
@@ -125,12 +160,20 @@ class Ghost extends Creature {
   void setTarget() {
     previousTargetX = targetX;
     previousTargetY = targetY;
-    if (gameMode.isChase()) {
-      setChaseTarget();
-    } else if (gameMode.isScatter()) {
-      setScatterTarget();
-    } else if (gameMode.isFrightened()) {
-      setFrightenedTarget();
+    switch(currentMode) {
+      case CHASE:
+        setChaseTarget();
+        break;
+      case SCATTER:
+        setScatterTarget();
+        break;
+      case FRIGHTENED:
+        if (eaten) {
+          setEatenTarget();
+        } else {
+          setFrightenedTarget();
+        }
+        break;
     }
   }
 
@@ -143,6 +186,20 @@ class Ghost extends Creature {
   void setFrightenedTarget() {
     targetX = int(random(MAX_COLS));
     targetY = int(random(MAX_ROWS));
+  }
+
+  void respawn() {
+    eaten = false;
+    changeModeTo(CHASE);
+  }
+
+  void setEatenTarget() {
+    targetX = GHOSTS_HOUSE_EXIT_X;
+    targetY = GHOSTS_HOUSE_EXIT_Y;
+  }
+
+  boolean hasArrivedToDoor() {
+    return getGridCellX() == GHOSTS_HOUSE_EXIT_X && getGridCellY() == GHOSTS_HOUSE_EXIT_Y;
   }
 
   boolean hasToGoOutFromHouse() {
@@ -158,5 +215,19 @@ class Ghost extends Creature {
 
   void scheduleReverseDirection() {
     scheduleReverseDirection = true;
+  }
+
+  void setEaten(boolean eaten) {
+    this.eaten = eaten;
+  }
+
+  void reset() {
+    super.reset();
+    currentMode = CHASE;
+  }
+
+  void showTarget() {
+    tileGrid.cleanCell(previousTargetX, previousTargetY);
+    drawTarget(targetX, targetY, c);
   }
 } 

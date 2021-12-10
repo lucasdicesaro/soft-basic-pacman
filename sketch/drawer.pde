@@ -9,8 +9,8 @@ void drawCreature(int drawX, int drawY, color c) {
   stroke(0);
 }
 
-void drawCreatureCenter(int drawX, int drawY) {
-  fill(color(0, 204, 255));
+void drawCreatureCenter(int drawX, int drawY, color c) {
+  fill(c);
   circle(drawX, drawY, CREATURE_CENTER_SIZE);
 }
 

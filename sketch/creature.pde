@@ -1,9 +1,11 @@
 final float CREATURE_SCALE = 2.1;
 final int CREATURE_SIZE = (int) (SCALE * CREATURE_SCALE);
-final int CREATURE_CENTER_SIZE = 4;
+final int CREATURE_CENTER_SIZE = 15;
 
 class Creature { 
 
+  int initialDrawX;
+  int initialDrawY;
   int drawX;
   int drawY;
   int type;
@@ -17,13 +19,22 @@ class Creature {
     //grid(28, 35)
     // 672 / 28 = 24
     // 864 / 35 = 24
+    this.initialDrawX = drawX;
+    this.initialDrawY = drawY;
     this.drawX = drawX;
     this.drawY = drawY;
     this.type = type;
     this.name = name;
     this.c = c;
     creatureRadiusCells = coordToCell(CREATURE_SIZE/2)+1;
-  } 
+    selectedMovement = LEFT;
+  }
+
+  void reset() {
+    drawX = initialDrawX;
+    drawY = initialDrawY;
+    selectedMovement = LEFT;
+  }
 
   void moveLeft() {
     drawX = drawX - X_VELOCITY;
@@ -71,6 +82,10 @@ class Creature {
   
   int getCreatureRadiusCells() {
     return creatureRadiusCells;
+  }
+
+  String getName() {
+    return name;
   }
 
   void processMovement() {

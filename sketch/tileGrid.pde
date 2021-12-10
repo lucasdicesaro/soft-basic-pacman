@@ -75,42 +75,40 @@ class TileGrid {
       creature.drawYourSelf();
     }
   }
-  
-  
+
+  void processCollisions() {
+    Ghost ghostCollitioned = checkCollisions();
+    if (ghostCollitioned != null) {
+      if (!ghostCollitioned.isFrightened()){
+        // Pacman has been eaten
+        delay(2000);
+        for(Creature creature : creatures) {
+          cleanPreviousPosition(creature);
+          creature.reset();
+        }
+        refreshGrid();
+        //delay(3000);
+      } else {
+        ghostCollitioned.setEaten(true);
+      }
+    }
+  }
+
+  Ghost checkCollisions() {
+    for(Ghost ghost : ghosts) {
+      if (pacman.getGridCellX() == ghost.getGridCellX() &&
+          pacman.getGridCellY() == ghost.getGridCellY()) {
+         return ghost;
+      }
+    }
+    return null;
+  }
+
   void cleanPreviousPosition(Creature creature) {
     int currentXgrid = creature.getGridCellX();
     int currentYgrid = creature.getGridCellY();
-    
-     switch(creature.getSelectedMovement()) {
-      case UP:
-        cleanDown(currentXgrid, currentYgrid, creature.getCreatureRadiusCells());
-        break;
-      case DOWN:
-        cleanUp(currentXgrid, currentYgrid, creature.getCreatureRadiusCells());
-        break;
-      case LEFT:
-        cleanRight(currentXgrid, currentYgrid, creature.getCreatureRadiusCells());
-        break;
-      case RIGHT:
-        cleanLeft(currentXgrid, currentYgrid, creature.getCreatureRadiusCells());
-        break;
-    }
-  }
-  
-  void cleanDown(int currentXgrid, int currentYgrid, int creatureRadiusCells) {
-    cleanSection((currentXgrid - creatureRadiusCells), (currentXgrid + creatureRadiusCells), currentYgrid, (currentYgrid + creatureRadiusCells));
-  }
-
-  void cleanUp(int currentXgrid, int currentYgrid, int creatureRadiusCells) {
-    cleanSection((currentXgrid - creatureRadiusCells), (currentXgrid + creatureRadiusCells), (currentYgrid - creatureRadiusCells), currentYgrid);
-  }
-  
-  void cleanRight(int currentXgrid, int currentYgrid, int creatureRadiusCells) {
-    cleanSection(currentXgrid, (currentXgrid + creatureRadiusCells), (currentYgrid - creatureRadiusCells), (currentYgrid + creatureRadiusCells));
-  }
-
-  void cleanLeft(int currentXgrid, int currentYgrid, int creatureRadiusCells) {    
-    cleanSection((currentXgrid - creatureRadiusCells), currentXgrid, (currentYgrid - creatureRadiusCells), (currentYgrid + creatureRadiusCells));
+    int creatureRadiusCells = creature.getCreatureRadiusCells();
+    cleanSection((currentXgrid - creatureRadiusCells), (currentXgrid + creatureRadiusCells), (currentYgrid - creatureRadiusCells), (currentYgrid + creatureRadiusCells));
   }
 
   void cleanCell(int x, int y) {

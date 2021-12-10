@@ -4,12 +4,11 @@ class Pacman extends Creature {
 
   Pacman (int drawX, int drawY) {
     super(drawX, drawY, PACMAN_TYPE, "Pacman", color(255, 204, 0));
-    selectedMovement = LEFT;
   }
   
   void drawYourSelf() {
     drawCreature(drawX, drawY, c);
-    //drawCreatureCenter(drawX, drawY);
+    //drawCreatureCenter(drawX, drawY, color(0, 204, 255));
     //drawBlackCell(drawX, drawY);
   }
   
@@ -40,7 +39,9 @@ class Pacman extends Creature {
     if (tileGrid.isPellet(this) || tileGrid.isPowerPellet(this)) {
       pelletCounter++;
       if (tileGrid.isPowerPellet(this)) {
-        gameMode.changeModeTo(FRIGHTENED);
+        for(Ghost ghost : ghosts) {
+          ghost.changeModeTo(FRIGHTENED);
+        }
       }
       tileGrid.setCorridor(this); // Remove pellet from maze
     }
