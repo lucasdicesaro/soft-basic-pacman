@@ -41,7 +41,7 @@ class Blue extends Ghost {
   }
 
   int calculateTarget(int ghostCell, int pacmanCell) {
-    int target = 0;
+    int target = ghostCell;
     int dist = abs(pacmanCell - ghostCell) * 2;
     if (pacmanCell < ghostCell) {
       // Pacman is on top/UP or LEFT of Red

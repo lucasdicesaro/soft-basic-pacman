@@ -24,7 +24,7 @@ class Pink extends Ghost {
         targetY = pacmanY + 4;
         break;
       case RIGHT:
-        targetX = pacmanY + 4;
+        targetX = pacmanX + 4;
         break;
     }
   }

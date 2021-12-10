@@ -112,6 +112,12 @@ class TileGrid {
   void cleanLeft(int currentXgrid, int currentYgrid, int creatureRadiusCells) {    
     cleanSection((currentXgrid - creatureRadiusCells), currentXgrid, (currentYgrid - creatureRadiusCells), (currentYgrid + creatureRadiusCells));
   }
+
+  void cleanCell(int x, int y) {
+    if (x >= 0 && x < MAX_COLS && y >= 0 && y < MAX_ROWS) {
+      cleanSection(x, x, y, y);
+    }
+  }
   
   void cleanSection(int fromX, int toX, int fromY, int toY) {
     for(int x = fromX; x <= toX; x++) {

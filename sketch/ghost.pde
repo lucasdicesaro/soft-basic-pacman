@@ -5,6 +5,8 @@ class Ghost extends Creature {
 
   int targetX;
   int targetY;
+  int previousTargetX;
+  int previousTargetY;
   boolean insideHouse;
   boolean scheduleReverseDirection;
   color frightenedColor = color(33, 33, 222);
@@ -12,6 +14,8 @@ class Ghost extends Creature {
     super(drawX, drawY, type, name, c);
     targetX = 0;
     targetY = 0;
+    previousTargetX = targetX;
+    previousTargetY = targetY;
     insideHouse = true;
     scheduleReverseDirection = false;
   }
@@ -19,7 +23,8 @@ class Ghost extends Creature {
   void drawYourSelf() {
     drawCreature(drawX, drawY, !gameMode.isFrightened() ? c : frightenedColor);
     //drawBlackCell(drawX, drawY);
-    //drawTarget(targetX, targetY, c);
+    tileGrid.cleanCell(previousTargetX, previousTargetY);
+    drawTarget(targetX, targetY, c);
   }
   
   void processMovement() {
@@ -118,6 +123,8 @@ class Ghost extends Creature {
   }
 
   void setTarget() {
+    previousTargetX = targetX;
+    previousTargetY = targetY;
     if (gameMode.isChase()) {
       setChaseTarget();
     } else if (gameMode.isScatter()) {
