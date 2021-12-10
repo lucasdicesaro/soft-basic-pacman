@@ -114,12 +114,16 @@ class TileGrid {
   }
 
   void cleanCell(int x, int y) {
-    if (x >= 0 && x < MAX_COLS && y >= 0 && y < MAX_ROWS) {
-      cleanSection(x, x, y, y);
-    }
+    cleanSection(x, x, y, y);
   }
   
   void cleanSection(int fromX, int toX, int fromY, int toY) {
+
+    fromX = validateCoordinate(fromX, MAX_COLS);
+    toX = validateCoordinate(toX, MAX_COLS);
+    fromY = validateCoordinate(fromY, MAX_ROWS);
+    toY = validateCoordinate(toY, MAX_ROWS);
+
     for(int x = fromX; x <= toX; x++) {
       for(int y = fromY; y <= toY; y++) {
         switch (getTileValue(x, y)) {
@@ -145,6 +149,15 @@ class TileGrid {
         }
       }
     }
+  }
+
+  int validateCoordinate(int coordinate, int maxValue) {
+    if (coordinate < 0) {
+      coordinate = 0;
+    } else if (coordinate >= maxValue) {
+      coordinate = maxValue - 1;
+    }
+    return coordinate;
   }
 
   void setCorridor(Creature creature) {

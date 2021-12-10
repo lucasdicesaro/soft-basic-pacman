@@ -1,6 +1,6 @@
 
-final int X_VELOCITY = 3;
-final int Y_VELOCITY = 3;
+final int X_VELOCITY = 2;
+final int Y_VELOCITY = 2;
 
 MapFile mapFile;
 TileGrid tileGrid;
