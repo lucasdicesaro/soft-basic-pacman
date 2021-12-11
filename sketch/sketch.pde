@@ -48,7 +48,8 @@ void keyPressed() {
     // https://forum.processing.org/one/topic/holding-down-a-key-bug.html
     keyboard.setUserKeyPressed();
   } else if (key == 'd') {
-    //tileGrid.debug();
+    mapFile.debug();
+    tileGrid.debug();
     for(Creature creature : creatures) {
       creature.debug();
     }

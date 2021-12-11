@@ -1,10 +1,29 @@
 final int MAX_COLS = 28;
 final int MAX_ROWS = 36;
 
-final int WALL = 0;
-final int PELLET = 1;
-final int POWER_PELLET = 7;
-final int CORRIDOR = 8;
+final int DOUBLE_CORNER_TOP_LEFT = 201;
+final int DOUBLE_CORNER_TOP_RIGHT = 187;
+final int DOUBLE_CORNER_BOTTOM_LEFT = 200;
+final int DOUBLE_CORNER_BOTTOM_RIGHT = 188;
+final int DOUBLE_WALL_VERTICAL = 186;
+final int DOUBLE_WALL_HORIZONTAL = 205;
+
+final int SIMPLE_CORNER_TOP_LEFT = 218;
+final int SIMPLE_CORNER_TOP_RIGHT = 191;
+final int SIMPLE_CORNER_BOTTOM_LEFT = 192;
+final int SIMPLE_CORNER_BOTTOM_RIGHT = 217;
+final int SIMPLE_WALL_VERTICAL = 179;
+final int SIMPLE_WALL_HORIZONTAL = 196;
+
+final int PELLET = 250;
+final int POWER_PELLET = 254;
+final int CORRIDOR = 32;
+
+final int PACMAN_TYPE = 166;
+final int RED_GHOST_TYPE = 167;
+final int PINK_GHOST_TYPE = 168;
+final int BLUE_GHOST_TYPE = 169;
+final int ORANGE_GHOST_TYPE = 170;
 
 class TileGrid {
   int[][] grid;
@@ -21,48 +40,8 @@ class TileGrid {
   void renderGrid() {
     for (int y = 0; y < MAX_ROWS; y++) {
       for (int x = 0; x < MAX_COLS; x++) {
-        switch (getTileValue(x, y)) {
-          case WALL:
-            drawWallInCellGrid(x, y);
-            break;
-          case CORRIDOR:
-            drawCorridorInCellGrid(x, y);
-            break;
-          case PELLET:
-            drawPelletInCellGrid(x, y);
-            break;
-          case POWER_PELLET:
-            drawPowerPelletInCellGrid(x, y);
-            break;
-          case PACMAN_TYPE:
-            pacman = new Pacman(convertToCoordInCellCenter(x), convertToCoordInCellCenter(y));
-            creatures.add(pacman);
-            break;
-          case RED_GHOST_TYPE:
-            red = new Red(convertToCoordInCellCenter(x), convertToCoordInCellCenter(y));
-            creatures.add(red);
-            ghosts.add(red);
-            setCorridor(red); // Once ghost has spawn, we clean its mark in the internal maze.
-            break;
-          case PINK_GHOST_TYPE:
-            pink = new Pink(convertToCoordInCellCenter(x), convertToCoordInCellCenter(y));
-            creatures.add(pink);
-            ghosts.add(pink);
-            setCorridor(pink); // Once ghost has spawn, we clean its mark in the internal maze.
-            break;
-          case BLUE_GHOST_TYPE:
-            blue = new Blue(convertToCoordInCellCenter(x), convertToCoordInCellCenter(y));
-            creatures.add(blue);
-            ghosts.add(blue);
-            setCorridor(blue); // Once ghost has spawn, we clean its mark in the internal maze.
-            break;
-          case ORANGE_GHOST_TYPE:
-            orange = new Orange(convertToCoordInCellCenter(x), convertToCoordInCellCenter(y));
-            creatures.add(orange);
-            ghosts.add(orange);
-            setCorridor(orange); // Once ghost has spawn, we clean its mark in the internal maze.
-            break;
-        }
+        drawStage(x, y);
+        drawCharacters(x, y);
       }
     }
   }
@@ -124,28 +103,70 @@ class TileGrid {
 
     for(int x = fromX; x <= toX; x++) {
       for(int y = fromY; y <= toY; y++) {
-        switch (getTileValue(x, y)) {
-          case WALL:
-            drawWallInCellGrid(x, y);
-            break;
-          case CORRIDOR:
-            drawCorridorInCellGrid(x, y);
-            break;
-          case PELLET:
-            drawPelletInCellGrid(x, y);
-            break;
-          case POWER_PELLET:
-            drawPowerPelletInCellGrid(x, y);
-            break;
-          case PACMAN_TYPE:
-            drawCorridorInCellGrid(x, y);
-            break;
-          case RED_GHOST_TYPE:
-            // It's the only ghost initially outside its house.
-            drawCorridorInCellGrid(x, y);
-            break;
-        }
+        drawStage(x, y);
       }
+    }
+  }
+
+  void drawStage(int x, int y) {
+    switch (getTileValue(x, y)) {
+      case DOUBLE_CORNER_TOP_LEFT:
+      case DOUBLE_CORNER_TOP_RIGHT:
+      case DOUBLE_CORNER_BOTTOM_LEFT:
+      case DOUBLE_CORNER_BOTTOM_RIGHT:
+      case DOUBLE_WALL_VERTICAL:
+      case DOUBLE_WALL_HORIZONTAL:
+      case SIMPLE_CORNER_TOP_LEFT:
+      case SIMPLE_CORNER_TOP_RIGHT:
+      case SIMPLE_CORNER_BOTTOM_LEFT:
+      case SIMPLE_CORNER_BOTTOM_RIGHT:
+      case SIMPLE_WALL_VERTICAL:
+      case SIMPLE_WALL_HORIZONTAL:
+        drawWallInCellGrid(x, y);
+        break;
+      case CORRIDOR:
+        drawCorridorInCellGrid(x, y);
+        break;
+      case PELLET:
+        drawPelletInCellGrid(x, y);
+        break;
+      case POWER_PELLET:
+        drawPowerPelletInCellGrid(x, y);
+        break;
+    }
+  }
+
+  void drawCharacters(int x, int y) {
+    switch (getTileValue(x, y)) {
+      case PACMAN_TYPE:
+        pacman = new Pacman(convertToCoordInCellCenter(x), convertToCoordInCellCenter(y));
+        creatures.add(pacman);
+        setCorridor(pacman); // Once Pacman has spawn, we clean its mark in the corridor.
+        break;
+      case RED_GHOST_TYPE:
+        red = new Red(convertToCoordInCellCenter(x), convertToCoordInCellCenter(y));
+        creatures.add(red);
+        ghosts.add(red);
+        setCorridor(red); // Once ghost has spawn, we clean its mark in the corridor.
+        break;
+      case PINK_GHOST_TYPE:
+        pink = new Pink(convertToCoordInCellCenter(x), convertToCoordInCellCenter(y));
+        creatures.add(pink);
+        ghosts.add(pink);
+        setCorridor(pink); // Once ghost has spawn, we clean its mark in the ghosts house.
+        break;
+      case BLUE_GHOST_TYPE:
+        blue = new Blue(convertToCoordInCellCenter(x), convertToCoordInCellCenter(y));
+        creatures.add(blue);
+        ghosts.add(blue);
+        setCorridor(blue); // Once ghost has spawn, we clean its mark in the ghosts house.
+        break;
+      case ORANGE_GHOST_TYPE:
+        orange = new Orange(convertToCoordInCellCenter(x), convertToCoordInCellCenter(y));
+        creatures.add(orange);
+        ghosts.add(orange);
+        setCorridor(orange); // Once ghost has spawn, we clean its mark in the ghosts house.
+        break;
     }
   }
 
@@ -188,7 +209,18 @@ class TileGrid {
   }
 
   boolean isWall(int x, int y) {
-    return getTileValue(x, y) == WALL;
+    return getTileValue(x, y) == DOUBLE_CORNER_TOP_LEFT
+           || getTileValue(x, y) == DOUBLE_CORNER_TOP_RIGHT
+           || getTileValue(x, y) == DOUBLE_CORNER_BOTTOM_LEFT
+           || getTileValue(x, y) == DOUBLE_CORNER_BOTTOM_RIGHT
+           || getTileValue(x, y) == DOUBLE_WALL_VERTICAL
+           || getTileValue(x, y) == DOUBLE_WALL_HORIZONTAL
+           || getTileValue(x, y) == SIMPLE_CORNER_TOP_LEFT
+           || getTileValue(x, y) == SIMPLE_CORNER_TOP_RIGHT
+           || getTileValue(x, y) == SIMPLE_CORNER_BOTTOM_LEFT
+           || getTileValue(x, y) == SIMPLE_CORNER_BOTTOM_RIGHT
+           || getTileValue(x, y) == SIMPLE_WALL_VERTICAL
+           || getTileValue(x, y) == SIMPLE_WALL_HORIZONTAL;
   }
 
   boolean isPellet(int x, int y) {
@@ -224,7 +256,7 @@ class TileGrid {
     println("Grid content:");
     for (int y = 0; y < MAX_ROWS; y++) {
       for (int x = 0; x < MAX_COLS; x++) {
-        print(getTileValue(x, y));
+        print(getTileValue(x, y) + " ");
       }
       println("");
     }
@@ -237,4 +269,4 @@ class TileGrid {
   void setTileValue(int x, int y, int value) {
     grid[y][x] = value;
   }
-} 
+}

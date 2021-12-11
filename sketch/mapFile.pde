@@ -1,6 +1,4 @@
 
-final int ASCII_0 = 48;
-
 class MapFile { 
   String[] lines;
   
@@ -14,7 +12,7 @@ class MapFile {
     for (int y = 0 ; y < lines.length && y < MAX_ROWS; y++) {
       String[] asciiCharacters = lines[y].split(",");
       for (int x = 0 ; x < asciiCharacters.length && x < MAX_COLS; x++) {
-        tileGrid.setTileValue(x, y, asciiToNumber(asciiCharacters[x]));
+        tileGrid.setTileValue(x, y, Integer.parseInt(asciiCharacters[x]));
       }
     }
     return tileGrid;
@@ -24,15 +22,12 @@ class MapFile {
     println("File content:");
     println("there are " + lines.length + " lines");
     for (int y = 0 ; y < lines.length && y < MAX_ROWS; y++) {
-      for (int x = 0 ; x < lines[y].length() && x < MAX_COLS; x++) {
-        print(lines[y].charAt(x));
+      String[] asciiCharacters = lines[y].split(",");
+      for (int x = 0 ; x < asciiCharacters.length && x < MAX_COLS; x++) {
+        print(asciiCharacters[x] + " ");
       }
       println("");
     }
-  }
-  
-  int asciiToNumber(String asciiCharacters) {
-    return Integer.parseInt(asciiCharacters);
   }
 
   String[] getLines() {

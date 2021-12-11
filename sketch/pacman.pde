@@ -1,4 +1,3 @@
-final int PACMAN_TYPE = 2;
 
 class Pacman extends Creature { 
 

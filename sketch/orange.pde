@@ -1,4 +1,3 @@
-final int ORANGE_GHOST_TYPE = 6;
 final int ORANGE_GHOST_SCATTER_GRID_X = 0;
 final int ORANGE_GHOST_SCATTER_GRID_Y = 34;
 

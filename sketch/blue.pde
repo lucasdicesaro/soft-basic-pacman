@@ -1,4 +1,3 @@
-final int BLUE_GHOST_TYPE = 5;
 final int BLUE_GHOST_SCATTER_X = 27;
 final int BLUE_GHOST_SCATTER_Y = 34;
 

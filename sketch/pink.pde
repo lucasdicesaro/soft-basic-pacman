@@ -1,4 +1,3 @@
-final int PINK_GHOST_TYPE = 4;
 final int PINK_GHOST_SCATTER_GRID_X = 2;
 final int PINK_GHOST_SCATTER_GRID_Y = 0;
 

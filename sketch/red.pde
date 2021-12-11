@@ -1,4 +1,3 @@
-final int RED_GHOST_TYPE = 3;
 final int RED_GHOST_SCATTER_GRID_X = 25;
 final int RED_GHOST_SCATTER_GRID_Y = 0;
 
