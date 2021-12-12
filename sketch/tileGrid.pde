@@ -115,52 +115,22 @@ class TileGrid {
   void drawStage(int x, int y) {
     switch (getTileValue(x, y)) {
       case DOUBLE_WALL_VERTICAL_LEFT:
-        drawDoubleWallVerticalLeftInCellGrid(x, y);
-        break;
       case DOUBLE_WALL_VERTICAL_RIGHT:
-        drawDoubleWallVerticalRightInCellGrid(x, y);
-        break;
       case DOUBLE_WALL_HORIZONTAL_TOP:
-        drawDoubleWallHorizontalTopInCellGrid(x, y);
-        break;
       case DOUBLE_CORNER_TOP_LEFT:
-        drawDoubleCornerTopLeftInCellGrid(x, y);
-        break;
       case DOUBLE_CORNER_TOP_RIGHT:
-        drawDoubleCornerTopRightInCellGrid(x, y);
-        break;
       case DOUBLE_CORNER_BOTTOM_LEFT:
-        drawDoubleCornerBottomLeftInCellGrid(x, y);
-        break;
       case DOUBLE_CORNER_BOTTOM_RIGHT:
-        drawDoubleCornerBottomRightInCellGrid(x, y);
-        break;
       case DOUBLE_WALL_HORIZONTAL_BOTTOM:
-        drawDoubleWallHorizontalBottomInCellGrid(x, y);
-        break;
       case SIMPLE_WALL_VERTICAL_LEFT:
-        drawSimpleWallVerticalLeftInCellGrid(x, y);
-        break;
       case SIMPLE_WALL_VERTICAL_RIGHT:
-        drawSimpleWallVerticalRightInCellGrid(x, y);
-        break;
       case SIMPLE_WALL_HORIZONTAL_TOP:
-        drawSimpleWallHorizontalTopInCellGrid(x, y);
-        break;
       case SIMPLE_WALL_HORIZONTAL_BOTTOM:
-        drawSimpleWallHorizontalBottomInCellGrid(x, y);
-        break;
       case SIMPLE_CORNER_TOP_LEFT:
-        drawSimpleCornerTopLeftInCellGrid(x, y);
-        break;
       case SIMPLE_CORNER_TOP_RIGHT:
-        drawSimpleCornerTopRightInCellGrid(x, y);
-        break;
       case SIMPLE_CORNER_BOTTOM_LEFT:
-        drawSimpleCornerBottomLeftInCellGrid(x, y);
-        break;
       case SIMPLE_CORNER_BOTTOM_RIGHT:
-        drawSimpleCornerBottomRightInCellGrid(x, y);
+        drawBlueWallInCellGrid(x, y, getTileValue(x, y));
         break;
       case CORRIDOR:
         drawCorridorInCellGrid(x, y);
