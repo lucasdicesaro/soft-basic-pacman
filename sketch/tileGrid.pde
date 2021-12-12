@@ -5,15 +5,19 @@ final int DOUBLE_CORNER_TOP_LEFT = 201;
 final int DOUBLE_CORNER_TOP_RIGHT = 187;
 final int DOUBLE_CORNER_BOTTOM_LEFT = 200;
 final int DOUBLE_CORNER_BOTTOM_RIGHT = 188;
-final int DOUBLE_WALL_VERTICAL = 186;
-final int DOUBLE_WALL_HORIZONTAL = 205;
+final int DOUBLE_WALL_VERTICAL_LEFT = 186;
+final int DOUBLE_WALL_VERTICAL_RIGHT = 189;
+final int DOUBLE_WALL_HORIZONTAL_TOP = 205;
+final int DOUBLE_WALL_HORIZONTAL_BOTTOM = 193;
 
 final int SIMPLE_CORNER_TOP_LEFT = 218;
 final int SIMPLE_CORNER_TOP_RIGHT = 191;
 final int SIMPLE_CORNER_BOTTOM_LEFT = 192;
 final int SIMPLE_CORNER_BOTTOM_RIGHT = 217;
-final int SIMPLE_WALL_VERTICAL = 179;
-final int SIMPLE_WALL_HORIZONTAL = 196;
+final int SIMPLE_WALL_VERTICAL_LEFT = 179;
+final int SIMPLE_WALL_VERTICAL_RIGHT = 190;
+final int SIMPLE_WALL_HORIZONTAL_TOP = 196;
+final int SIMPLE_WALL_HORIZONTAL_BOTTOM = 194;
 
 final int PELLET = 250;
 final int POWER_PELLET = 254;
@@ -110,19 +114,53 @@ class TileGrid {
 
   void drawStage(int x, int y) {
     switch (getTileValue(x, y)) {
+      case DOUBLE_WALL_VERTICAL_LEFT:
+        drawDoubleWallVerticalLeftInCellGrid(x, y);
+        break;
+      case DOUBLE_WALL_VERTICAL_RIGHT:
+        drawDoubleWallVerticalRightInCellGrid(x, y);
+        break;
+      case DOUBLE_WALL_HORIZONTAL_TOP:
+        drawDoubleWallHorizontalTopInCellGrid(x, y);
+        break;
       case DOUBLE_CORNER_TOP_LEFT:
+        drawDoubleCornerTopLeftInCellGrid(x, y);
+        break;
       case DOUBLE_CORNER_TOP_RIGHT:
+        drawDoubleCornerTopRightInCellGrid(x, y);
+        break;
       case DOUBLE_CORNER_BOTTOM_LEFT:
+        drawDoubleCornerBottomLeftInCellGrid(x, y);
+        break;
       case DOUBLE_CORNER_BOTTOM_RIGHT:
-      case DOUBLE_WALL_VERTICAL:
-      case DOUBLE_WALL_HORIZONTAL:
+        drawDoubleCornerBottomRightInCellGrid(x, y);
+        break;
+      case DOUBLE_WALL_HORIZONTAL_BOTTOM:
+        drawDoubleWallHorizontalBottomInCellGrid(x, y);
+        break;
+      case SIMPLE_WALL_VERTICAL_LEFT:
+        drawSimpleWallVerticalLeftInCellGrid(x, y);
+        break;
+      case SIMPLE_WALL_VERTICAL_RIGHT:
+        drawSimpleWallVerticalRightInCellGrid(x, y);
+        break;
+      case SIMPLE_WALL_HORIZONTAL_TOP:
+        drawSimpleWallHorizontalTopInCellGrid(x, y);
+        break;
+      case SIMPLE_WALL_HORIZONTAL_BOTTOM:
+        drawSimpleWallHorizontalBottomInCellGrid(x, y);
+        break;
       case SIMPLE_CORNER_TOP_LEFT:
+        drawSimpleCornerTopLeftInCellGrid(x, y);
+        break;
       case SIMPLE_CORNER_TOP_RIGHT:
+        drawSimpleCornerTopRightInCellGrid(x, y);
+        break;
       case SIMPLE_CORNER_BOTTOM_LEFT:
+        drawSimpleCornerBottomLeftInCellGrid(x, y);
+        break;
       case SIMPLE_CORNER_BOTTOM_RIGHT:
-      case SIMPLE_WALL_VERTICAL:
-      case SIMPLE_WALL_HORIZONTAL:
-        drawWallInCellGrid(x, y);
+        drawSimpleCornerBottomRightInCellGrid(x, y);
         break;
       case CORRIDOR:
         drawCorridorInCellGrid(x, y);
@@ -213,14 +251,18 @@ class TileGrid {
            || getTileValue(x, y) == DOUBLE_CORNER_TOP_RIGHT
            || getTileValue(x, y) == DOUBLE_CORNER_BOTTOM_LEFT
            || getTileValue(x, y) == DOUBLE_CORNER_BOTTOM_RIGHT
-           || getTileValue(x, y) == DOUBLE_WALL_VERTICAL
-           || getTileValue(x, y) == DOUBLE_WALL_HORIZONTAL
+           || getTileValue(x, y) == DOUBLE_WALL_VERTICAL_LEFT
+           || getTileValue(x, y) == DOUBLE_WALL_VERTICAL_RIGHT
+           || getTileValue(x, y) == DOUBLE_WALL_HORIZONTAL_TOP
+           || getTileValue(x, y) == DOUBLE_WALL_HORIZONTAL_BOTTOM
            || getTileValue(x, y) == SIMPLE_CORNER_TOP_LEFT
            || getTileValue(x, y) == SIMPLE_CORNER_TOP_RIGHT
            || getTileValue(x, y) == SIMPLE_CORNER_BOTTOM_LEFT
            || getTileValue(x, y) == SIMPLE_CORNER_BOTTOM_RIGHT
-           || getTileValue(x, y) == SIMPLE_WALL_VERTICAL
-           || getTileValue(x, y) == SIMPLE_WALL_HORIZONTAL;
+           || getTileValue(x, y) == SIMPLE_WALL_VERTICAL_LEFT
+           || getTileValue(x, y) == SIMPLE_WALL_VERTICAL_RIGHT
+           || getTileValue(x, y) == SIMPLE_WALL_HORIZONTAL_TOP
+           || getTileValue(x, y) == SIMPLE_WALL_HORIZONTAL_BOTTOM;
   }
 
   boolean isPellet(int x, int y) {

@@ -1,4 +1,4 @@
-final float CREATURE_SCALE = 2.1;
+final float CREATURE_SCALE = 1.8;
 final int CREATURE_SIZE = (int) (SCALE * CREATURE_SCALE);
 final int CREATURE_CENTER_SIZE = 15;
 

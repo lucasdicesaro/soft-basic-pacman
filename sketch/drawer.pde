@@ -1,6 +1,9 @@
 final int PELLET_SIZE = 5;
 final int POWER_PELLET_SIZE = 13;
 
+color wallColor = color(33, 33, 222);
+int pixelSize = SCALE / 8; // Simulates 8 pixels per cell
+
 void drawCreature(int drawX, int drawY, color c) {
   noStroke();
   fill(c);
@@ -70,5 +73,98 @@ void drawPalletCounter() {
   tileGrid.cleanSection(x, x+1, y, y);
   textFont(f,16);
   fill(255);
-  text(nf(pelletCounter, 3),cellToCoord(x), cellToCoord(y+1));
+  text(nf(pelletCounter, 3), cellToCoord(x), cellToCoord(y+1));
+}
+
+/* Walls */
+void drawDoubleWallVerticalLeftInCellGrid(int x, int y) {
+  drawCorridorInCellGrid(x, y);
+  stroke(wallColor);
+  strokeWeight(pixelSize);
+  line(cellToCoord(x), cellToCoord(y), cellToCoord(x), cellToCoord(y) + SCALE); // Vertical line over the left side
+  line(cellToCoord(x) + (pixelSize * 3), cellToCoord(y), cellToCoord(x) + (pixelSize * 3), cellToCoord(y) + SCALE); // Vertical line to 3 "pixels" from left cell side
+  // back to default
+  strokeWeight(1);
+  stroke(0);
+}
+
+void drawDoubleWallVerticalRightInCellGrid(int x, int y) {
+  drawCorridorInCellGrid(x, y);
+  stroke(wallColor);
+  strokeWeight(pixelSize);
+  line(cellToCoord(x) + SCALE - pixelSize, cellToCoord(y), cellToCoord(x) + SCALE - pixelSize, cellToCoord(y) + SCALE);; // Vertical line over the right cell side
+  line(cellToCoord(x) + SCALE - (pixelSize * 4), cellToCoord(y), cellToCoord(x) + SCALE - (pixelSize * 4), cellToCoord(y) + SCALE); // Vertical line to 4 "pixels" from right cell side
+  // back to default
+  strokeWeight(1);
+  stroke(0);
+}
+
+void drawDoubleWallHorizontalTopInCellGrid(int x, int y) {
+  drawCorridorInCellGrid(x, y);
+  stroke(wallColor);
+  strokeWeight(pixelSize);
+  line(cellToCoord(x), cellToCoord(y), cellToCoord(x) + SCALE, cellToCoord(y)); // Horizontal line over the top cell side
+  line(cellToCoord(x), cellToCoord(y) + (pixelSize * 3), cellToCoord(x)  + SCALE, cellToCoord(y) + (pixelSize * 3)); // Horizontal line to 3 "pixels" from top cell side
+  // back to default
+  strokeWeight(1);
+  stroke(0);
+}
+
+void drawDoubleWallHorizontalBottomInCellGrid(int x, int y) {
+  drawCorridorInCellGrid(x, y);
+  stroke(wallColor);
+  strokeWeight(pixelSize);
+  line(cellToCoord(x), cellToCoord(y) + SCALE - pixelSize, cellToCoord(x) + SCALE, cellToCoord(y) + SCALE - pixelSize); // Horizontal line over the top cell side
+  line(cellToCoord(x), cellToCoord(y) + SCALE - (pixelSize * 4), cellToCoord(x) + SCALE, cellToCoord(y) + SCALE - (pixelSize * 4)); // Horizontal line to 3 "pixels" from top cell side
+  // back to default
+  strokeWeight(1);
+  stroke(0);
+}
+
+void drawDoubleCornerTopLeftInCellGrid(int x, int y) {
+  drawWallInCellGrid(x, y);
+}
+
+void drawDoubleCornerTopRightInCellGrid(int x, int y) {
+  drawWallInCellGrid(x, y);
+}
+
+void drawDoubleCornerBottomLeftInCellGrid(int x, int y) {
+  drawWallInCellGrid(x, y);
+}
+
+void drawDoubleCornerBottomRightInCellGrid(int x, int y) {
+  drawWallInCellGrid(x, y);
+}
+
+void drawSimpleWallVerticalLeftInCellGrid(int x, int y) {
+  drawWallInCellGrid(x, y);
+}
+
+void drawSimpleWallVerticalRightInCellGrid(int x, int y) {
+  drawWallInCellGrid(x, y);
+}
+
+void drawSimpleWallHorizontalTopInCellGrid(int x, int y) {
+  drawWallInCellGrid(x, y);
+}
+
+void drawSimpleWallHorizontalBottomInCellGrid(int x, int y) {
+  drawWallInCellGrid(x, y);
+}
+
+void drawSimpleCornerTopLeftInCellGrid(int x, int y) {
+  drawWallInCellGrid(x, y);
+}
+
+void drawSimpleCornerTopRightInCellGrid(int x, int y) {
+  drawWallInCellGrid(x, y);
+}
+
+void drawSimpleCornerBottomLeftInCellGrid(int x, int y) {
+  drawWallInCellGrid(x, y);
+}
+
+void drawSimpleCornerBottomRightInCellGrid(int x, int y) {
+  drawWallInCellGrid(x, y);
 }
