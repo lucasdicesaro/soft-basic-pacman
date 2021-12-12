@@ -115,7 +115,7 @@ void drawDoubleWallHorizontalBottomInCellGrid(int x, int y) {
   stroke(wallColor);
   strokeWeight(pixelSize);
   line(cellToCoord(x), cellToCoord(y) + SCALE - pixelSize, cellToCoord(x) + SCALE, cellToCoord(y) + SCALE - pixelSize); // Horizontal line over the top cell side
-  line(cellToCoord(x), cellToCoord(y) + SCALE - (pixelSize * 4), cellToCoord(x) + SCALE, cellToCoord(y) + SCALE - (pixelSize * 4)); // Horizontal line to 3 "pixels" from top cell side
+  line(cellToCoord(x), cellToCoord(y) + SCALE - (pixelSize * 4), cellToCoord(x) + SCALE, cellToCoord(y) + SCALE - (pixelSize * 4)); // Horizontal line to 4 "pixels" from top cell side
   // back to default
   strokeWeight(1);
   stroke(0);
@@ -138,19 +138,43 @@ void drawDoubleCornerBottomRightInCellGrid(int x, int y) {
 }
 
 void drawSimpleWallVerticalLeftInCellGrid(int x, int y) {
-  drawWallInCellGrid(x, y);
+  drawCorridorInCellGrid(x, y);
+  stroke(wallColor);
+  strokeWeight(pixelSize);
+  line(cellToCoord(x) + (pixelSize * 3), cellToCoord(y), cellToCoord(x) + (pixelSize * 3), cellToCoord(y) + SCALE); // Vertical line to 3 "pixels" from left cell side
+  // back to default
+  strokeWeight(1);
+  stroke(0);
 }
 
 void drawSimpleWallVerticalRightInCellGrid(int x, int y) {
-  drawWallInCellGrid(x, y);
+  drawCorridorInCellGrid(x, y);
+  stroke(wallColor);
+  strokeWeight(pixelSize);
+  line(cellToCoord(x) + SCALE - (pixelSize * 4), cellToCoord(y), cellToCoord(x) + SCALE - (pixelSize * 4), cellToCoord(y) + SCALE); // Vertical line to 4 "pixels" from right cell side
+  // back to default
+  strokeWeight(1);
+  stroke(0);
 }
 
 void drawSimpleWallHorizontalTopInCellGrid(int x, int y) {
-  drawWallInCellGrid(x, y);
+  drawCorridorInCellGrid(x, y);
+  stroke(wallColor);
+  strokeWeight(pixelSize);
+  line(cellToCoord(x), cellToCoord(y) + (pixelSize * 3), cellToCoord(x)  + SCALE, cellToCoord(y) + (pixelSize * 3)); // Horizontal line to 3 "pixels" from top cell side
+  // back to default
+  strokeWeight(1);
+  stroke(0);
 }
 
 void drawSimpleWallHorizontalBottomInCellGrid(int x, int y) {
-  drawWallInCellGrid(x, y);
+  drawCorridorInCellGrid(x, y);
+  stroke(wallColor);
+  strokeWeight(pixelSize);
+  line(cellToCoord(x), cellToCoord(y) + SCALE - (pixelSize * 4), cellToCoord(x) + SCALE, cellToCoord(y) + SCALE - (pixelSize * 4)); // Horizontal line to 4 "pixels" from top cell side
+  // back to default
+  strokeWeight(1);
+  stroke(0);
 }
 
 void drawSimpleCornerTopLeftInCellGrid(int x, int y) {
