@@ -82,6 +82,7 @@ void drawBlueWallInCellGrid(int x, int y, int wallId) {
   drawCorridorInCellGrid(x, y);
   stroke(wallColor);
   strokeWeight(pixelSize);
+  strokeCap(PROJECT); // Point appears square. This is for point() function.
   switch(wallId) {
     case DOUBLE_WALL_VERTICAL_LEFT:
       line(cellToCoord(x), cellToCoord(y), cellToCoord(x), cellToCoord(y) + SCALE); // Vertical line over the left side
@@ -112,34 +113,52 @@ void drawBlueWallInCellGrid(int x, int y, int wallId) {
       line(cellToCoord(x), cellToCoord(y) + SCALE - (pixelSize * 4), cellToCoord(x) + SCALE, cellToCoord(y) + SCALE - (pixelSize * 4)); // Horizontal line to 4 "pixels" from top cell side
       break;
     case SIMPLE_WALL_VERTICAL_LEFT:
-      line(cellToCoord(x) + (pixelSize * 3), cellToCoord(y), cellToCoord(x) + (pixelSize * 3), cellToCoord(y) + SCALE); // Vertical line to 3 "pixels" from left cell side
+      line(cellToCoord(x) + (pixelSize * 3), cellToCoord(y), cellToCoord(x) + (pixelSize * 3), cellToCoord(y) + SCALE); // Vertical line to 4 "pixels" from left cell side
       break;
     case SIMPLE_WALL_VERTICAL_RIGHT:
       line(cellToCoord(x) + SCALE - (pixelSize * 4), cellToCoord(y), cellToCoord(x) + SCALE - (pixelSize * 4), cellToCoord(y) + SCALE); // Vertical line to 4 "pixels" from right cell side
       break;
     case SIMPLE_WALL_HORIZONTAL_TOP:
-      line(cellToCoord(x), cellToCoord(y) + (pixelSize * 3), cellToCoord(x)  + SCALE, cellToCoord(y) + (pixelSize * 3)); // Horizontal line to 3 "pixels" from top cell side
+      line(cellToCoord(x), cellToCoord(y) + (pixelSize * 3), cellToCoord(x)  + SCALE, cellToCoord(y) + (pixelSize * 3)); // Horizontal line to 4 "pixels" from top cell side
       break;
     case SIMPLE_WALL_HORIZONTAL_BOTTOM:
       line(cellToCoord(x), cellToCoord(y) + SCALE - (pixelSize * 4), cellToCoord(x) + SCALE, cellToCoord(y) + SCALE - (pixelSize * 4)); // Horizontal line to 4 "pixels" from top cell side
       break;
     case SIMPLE_CORNER_TOP_LEFT:
-      drawWallInCellGrid(x, y);
+      line(cellToCoord(x) + (pixelSize * 6), cellToCoord(y) + (pixelSize * 4), cellToCoord(x) + SCALE, cellToCoord(y) + (pixelSize * 4)); // Horizontal line
+      point(cellToCoord(x) + (pixelSize * 5), cellToCoord(y) + (pixelSize * 5)); // Point between lines
+      line(cellToCoord(x) + (pixelSize * 4), cellToCoord(y) + (pixelSize * 6), cellToCoord(x) + (pixelSize * 4), cellToCoord(y) + SCALE); // Vertical line
       break;
     case SIMPLE_CORNER_TOP_RIGHT:
-      drawWallInCellGrid(x, y);
+      //drawTestCellInCellGrid(x, y);
+      line(cellToCoord(x), cellToCoord(y) + (pixelSize * 4), cellToCoord(x) + (pixelSize * 1), cellToCoord(y) + (pixelSize * 4)); // Horizontal line
+      point(cellToCoord(x) + (pixelSize * 2), cellToCoord(y) + (pixelSize * 5)); // Point between lines
+      line(cellToCoord(x) + (pixelSize * 3), cellToCoord(y) + (pixelSize * 6), cellToCoord(x) + (pixelSize * 3), cellToCoord(y) + SCALE); // Vertical line
       break;
     case SIMPLE_CORNER_BOTTOM_LEFT:
-      line(cellToCoord(x) + (pixelSize * 5), cellToCoord(y), cellToCoord(x) + (pixelSize * 5), cellToCoord(y) + (pixelSize * 2));
-      line(cellToCoord(x) + (pixelSize * 6), cellToCoord(y) + (pixelSize * 3), cellToCoord(x) + (pixelSize * 5), cellToCoord(y) + (pixelSize * 3));
-      line(cellToCoord(x) + (pixelSize * 7), cellToCoord(y) + (pixelSize * 4), cellToCoord(x) + SCALE, cellToCoord(y) + (pixelSize * 4));
+      line(cellToCoord(x) + (pixelSize * 4), cellToCoord(y), cellToCoord(x) + (pixelSize * 4), cellToCoord(y) + (pixelSize * 1)); // Horizontal line
+      point(cellToCoord(x) + (pixelSize * 5), cellToCoord(y) + (pixelSize * 2)); // Point between lines
+      line(cellToCoord(x) + (pixelSize * 6), cellToCoord(y) + (pixelSize * 3), cellToCoord(x) + SCALE, cellToCoord(y) + (pixelSize * 3)); // Vertical line
       break;
     case SIMPLE_CORNER_BOTTOM_RIGHT:
-      drawWallInCellGrid(x, y);
+      line(cellToCoord(x) + (pixelSize * 3), cellToCoord(y), cellToCoord(x) + (pixelSize * 3), cellToCoord(y) + (pixelSize * 1)); // Horizontal line
+      point(cellToCoord(x) + (pixelSize * 2), cellToCoord(y) + (pixelSize * 2)); // Point between lines
+      line(cellToCoord(x), cellToCoord(y) + (pixelSize * 3), cellToCoord(x) + (pixelSize * 1), cellToCoord(y) + (pixelSize * 3)); // Vertical line
       break;
   }
 
   // back to default
   strokeWeight(1);
   stroke(0);
+}
+
+void drawTestCellInCellGrid(int x, int y) {
+  for (int pixelY = 0; pixelY < 8; pixelY++) {
+    for (int pixelX = 0; pixelX < 8; pixelX++) {
+       stroke(color(pixelX + random(200), pixelY + random(200), pixelX + random(200)));
+       point(cellToCoord(x) + (pixelSize * pixelX), cellToCoord(y) + (pixelSize * pixelY));
+    }
+  }
+  // back to wall color
+  stroke(wallColor);
 }
