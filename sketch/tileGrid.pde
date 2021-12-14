@@ -1,23 +1,29 @@
 final int MAX_COLS = 28;
 final int MAX_ROWS = 36;
 
-final int DOUBLE_CORNER_TOP_LEFT = 201;
-final int DOUBLE_CORNER_TOP_RIGHT = 187;
-final int DOUBLE_CORNER_BOTTOM_LEFT = 200;
-final int DOUBLE_CORNER_BOTTOM_RIGHT = 188;
+final int TEST_CELL = 255;
 final int DOUBLE_WALL_VERTICAL_LEFT = 186;
 final int DOUBLE_WALL_VERTICAL_RIGHT = 189;
 final int DOUBLE_WALL_HORIZONTAL_TOP = 205;
 final int DOUBLE_WALL_HORIZONTAL_BOTTOM = 193;
+final int DOUBLE_CORNER_TOP_LEFT = 201;
+final int DOUBLE_CORNER_TOP_RIGHT = 187;
+final int DOUBLE_CORNER_BOTTOM_LEFT = 200;
+final int DOUBLE_CORNER_BOTTOM_RIGHT = 188;
+// TODO Add missing double walls
 
-final int SIMPLE_CORNER_TOP_LEFT = 218;
-final int SIMPLE_CORNER_TOP_RIGHT = 191;
-final int SIMPLE_CORNER_BOTTOM_LEFT = 192;
-final int SIMPLE_CORNER_BOTTOM_RIGHT = 217;
 final int SIMPLE_WALL_VERTICAL_LEFT = 179;
 final int SIMPLE_WALL_VERTICAL_RIGHT = 190;
 final int SIMPLE_WALL_HORIZONTAL_TOP = 196;
 final int SIMPLE_WALL_HORIZONTAL_BOTTOM = 194;
+final int SIMPLE_CORNER_TOP_LEFT = 218;
+final int SIMPLE_CORNER_TOP_RIGHT = 191;
+final int SIMPLE_CORNER_BOTTOM_LEFT = 192;
+final int SIMPLE_CORNER_BOTTOM_RIGHT = 217;
+final int SIMPLE_CONVEX_CORNER_TOP_LEFT = 219;
+final int SIMPLE_CONVEX_CORNER_TOP_RIGHT = 220;
+final int SIMPLE_CONVEX_CORNER_BOTTOM_LEFT = 221;
+final int SIMPLE_CONVEX_CORNER_BOTTOM_RIGHT = 222;
 
 final int PELLET = 250;
 final int POWER_PELLET = 254;
@@ -114,6 +120,7 @@ class TileGrid {
 
   void drawStage(int x, int y) {
     switch (getTileValue(x, y)) {
+      case TEST_CELL:
       case DOUBLE_WALL_VERTICAL_LEFT:
       case DOUBLE_WALL_VERTICAL_RIGHT:
       case DOUBLE_WALL_HORIZONTAL_TOP:
@@ -130,6 +137,10 @@ class TileGrid {
       case SIMPLE_CORNER_TOP_RIGHT:
       case SIMPLE_CORNER_BOTTOM_LEFT:
       case SIMPLE_CORNER_BOTTOM_RIGHT:
+      case SIMPLE_CONVEX_CORNER_TOP_LEFT:
+      case SIMPLE_CONVEX_CORNER_TOP_RIGHT:
+      case SIMPLE_CONVEX_CORNER_BOTTOM_LEFT:
+      case SIMPLE_CONVEX_CORNER_BOTTOM_RIGHT:
         drawBlueWallInCellGrid(x, y, getTileValue(x, y));
         break;
       case CORRIDOR:
@@ -232,7 +243,11 @@ class TileGrid {
            || getTileValue(x, y) == SIMPLE_WALL_VERTICAL_LEFT
            || getTileValue(x, y) == SIMPLE_WALL_VERTICAL_RIGHT
            || getTileValue(x, y) == SIMPLE_WALL_HORIZONTAL_TOP
-           || getTileValue(x, y) == SIMPLE_WALL_HORIZONTAL_BOTTOM;
+           || getTileValue(x, y) == SIMPLE_WALL_HORIZONTAL_BOTTOM
+           || getTileValue(x, y) == SIMPLE_CONVEX_CORNER_TOP_LEFT
+           || getTileValue(x, y) == SIMPLE_CONVEX_CORNER_TOP_RIGHT
+           || getTileValue(x, y) == SIMPLE_CONVEX_CORNER_BOTTOM_LEFT
+           || getTileValue(x, y) == SIMPLE_CONVEX_CORNER_BOTTOM_RIGHT;
   }
 
   boolean isPellet(int x, int y) {
@@ -257,7 +272,7 @@ class TileGrid {
   }
 
   boolean isCenterInOneDimensionOfTheCell(int coord) {
-    return coord == cuantizeCoord(coord) + (SCALE / 2);
+    return coord == cuantizeCoord(coord) + (CELL_SIZE / 2);
   }
 
   void cleanTile(int x, int y) {

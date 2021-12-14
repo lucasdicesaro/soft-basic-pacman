@@ -1,5 +1,5 @@
 final float CREATURE_SCALE = 1.8;
-final int CREATURE_SIZE = (int) (SCALE * CREATURE_SCALE);
+final int CREATURE_SIZE = (int) (CELL_SIZE * CREATURE_SCALE);
 final int CREATURE_CENTER_SIZE = 15;
 
 class Creature { 
@@ -38,22 +38,22 @@ class Creature {
 
   void moveLeft() {
     drawX = drawX - X_VELOCITY;
-    drawY = cuantizeCoord(drawY) + (SCALE / 2); // Forces Pacman to stay in the middle of the corridor
+    drawY = cuantizeCoord(drawY) + (CELL_SIZE / 2); // Forces Pacman to stay in the middle of the corridor
   }
 
   void moveRight() {
     drawX = drawX + X_VELOCITY;
-    drawY = cuantizeCoord(drawY) + (SCALE / 2);
+    drawY = cuantizeCoord(drawY) + (CELL_SIZE / 2);
   }
   
   void moveUp() {
     drawY = drawY - Y_VELOCITY;
-    drawX = cuantizeCoord(drawX) + (SCALE / 2);
+    drawX = cuantizeCoord(drawX) + (CELL_SIZE / 2);
   }
 
   void moveDown() {
     drawY = drawY + Y_VELOCITY;
-    drawX = cuantizeCoord(drawX) + (SCALE / 2);
+    drawX = cuantizeCoord(drawX) + (CELL_SIZE / 2);
   }
 
   int getDrawX() {

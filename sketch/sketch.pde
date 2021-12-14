@@ -19,7 +19,8 @@ PFont f;
 
 void setup() {
   //size(224 * PIXEL_SIZE, 288 * PIXEL_SIZE);
-  size(672, 864);
+  size(672, 864); //PIXEL_SIZE = 3
+  //size(896, 1152); //PIXEL_SIZE = 4
   f = createFont("Arial",16,true); // STEP 2 Create Font
 
   keyboard = new Keyboard();
