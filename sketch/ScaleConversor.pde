@@ -1,7 +1,35 @@
-final int PIXEL_SIZE = 3;
-final int CELL_SIZE = PIXEL_SIZE * 8; // Simulates 8 pixels per cell
-final int PELLET_SIZE = PIXEL_SIZE * 2;
-final int POWER_PELLET_SIZE = CELL_SIZE;
+final int MAX_COLS = 28;
+final int MAX_ROWS = 36;
+
+int CELL_SIZE;
+int PIXEL_SIZE;
+int PELLET_SIZE;
+int ONE_PIXEL;
+int TWO_PIXELS;
+int THREE_PIXELS;
+int FOUR_PIXELS;
+int FIVE_PIXELS;
+int SIX_PIXELS;
+int SEVEN_PIXELS;
+int CREATURE_SIZE;
+int CREATURE_CENTER_SIZE;
+float CREATURE_SCALE = 1.8;
+float CREATURE_CENTER_SCALE = 0.5;
+
+void initializeScaleVariables() {
+  CELL_SIZE = height / 36;
+  PIXEL_SIZE = CELL_SIZE / 8; // Simulates 8 pixels per cell
+  PELLET_SIZE = PIXEL_SIZE * 2;
+  ONE_PIXEL = (PIXEL_SIZE * 1);
+  TWO_PIXELS = (PIXEL_SIZE * 2);
+  THREE_PIXELS = (PIXEL_SIZE * 3);
+  FOUR_PIXELS = (PIXEL_SIZE * 4);
+  FIVE_PIXELS = (PIXEL_SIZE * 5);
+  SIX_PIXELS = (PIXEL_SIZE * 6);
+  SEVEN_PIXELS = (PIXEL_SIZE * 7);
+  CREATURE_SIZE = (int) (CELL_SIZE * CREATURE_SCALE);
+  CREATURE_CENTER_SIZE = (int) (CELL_SIZE * CREATURE_CENTER_SCALE);
+}
 
 /* Convert a position cell from the grid to a window coodinate */
 int cellToCoord(int cells) {
@@ -20,5 +48,5 @@ int cuantizeCoord(int coord) {
 
 /* Converts a cell position into a pixel coordinate in the center of asociated cell */
 int convertToCoordInCellCenter(int cell) {
-  return cellToCoord(cell) + CELL_SIZE / 2;
+  return cellToCoord(cell) + (CELL_SIZE / 2);
 }

@@ -1,6 +1,3 @@
-final float CREATURE_SCALE = 1.8;
-final int CREATURE_SIZE = (int) (CELL_SIZE * CREATURE_SCALE);
-final int CREATURE_CENTER_SIZE = 15;
 
 class Creature { 
 
@@ -96,6 +93,6 @@ class Creature {
 
   void debug() {
     //println(name + " CREATURE_SCALE: " + CREATURE_SCALE + " CREATURE_SIZE: " + CREATURE_SIZE + " creatureRadiusCells: " + creatureRadiusCells);
-    println(name + " draw X,Y: " + drawX + "," + drawY + " grid pos X,Y: " + coordToCell(drawX) + "," + coordToCell(drawY) + " selectedMovement: " + selectedMovement + " isCenterOfTheCell: " + tileGrid.isCenterOfTheCell(this));
+    println(name + "\tdraw X,Y: " + drawX + "," + drawY + "\tgrid pos X,Y: " + coordToCell(drawX) + "," + coordToCell(drawY) + "\tselectedMovement: " + selectedMovement + "\tisCenterOfTheCell: " + tileGrid.isCenterOfTheCell(this));
   }
 } 

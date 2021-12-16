@@ -17,6 +17,7 @@ class Ghost extends Creature {
   int currentMode;
   int previousMode;
   color frightenedColor = color(33, 33, 222);
+
   Ghost (int drawX, int drawY, int type, String name, color c) {  
     super(drawX, drawY, type, name, c);
     targetX = 0;
@@ -37,7 +38,6 @@ class Ghost extends Creature {
       drawCreature(drawX, drawY, !isFrightened() ? c : frightenedColor);
     }
     //drawBlackCell(drawX, drawY);
-    showTarget();
   }
   
   void processMovement() {
@@ -184,8 +184,27 @@ class Ghost extends Creature {
   }
 
   void setFrightenedTarget() {
-    targetX = int(random(MAX_COLS));
-    targetY = int(random(MAX_ROWS));
+    if (isThereMoreThanOnePath()) {
+      targetX = int(random(MAX_COLS));
+      targetY = int(random(MAX_ROWS));
+    }
+  }
+
+  boolean isThereMoreThanOnePath() {
+    int paths = 0;
+    if (selectedMovement != DOWN && tileGrid.isNotWallOnCreatureUp(this)) {
+      paths++;
+    }
+    if (selectedMovement != RIGHT && tileGrid.isNotWallOnCreatureLeft(this)) {
+      paths++;
+    }
+    if (selectedMovement != UP && tileGrid.isNotWallOnCreatureDown(this)) {
+      paths++;
+    }
+    if (selectedMovement != LEFT && tileGrid.isNotWallOnCreatureRight(this)) {
+      paths++;
+    }
+    return paths > 1;
   }
 
   void respawn() {

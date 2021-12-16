@@ -1,5 +1,3 @@
-final int MAX_COLS = 28;
-final int MAX_ROWS = 36;
 
 final int TEST_CELL = 255;
 final int DOUBLE_WALL_VERTICAL_LEFT = 186;
@@ -283,7 +281,11 @@ class TileGrid {
     println("Grid content:");
     for (int y = 0; y < MAX_ROWS; y++) {
       for (int x = 0; x < MAX_COLS; x++) {
-        print(getTileValue(x, y) + " ");
+        if (getTileValue(x, y) < 100) {
+          print(" " + getTileValue(x, y) + " ");
+        } else {
+          print(getTileValue(x, y) + " ");
+        }
       }
       println("");
     }
