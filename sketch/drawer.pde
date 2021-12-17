@@ -3,7 +3,26 @@ color wallColor = color(25, 25, 166);
 color eyesColor = color(33, 33, 222);
 color frightenedColor = color(33, 33, 222);
 
-void drawPacman(int drawX, int drawY, color c) {
+int pacmanSprite = 1;
+void drawPacman(int drawX, int drawY, color c, int selectedMovement) {
+  if (pacmanSprite > 2) {
+    pacmanSprite = 0;
+  }
+  switch(pacmanSprite) {
+    case 0:
+      drawClosedPacman(drawX, drawY, c);
+      break;
+    case 1:
+      drawPacmanSemiOpen(drawX, drawY, c, selectedMovement);
+      break;
+    case 2:
+      drawPacmanOpen(drawX, drawY, c, selectedMovement);
+      break;
+  }
+  pacmanSprite++;
+}
+
+void drawClosedPacman(int drawX, int drawY, color c) {
   stroke(c);
   strokeWeight(PIXEL_SIZE);
   line(drawX - TWO_PIXELS, drawY - SIX_PIXELS, drawX + TWO_PIXELS, drawY - SIX_PIXELS);
@@ -24,6 +43,191 @@ void drawPacman(int drawX, int drawY, color c) {
   strokeWeight(1);
   stroke(0);
 }
+
+void drawPacmanSemiOpen(int drawX, int drawY, color c, int selectedMovement) {
+  stroke(c);
+  strokeWeight(PIXEL_SIZE);
+  switch(selectedMovement) {
+    case LEFT:
+      line(drawX - TWO_PIXELS, drawY - SIX_PIXELS, drawX + TWO_PIXELS, drawY - SIX_PIXELS);
+      line(drawX - FOUR_PIXELS, drawY - FIVE_PIXELS, drawX + FOUR_PIXELS, drawY - FIVE_PIXELS);
+      line(drawX - FIVE_PIXELS, drawY - FOUR_PIXELS, drawX + FIVE_PIXELS, drawY - FOUR_PIXELS);
+      line(drawX - FIVE_PIXELS, drawY - THREE_PIXELS, drawX + FIVE_PIXELS, drawY - THREE_PIXELS);
+      line(drawX - THREE_PIXELS, drawY - TWO_PIXELS, drawX + SIX_PIXELS, drawY - TWO_PIXELS);
+      line(drawX, drawY - ONE_PIXEL, drawX + SIX_PIXELS, drawY - ONE_PIXEL);
+      line(drawX + THREE_PIXELS, drawY, drawX + SIX_PIXELS, drawY);
+      line(drawX, drawY + ONE_PIXEL, drawX + SIX_PIXELS, drawY + ONE_PIXEL);
+      line(drawX - THREE_PIXELS, drawY + TWO_PIXELS, drawX + SIX_PIXELS, drawY + TWO_PIXELS);
+      line(drawX - FIVE_PIXELS, drawY + THREE_PIXELS, drawX + FIVE_PIXELS, drawY + THREE_PIXELS);
+      line(drawX - FIVE_PIXELS, drawY + FOUR_PIXELS, drawX + FIVE_PIXELS, drawY + FOUR_PIXELS);
+      line(drawX - FOUR_PIXELS, drawY + FIVE_PIXELS, drawX + FOUR_PIXELS, drawY + FIVE_PIXELS);
+      line(drawX - TWO_PIXELS, drawY + SIX_PIXELS, drawX + TWO_PIXELS, drawY + SIX_PIXELS);
+      break;
+    case RIGHT:
+      line(drawX - TWO_PIXELS, drawY - SIX_PIXELS, drawX + TWO_PIXELS, drawY - SIX_PIXELS);
+      line(drawX - FOUR_PIXELS, drawY - FIVE_PIXELS, drawX + FOUR_PIXELS, drawY - FIVE_PIXELS);
+      line(drawX - FIVE_PIXELS, drawY - FOUR_PIXELS, drawX + FIVE_PIXELS, drawY - FOUR_PIXELS);
+      line(drawX - FIVE_PIXELS, drawY - THREE_PIXELS, drawX + FIVE_PIXELS, drawY - THREE_PIXELS);
+      line(drawX - SIX_PIXELS, drawY - TWO_PIXELS, drawX + THREE_PIXELS, drawY - TWO_PIXELS);
+      line(drawX - SIX_PIXELS, drawY - ONE_PIXEL, drawX, drawY - ONE_PIXEL);
+      line(drawX - SIX_PIXELS, drawY, drawX - THREE_PIXELS, drawY);
+      line(drawX - SIX_PIXELS, drawY + ONE_PIXEL, drawX, drawY + ONE_PIXEL);
+      line(drawX - SIX_PIXELS, drawY + TWO_PIXELS, drawX + THREE_PIXELS, drawY + TWO_PIXELS);
+      line(drawX - FIVE_PIXELS, drawY + THREE_PIXELS, drawX + FIVE_PIXELS, drawY + THREE_PIXELS);
+      line(drawX - FIVE_PIXELS, drawY + FOUR_PIXELS, drawX + FIVE_PIXELS, drawY + FOUR_PIXELS);
+      line(drawX - FOUR_PIXELS, drawY + FIVE_PIXELS, drawX + FOUR_PIXELS, drawY + FIVE_PIXELS);
+      line(drawX - TWO_PIXELS, drawY + SIX_PIXELS, drawX + TWO_PIXELS, drawY + SIX_PIXELS);
+      break;
+    case UP:
+      line(drawX - FOUR_PIXELS, drawY - SIX_PIXELS, drawX - THREE_PIXELS, drawY - SIX_PIXELS);
+      line(drawX + THREE_PIXELS, drawY - SIX_PIXELS, drawX + FOUR_PIXELS, drawY - SIX_PIXELS);
+
+      line(drawX - FIVE_PIXELS, drawY - FIVE_PIXELS, drawX - THREE_PIXELS, drawY - FIVE_PIXELS);
+      line(drawX + THREE_PIXELS, drawY - FIVE_PIXELS, drawX + FIVE_PIXELS, drawY - FIVE_PIXELS);
+
+      line(drawX - FIVE_PIXELS, drawY - FOUR_PIXELS, drawX - TWO_PIXELS, drawY - FOUR_PIXELS);
+      line(drawX + TWO_PIXELS, drawY - FOUR_PIXELS, drawX + FIVE_PIXELS, drawY - FOUR_PIXELS);
+
+      line(drawX - SIX_PIXELS, drawY - THREE_PIXELS, drawX - TWO_PIXELS, drawY - THREE_PIXELS);
+      line(drawX + TWO_PIXELS, drawY - THREE_PIXELS, drawX + SIX_PIXELS, drawY - THREE_PIXELS);
+
+      line(drawX - SIX_PIXELS, drawY - TWO_PIXELS, drawX - TWO_PIXELS, drawY - TWO_PIXELS);
+      line(drawX + TWO_PIXELS, drawY - TWO_PIXELS, drawX + SIX_PIXELS, drawY - TWO_PIXELS);
+
+      line(drawX - SIX_PIXELS, drawY - ONE_PIXEL, drawX - ONE_PIXEL, drawY - ONE_PIXEL);
+      line(drawX + ONE_PIXEL, drawY - ONE_PIXEL, drawX + SIX_PIXELS, drawY - ONE_PIXEL);
+
+      line(drawX - SIX_PIXELS, drawY, drawX - ONE_PIXEL, drawY);
+      line(drawX + ONE_PIXEL, drawY, drawX + SIX_PIXELS, drawY);
+
+      line(drawX - SIX_PIXELS, drawY + ONE_PIXEL, drawX - ONE_PIXEL, drawY + ONE_PIXEL);
+      line(drawX + ONE_PIXEL, drawY + ONE_PIXEL, drawX + SIX_PIXELS, drawY + ONE_PIXEL);
+
+      line(drawX - FIVE_PIXELS, drawY + TWO_PIXELS, drawX + FIVE_PIXELS, drawY + TWO_PIXELS);
+      line(drawX - FIVE_PIXELS, drawY + THREE_PIXELS, drawX + FIVE_PIXELS, drawY + THREE_PIXELS);
+      line(drawX - FOUR_PIXELS, drawY + FOUR_PIXELS, drawX + FOUR_PIXELS, drawY + FOUR_PIXELS);
+      line(drawX - TWO_PIXELS, drawY + FIVE_PIXELS, drawX + TWO_PIXELS, drawY + FIVE_PIXELS);
+      break;
+    case DOWN:
+      line(drawX - TWO_PIXELS, drawY - SIX_PIXELS, drawX + TWO_PIXELS, drawY - SIX_PIXELS);
+      line(drawX - FOUR_PIXELS, drawY - FIVE_PIXELS, drawX + FOUR_PIXELS, drawY - FIVE_PIXELS);
+      line(drawX - FIVE_PIXELS, drawY - FOUR_PIXELS, drawX + FIVE_PIXELS, drawY - FOUR_PIXELS);
+      line(drawX - FIVE_PIXELS, drawY - THREE_PIXELS, drawX + FIVE_PIXELS, drawY - THREE_PIXELS);
+
+      line(drawX - SIX_PIXELS, drawY - TWO_PIXELS, drawX - ONE_PIXEL, drawY - TWO_PIXELS);
+      line(drawX + ONE_PIXEL, drawY - TWO_PIXELS, drawX + SIX_PIXELS, drawY - TWO_PIXELS);
+
+      line(drawX - SIX_PIXELS, drawY - ONE_PIXEL, drawX - ONE_PIXEL, drawY - ONE_PIXEL);
+      line(drawX + ONE_PIXEL, drawY - ONE_PIXEL, drawX + SIX_PIXELS, drawY - ONE_PIXEL);
+
+      line(drawX - SIX_PIXELS, drawY, drawX - ONE_PIXEL, drawY);
+      line(drawX + ONE_PIXEL, drawY, drawX + SIX_PIXELS, drawY);
+
+      line(drawX - SIX_PIXELS, drawY + ONE_PIXEL, drawX - TWO_PIXELS, drawY + ONE_PIXEL);
+      line(drawX + TWO_PIXELS, drawY + ONE_PIXEL, drawX + SIX_PIXELS, drawY + ONE_PIXEL);
+
+      line(drawX - SIX_PIXELS, drawY + TWO_PIXELS, drawX - TWO_PIXELS, drawY + TWO_PIXELS);
+      line(drawX + TWO_PIXELS, drawY + TWO_PIXELS, drawX + SIX_PIXELS, drawY + TWO_PIXELS);
+
+      line(drawX - FIVE_PIXELS, drawY + THREE_PIXELS, drawX - TWO_PIXELS, drawY + THREE_PIXELS);
+      line(drawX + TWO_PIXELS, drawY + THREE_PIXELS, drawX + FIVE_PIXELS, drawY + THREE_PIXELS);
+
+      line(drawX - FIVE_PIXELS, drawY + FOUR_PIXELS, drawX - THREE_PIXELS, drawY + FOUR_PIXELS);
+      line(drawX + THREE_PIXELS, drawY + FOUR_PIXELS, drawX + FIVE_PIXELS, drawY + FOUR_PIXELS);
+
+      line(drawX - FOUR_PIXELS, drawY + FIVE_PIXELS, drawX - THREE_PIXELS, drawY + FIVE_PIXELS);
+      line(drawX + THREE_PIXELS, drawY + FIVE_PIXELS, drawX + FOUR_PIXELS, drawY + FIVE_PIXELS);
+      break;
+  }
+
+  // back to default
+  strokeWeight(1);
+  stroke(0);
+}
+
+void drawPacmanOpen(int drawX, int drawY, color c, int selectedMovement) {
+  stroke(c);
+  strokeWeight(PIXEL_SIZE);
+  switch(selectedMovement) {
+    case LEFT:
+      line(drawX - TWO_PIXELS, drawY - SIX_PIXELS, drawX + TWO_PIXELS, drawY - SIX_PIXELS);
+      line(drawX - TWO_PIXELS, drawY - FIVE_PIXELS, drawX + FOUR_PIXELS, drawY - FIVE_PIXELS);
+      line(drawX - ONE_PIXEL, drawY - FOUR_PIXELS, drawX + FIVE_PIXELS, drawY - FOUR_PIXELS);
+      line(drawX, drawY - THREE_PIXELS, drawX + FIVE_PIXELS, drawY - THREE_PIXELS);
+      line(drawX + ONE_PIXEL, drawY - TWO_PIXELS, drawX + SIX_PIXELS, drawY - TWO_PIXELS);
+      line(drawX + TWO_PIXELS, drawY - ONE_PIXEL, drawX + SIX_PIXELS, drawY - ONE_PIXEL);
+      line(drawX + THREE_PIXELS, drawY, drawX + SIX_PIXELS, drawY);
+      line(drawX + TWO_PIXELS, drawY + ONE_PIXEL, drawX + SIX_PIXELS, drawY + ONE_PIXEL);
+      line(drawX + ONE_PIXEL, drawY + TWO_PIXELS, drawX + SIX_PIXELS, drawY + TWO_PIXELS);
+      line(drawX, drawY + THREE_PIXELS, drawX + FIVE_PIXELS, drawY + THREE_PIXELS);
+      line(drawX - ONE_PIXEL, drawY + FOUR_PIXELS, drawX + FIVE_PIXELS, drawY + FOUR_PIXELS);
+      line(drawX - TWO_PIXELS, drawY + FIVE_PIXELS, drawX + FOUR_PIXELS, drawY + FIVE_PIXELS);
+      line(drawX - TWO_PIXELS, drawY + SIX_PIXELS, drawX + TWO_PIXELS, drawY + SIX_PIXELS);
+      break;
+    case RIGHT:
+      line(drawX - TWO_PIXELS, drawY - SIX_PIXELS, drawX + TWO_PIXELS, drawY - SIX_PIXELS);
+      line(drawX - FOUR_PIXELS, drawY - FIVE_PIXELS, drawX + TWO_PIXELS, drawY - FIVE_PIXELS);
+      line(drawX - FIVE_PIXELS, drawY - FOUR_PIXELS, drawX + ONE_PIXEL, drawY - FOUR_PIXELS);
+      line(drawX - FIVE_PIXELS, drawY - THREE_PIXELS, drawX, drawY - THREE_PIXELS);
+      line(drawX - SIX_PIXELS, drawY - TWO_PIXELS, drawX - ONE_PIXEL, drawY - TWO_PIXELS);
+      line(drawX - SIX_PIXELS, drawY - ONE_PIXEL, drawX - TWO_PIXELS, drawY - ONE_PIXEL);
+      line(drawX - SIX_PIXELS, drawY, drawX - THREE_PIXELS, drawY);
+      line(drawX - SIX_PIXELS, drawY + ONE_PIXEL, drawX - TWO_PIXELS, drawY + ONE_PIXEL);
+      line(drawX - SIX_PIXELS, drawY + TWO_PIXELS, drawX - ONE_PIXEL, drawY + TWO_PIXELS);
+      line(drawX - FIVE_PIXELS, drawY + THREE_PIXELS, drawX, drawY + THREE_PIXELS);
+      line(drawX - FIVE_PIXELS, drawY + FOUR_PIXELS, drawX + ONE_PIXEL, drawY + FOUR_PIXELS);
+      line(drawX - FOUR_PIXELS, drawY + FIVE_PIXELS, drawX + TWO_PIXELS, drawY + FIVE_PIXELS);
+      line(drawX - TWO_PIXELS, drawY + SIX_PIXELS, drawX + TWO_PIXELS, drawY + SIX_PIXELS);
+      break;
+    case UP:
+      line(drawX - SIX_PIXELS, drawY - SIX_PIXELS, drawX - FIVE_PIXELS, drawY - SIX_PIXELS);
+      line(drawX + FIVE_PIXELS, drawY - SIX_PIXELS, drawX + SIX_PIXELS, drawY - SIX_PIXELS);
+
+      line(drawX - SIX_PIXELS, drawY - FIVE_PIXELS, drawX - FOUR_PIXELS, drawY - FIVE_PIXELS);
+      line(drawX + FOUR_PIXELS, drawY - FIVE_PIXELS, drawX + SIX_PIXELS, drawY - FIVE_PIXELS);
+
+      line(drawX - SIX_PIXELS, drawY - FOUR_PIXELS, drawX - THREE_PIXELS, drawY - FOUR_PIXELS);
+      line(drawX + THREE_PIXELS, drawY - FOUR_PIXELS, drawX + SIX_PIXELS, drawY - FOUR_PIXELS);
+
+      line(drawX - SIX_PIXELS, drawY - THREE_PIXELS, drawX - TWO_PIXELS, drawY - THREE_PIXELS);
+      line(drawX + TWO_PIXELS, drawY - THREE_PIXELS, drawX + SIX_PIXELS, drawY - THREE_PIXELS);
+
+      line(drawX - SIX_PIXELS, drawY - TWO_PIXELS, drawX - ONE_PIXEL, drawY - TWO_PIXELS);
+      line(drawX + ONE_PIXEL, drawY - TWO_PIXELS, drawX + SIX_PIXELS, drawY - TWO_PIXELS);
+
+      line(drawX - FIVE_PIXELS, drawY - ONE_PIXEL, drawX + FIVE_PIXELS, drawY - ONE_PIXEL);
+      line(drawX - FIVE_PIXELS, drawY, drawX + FIVE_PIXELS, drawY);
+      line(drawX - FOUR_PIXELS, drawY + ONE_PIXEL, drawX + FOUR_PIXELS, drawY + ONE_PIXEL);
+      line(drawX - TWO_PIXELS, drawY + TWO_PIXELS, drawX + TWO_PIXELS, drawY + TWO_PIXELS);
+      break;
+    case DOWN:
+      line(drawX - TWO_PIXELS, drawY - SIX_PIXELS, drawX + TWO_PIXELS, drawY - SIX_PIXELS);
+      line(drawX - FOUR_PIXELS, drawY - FIVE_PIXELS, drawX + FOUR_PIXELS, drawY - FIVE_PIXELS);
+      line(drawX - FIVE_PIXELS, drawY - FOUR_PIXELS, drawX + FIVE_PIXELS, drawY - FOUR_PIXELS);
+      line(drawX - FIVE_PIXELS, drawY - THREE_PIXELS, drawX + FIVE_PIXELS, drawY - THREE_PIXELS);
+
+      line(drawX - SIX_PIXELS, drawY - TWO_PIXELS, drawX - ONE_PIXEL, drawY - TWO_PIXELS);
+      line(drawX + ONE_PIXEL, drawY - TWO_PIXELS, drawX + SIX_PIXELS, drawY - TWO_PIXELS);
+
+      line(drawX - SIX_PIXELS, drawY - ONE_PIXEL, drawX - TWO_PIXELS, drawY - ONE_PIXEL);
+      line(drawX + TWO_PIXELS, drawY - ONE_PIXEL, drawX + SIX_PIXELS, drawY - ONE_PIXEL);
+
+      line(drawX - SIX_PIXELS, drawY, drawX - THREE_PIXELS, drawY);
+      line(drawX + THREE_PIXELS, drawY, drawX + SIX_PIXELS, drawY);
+
+      line(drawX - SIX_PIXELS, drawY + ONE_PIXEL, drawX - FOUR_PIXELS, drawY + ONE_PIXEL);
+      line(drawX + FOUR_PIXELS, drawY + ONE_PIXEL, drawX + SIX_PIXELS, drawY + ONE_PIXEL);
+
+      line(drawX - SIX_PIXELS, drawY + TWO_PIXELS, drawX - FIVE_PIXELS, drawY + TWO_PIXELS);
+      line(drawX + FIVE_PIXELS, drawY + TWO_PIXELS, drawX + SIX_PIXELS, drawY + TWO_PIXELS);
+      break;
+  }
+
+  // back to default
+  strokeWeight(1);
+  stroke(0);
+}
+
 
 void drawGhost(int drawX, int drawY, color c) {
   stroke(c);
@@ -95,116 +299,116 @@ void drawFrightenedGhost(int drawX, int drawY) {
 
 void drawEyes(int drawX, int drawY, int selectedMovement) {
   strokeWeight(PIXEL_SIZE);
-    switch(selectedMovement) {
-      case UP:
-        // Left eye
-        stroke(255);
-        line(drawX - THREE_PIXELS, drawY - SIX_PIXELS, drawX - TWO_PIXELS, drawY - SIX_PIXELS);
-        line(drawX - FOUR_PIXELS, drawY - FIVE_PIXELS, drawX - ONE_PIXEL, drawY - FIVE_PIXELS);
-        line(drawX - FOUR_PIXELS, drawY - FOUR_PIXELS, drawX - ONE_PIXEL, drawY - FOUR_PIXELS);
-        line(drawX - FOUR_PIXELS, drawY - THREE_PIXELS, drawX - ONE_PIXEL, drawY - THREE_PIXELS);
-        line(drawX - THREE_PIXELS, drawY - TWO_PIXELS, drawX - TWO_PIXELS, drawY - TWO_PIXELS);
+  switch(selectedMovement) {
+    case LEFT:
+      // Left eye
+      stroke(255);
+      line(drawX - FOUR_PIXELS, drawY - FOUR_PIXELS, drawX - THREE_PIXELS, drawY - FOUR_PIXELS);
+      line(drawX - FIVE_PIXELS, drawY - THREE_PIXELS, drawX - TWO_PIXELS, drawY - THREE_PIXELS);
+      line(drawX - FIVE_PIXELS, drawY - TWO_PIXELS, drawX - TWO_PIXELS, drawY - TWO_PIXELS);
+      line(drawX - FIVE_PIXELS, drawY - ONE_PIXEL, drawX - TWO_PIXELS, drawY - ONE_PIXEL);
+      line(drawX - FOUR_PIXELS, drawY, drawX - THREE_PIXELS, drawY);
 
-        // Left pupil
-        stroke(eyesColor);
-        line(drawX - THREE_PIXELS, drawY - SIX_PIXELS, drawX - TWO_PIXELS, drawY - SIX_PIXELS);
-        line(drawX - THREE_PIXELS, drawY - FIVE_PIXELS, drawX - TWO_PIXELS, drawY - FIVE_PIXELS);
+      // Left pupil
+      stroke(eyesColor);
+      line(drawX - FIVE_PIXELS, drawY - TWO_PIXELS, drawX - FOUR_PIXELS, drawY - TWO_PIXELS);
+      line(drawX - FIVE_PIXELS, drawY - ONE_PIXEL, drawX - FOUR_PIXELS, drawY - ONE_PIXEL);
 
-        // Right eye
-        stroke(255);
-        line(drawX + THREE_PIXELS, drawY - SIX_PIXELS, drawX + FOUR_PIXELS, drawY - SIX_PIXELS);
-        line(drawX + TWO_PIXELS, drawY - FIVE_PIXELS, drawX + FIVE_PIXELS, drawY - FIVE_PIXELS);
-        line(drawX + TWO_PIXELS, drawY - FOUR_PIXELS, drawX + FIVE_PIXELS, drawY - FOUR_PIXELS);
-        line(drawX + TWO_PIXELS, drawY - THREE_PIXELS, drawX + FIVE_PIXELS, drawY - THREE_PIXELS);
-        line(drawX + THREE_PIXELS, drawY - TWO_PIXELS, drawX + FOUR_PIXELS, drawY - TWO_PIXELS);
+      // Right eye
+      stroke(255);
+      line(drawX + TWO_PIXELS, drawY - FOUR_PIXELS, drawX + THREE_PIXELS, drawY - FOUR_PIXELS);
+      line(drawX + ONE_PIXEL, drawY - THREE_PIXELS, drawX + FOUR_PIXELS, drawY - THREE_PIXELS);
+      line(drawX + ONE_PIXEL, drawY - TWO_PIXELS, drawX + FOUR_PIXELS, drawY - TWO_PIXELS);
+      line(drawX + ONE_PIXEL, drawY - ONE_PIXEL, drawX + FOUR_PIXELS, drawY - ONE_PIXEL);
+      line(drawX + TWO_PIXELS, drawY, drawX + THREE_PIXELS, drawY);
 
-        // Right pupil
-        stroke(eyesColor);
-        line(drawX + THREE_PIXELS, drawY - SIX_PIXELS, drawX + FOUR_PIXELS, drawY - SIX_PIXELS);
-        line(drawX + THREE_PIXELS, drawY - FIVE_PIXELS, drawX + FOUR_PIXELS, drawY - FIVE_PIXELS);
-        break;
-      case DOWN:
-        // Left eye
-        stroke(255);
-        line(drawX - THREE_PIXELS, drawY - FOUR_PIXELS, drawX - TWO_PIXELS, drawY - FOUR_PIXELS);
-        line(drawX - FOUR_PIXELS, drawY - THREE_PIXELS, drawX - ONE_PIXEL, drawY - THREE_PIXELS);
-        line(drawX - FOUR_PIXELS, drawY - TWO_PIXELS, drawX - ONE_PIXEL, drawY - TWO_PIXELS);
-        line(drawX - FOUR_PIXELS, drawY - ONE_PIXEL, drawX - ONE_PIXEL, drawY - ONE_PIXEL);
-        line(drawX - THREE_PIXELS, drawY, drawX - TWO_PIXELS, drawY);
+      // Right pupil
+      stroke(eyesColor);
+      line(drawX + ONE_PIXEL, drawY - TWO_PIXELS, drawX + TWO_PIXELS, drawY - TWO_PIXELS);
+      line(drawX + ONE_PIXEL, drawY - ONE_PIXEL, drawX + TWO_PIXELS, drawY - ONE_PIXEL);
+      break;
+    case RIGHT:
+      // Left eye
+      stroke(255);
+      line(drawX - TWO_PIXELS, drawY - FOUR_PIXELS, drawX - ONE_PIXEL, drawY - FOUR_PIXELS);
+      line(drawX - THREE_PIXELS, drawY - THREE_PIXELS, drawX, drawY - THREE_PIXELS);
+      line(drawX - THREE_PIXELS, drawY - TWO_PIXELS, drawX, drawY - TWO_PIXELS);
+      line(drawX - THREE_PIXELS, drawY - ONE_PIXEL, drawX, drawY - ONE_PIXEL);
+      line(drawX - TWO_PIXELS, drawY, drawX - ONE_PIXEL, drawY);
 
-        // Left pupil
-        stroke(eyesColor);
-        line(drawX - THREE_PIXELS, drawY - ONE_PIXEL, drawX - TWO_PIXELS, drawY - ONE_PIXEL);
-        line(drawX - THREE_PIXELS, drawY, drawX - TWO_PIXELS, drawY);
+      // Left pupil
+      stroke(eyesColor);
+      line(drawX - ONE_PIXEL, drawY - TWO_PIXELS, drawX, drawY - TWO_PIXELS);
+      line(drawX - ONE_PIXEL, drawY - ONE_PIXEL, drawX, drawY - ONE_PIXEL);
 
-        // Right eye
-        stroke(255);
-        line(drawX + THREE_PIXELS, drawY - FOUR_PIXELS, drawX + FOUR_PIXELS, drawY - FOUR_PIXELS);
-        line(drawX + TWO_PIXELS, drawY - THREE_PIXELS, drawX + FIVE_PIXELS, drawY - THREE_PIXELS);
-        line(drawX + TWO_PIXELS, drawY - TWO_PIXELS, drawX + FIVE_PIXELS, drawY - TWO_PIXELS);
-        line(drawX + TWO_PIXELS, drawY - ONE_PIXEL, drawX + FIVE_PIXELS, drawY - ONE_PIXEL);
-        line(drawX + THREE_PIXELS, drawY, drawX + FOUR_PIXELS, drawY);
+      // Right eye
+      stroke(255);
+      line(drawX + FOUR_PIXELS, drawY - FOUR_PIXELS, drawX + FIVE_PIXELS, drawY - FOUR_PIXELS);
+      line(drawX + THREE_PIXELS, drawY - THREE_PIXELS, drawX + SIX_PIXELS, drawY - THREE_PIXELS);
+      line(drawX + THREE_PIXELS, drawY - TWO_PIXELS, drawX + SIX_PIXELS, drawY - TWO_PIXELS);
+      line(drawX + THREE_PIXELS, drawY - ONE_PIXEL, drawX + SIX_PIXELS, drawY - ONE_PIXEL);
+      line(drawX + FOUR_PIXELS, drawY, drawX + FIVE_PIXELS, drawY);
 
-        // Right pupil
-        stroke(eyesColor);
-        line(drawX + THREE_PIXELS, drawY - ONE_PIXEL, drawX + FOUR_PIXELS, drawY - ONE_PIXEL);
-        line(drawX + THREE_PIXELS, drawY, drawX + FOUR_PIXELS, drawY);
-        break;
-      case LEFT:
-        // Left eye
-        stroke(255);
-        line(drawX - FOUR_PIXELS, drawY - FOUR_PIXELS, drawX - THREE_PIXELS, drawY - FOUR_PIXELS);
-        line(drawX - FIVE_PIXELS, drawY - THREE_PIXELS, drawX - TWO_PIXELS, drawY - THREE_PIXELS);
-        line(drawX - FIVE_PIXELS, drawY - TWO_PIXELS, drawX - TWO_PIXELS, drawY - TWO_PIXELS);
-        line(drawX - FIVE_PIXELS, drawY - ONE_PIXEL, drawX - TWO_PIXELS, drawY - ONE_PIXEL);
-        line(drawX - FOUR_PIXELS, drawY, drawX - THREE_PIXELS, drawY);
+      // Right pupil
+      stroke(eyesColor);
+      line(drawX + FIVE_PIXELS, drawY - TWO_PIXELS, drawX + SIX_PIXELS, drawY - TWO_PIXELS);
+      line(drawX + FIVE_PIXELS, drawY - ONE_PIXEL, drawX + SIX_PIXELS, drawY - ONE_PIXEL);
+      break;
+    case UP:
+      // Left eye
+      stroke(255);
+      line(drawX - THREE_PIXELS, drawY - SIX_PIXELS, drawX - TWO_PIXELS, drawY - SIX_PIXELS);
+      line(drawX - FOUR_PIXELS, drawY - FIVE_PIXELS, drawX - ONE_PIXEL, drawY - FIVE_PIXELS);
+      line(drawX - FOUR_PIXELS, drawY - FOUR_PIXELS, drawX - ONE_PIXEL, drawY - FOUR_PIXELS);
+      line(drawX - FOUR_PIXELS, drawY - THREE_PIXELS, drawX - ONE_PIXEL, drawY - THREE_PIXELS);
+      line(drawX - THREE_PIXELS, drawY - TWO_PIXELS, drawX - TWO_PIXELS, drawY - TWO_PIXELS);
 
-        // Left pupil
-        stroke(eyesColor);
-        line(drawX - FIVE_PIXELS, drawY - TWO_PIXELS, drawX - FOUR_PIXELS, drawY - TWO_PIXELS);
-        line(drawX - FIVE_PIXELS, drawY - ONE_PIXEL, drawX - FOUR_PIXELS, drawY - ONE_PIXEL);
+      // Left pupil
+      stroke(eyesColor);
+      line(drawX - THREE_PIXELS, drawY - SIX_PIXELS, drawX - TWO_PIXELS, drawY - SIX_PIXELS);
+      line(drawX - THREE_PIXELS, drawY - FIVE_PIXELS, drawX - TWO_PIXELS, drawY - FIVE_PIXELS);
 
-        // Right eye
-        stroke(255);
-        line(drawX + TWO_PIXELS, drawY - FOUR_PIXELS, drawX + THREE_PIXELS, drawY - FOUR_PIXELS);
-        line(drawX + ONE_PIXEL, drawY - THREE_PIXELS, drawX + FOUR_PIXELS, drawY - THREE_PIXELS);
-        line(drawX + ONE_PIXEL, drawY - TWO_PIXELS, drawX + FOUR_PIXELS, drawY - TWO_PIXELS);
-        line(drawX + ONE_PIXEL, drawY - ONE_PIXEL, drawX + FOUR_PIXELS, drawY - ONE_PIXEL);
-        line(drawX + TWO_PIXELS, drawY, drawX + THREE_PIXELS, drawY);
+      // Right eye
+      stroke(255);
+      line(drawX + THREE_PIXELS, drawY - SIX_PIXELS, drawX + FOUR_PIXELS, drawY - SIX_PIXELS);
+      line(drawX + TWO_PIXELS, drawY - FIVE_PIXELS, drawX + FIVE_PIXELS, drawY - FIVE_PIXELS);
+      line(drawX + TWO_PIXELS, drawY - FOUR_PIXELS, drawX + FIVE_PIXELS, drawY - FOUR_PIXELS);
+      line(drawX + TWO_PIXELS, drawY - THREE_PIXELS, drawX + FIVE_PIXELS, drawY - THREE_PIXELS);
+      line(drawX + THREE_PIXELS, drawY - TWO_PIXELS, drawX + FOUR_PIXELS, drawY - TWO_PIXELS);
 
-        // Right pupil
-        stroke(eyesColor);
-        line(drawX + ONE_PIXEL, drawY - TWO_PIXELS, drawX + TWO_PIXELS, drawY - TWO_PIXELS);
-        line(drawX + ONE_PIXEL, drawY - ONE_PIXEL, drawX + TWO_PIXELS, drawY - ONE_PIXEL);
-        break;
-      case RIGHT:
-        // Left eye
-        stroke(255);
-        line(drawX - TWO_PIXELS, drawY - FOUR_PIXELS, drawX - ONE_PIXEL, drawY - FOUR_PIXELS);
-        line(drawX - THREE_PIXELS, drawY - THREE_PIXELS, drawX, drawY - THREE_PIXELS);
-        line(drawX - THREE_PIXELS, drawY - TWO_PIXELS, drawX, drawY - TWO_PIXELS);
-        line(drawX - THREE_PIXELS, drawY - ONE_PIXEL, drawX, drawY - ONE_PIXEL);
-        line(drawX - TWO_PIXELS, drawY, drawX - ONE_PIXEL, drawY);
+      // Right pupil
+      stroke(eyesColor);
+      line(drawX + THREE_PIXELS, drawY - SIX_PIXELS, drawX + FOUR_PIXELS, drawY - SIX_PIXELS);
+      line(drawX + THREE_PIXELS, drawY - FIVE_PIXELS, drawX + FOUR_PIXELS, drawY - FIVE_PIXELS);
+      break;
+    case DOWN:
+      // Left eye
+      stroke(255);
+      line(drawX - THREE_PIXELS, drawY - FOUR_PIXELS, drawX - TWO_PIXELS, drawY - FOUR_PIXELS);
+      line(drawX - FOUR_PIXELS, drawY - THREE_PIXELS, drawX - ONE_PIXEL, drawY - THREE_PIXELS);
+      line(drawX - FOUR_PIXELS, drawY - TWO_PIXELS, drawX - ONE_PIXEL, drawY - TWO_PIXELS);
+      line(drawX - FOUR_PIXELS, drawY - ONE_PIXEL, drawX - ONE_PIXEL, drawY - ONE_PIXEL);
+      line(drawX - THREE_PIXELS, drawY, drawX - TWO_PIXELS, drawY);
 
-        // Left pupil
-        stroke(eyesColor);
-        line(drawX - ONE_PIXEL, drawY - TWO_PIXELS, drawX, drawY - TWO_PIXELS);
-        line(drawX - ONE_PIXEL, drawY - ONE_PIXEL, drawX, drawY - ONE_PIXEL);
+      // Left pupil
+      stroke(eyesColor);
+      line(drawX - THREE_PIXELS, drawY - ONE_PIXEL, drawX - TWO_PIXELS, drawY - ONE_PIXEL);
+      line(drawX - THREE_PIXELS, drawY, drawX - TWO_PIXELS, drawY);
 
-        // Right eye
-        stroke(255);
-        line(drawX + FOUR_PIXELS, drawY - FOUR_PIXELS, drawX + FIVE_PIXELS, drawY - FOUR_PIXELS);
-        line(drawX + THREE_PIXELS, drawY - THREE_PIXELS, drawX + SIX_PIXELS, drawY - THREE_PIXELS);
-        line(drawX + THREE_PIXELS, drawY - TWO_PIXELS, drawX + SIX_PIXELS, drawY - TWO_PIXELS);
-        line(drawX + THREE_PIXELS, drawY - ONE_PIXEL, drawX + SIX_PIXELS, drawY - ONE_PIXEL);
-        line(drawX + FOUR_PIXELS, drawY, drawX + FIVE_PIXELS, drawY);
+      // Right eye
+      stroke(255);
+      line(drawX + THREE_PIXELS, drawY - FOUR_PIXELS, drawX + FOUR_PIXELS, drawY - FOUR_PIXELS);
+      line(drawX + TWO_PIXELS, drawY - THREE_PIXELS, drawX + FIVE_PIXELS, drawY - THREE_PIXELS);
+      line(drawX + TWO_PIXELS, drawY - TWO_PIXELS, drawX + FIVE_PIXELS, drawY - TWO_PIXELS);
+      line(drawX + TWO_PIXELS, drawY - ONE_PIXEL, drawX + FIVE_PIXELS, drawY - ONE_PIXEL);
+      line(drawX + THREE_PIXELS, drawY, drawX + FOUR_PIXELS, drawY);
 
-        // Right pupil
-        stroke(eyesColor);
-        line(drawX + FIVE_PIXELS, drawY - TWO_PIXELS, drawX + SIX_PIXELS, drawY - TWO_PIXELS);
-        line(drawX + FIVE_PIXELS, drawY - ONE_PIXEL, drawX + SIX_PIXELS, drawY - ONE_PIXEL);
-        break;
-    }
+      // Right pupil
+      stroke(eyesColor);
+      line(drawX + THREE_PIXELS, drawY - ONE_PIXEL, drawX + FOUR_PIXELS, drawY - ONE_PIXEL);
+      line(drawX + THREE_PIXELS, drawY, drawX + FOUR_PIXELS, drawY);
+      break;
+  }
 
   // back to default
   strokeWeight(1);

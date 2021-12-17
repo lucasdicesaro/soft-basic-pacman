@@ -4,13 +4,13 @@ class Pacman extends Creature {
   Pacman (int drawX, int drawY) {
     super(drawX, drawY, PACMAN_TYPE, "Pacman", color(255, 204, 0));
   }
-  
+
   void drawYourSelf() {
-    drawPacman(drawX, drawY, c);
+    drawPacman(drawX, drawY, c, selectedMovement);
     //drawCreatureCenter(drawX, drawY, color(0, 204, 255));
     //drawBlackCell(drawX, drawY);
   }
-  
+
   void processMovement() {
     switch(selectedMovement) {
       case LEFT:
