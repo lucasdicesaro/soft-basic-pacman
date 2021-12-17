@@ -16,7 +16,6 @@ class Ghost extends Creature {
   boolean eaten;
   int currentMode;
   int previousMode;
-  color frightenedColor = color(33, 33, 222);
 
   Ghost (int drawX, int drawY, int type, String name, color c) {  
     super(drawX, drawY, type, name, c);
@@ -32,10 +31,14 @@ class Ghost extends Creature {
   }
   
   void drawYourSelf() {
-    if (!eaten) {
-      drawGhost(drawX, drawY, !isFrightened() ? c : frightenedColor);
+    if (eaten) {
+      drawEyes(drawX, drawY, selectedMovement);
+    } else if (!isFrightened()) {
+      drawGhost(drawX, drawY, c);
+      drawEyes(drawX, drawY, selectedMovement);
+    } else {
+      drawFrightenedGhost(drawX, drawY);
     }
-    drawEyes(drawX, drawY, selectedMovement);
     //drawBlackCell(drawX, drawY);
   }
   
