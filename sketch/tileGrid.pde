@@ -1,5 +1,6 @@
 
 final int TEST_CELL = 255;
+final int INVISIBLE_WALL = 253;
 final int DOUBLE_WALL_VERTICAL_LEFT = 186;
 final int DOUBLE_WALL_VERTICAL_RIGHT = 189;
 final int DOUBLE_WALL_HORIZONTAL_TOP = 205;
@@ -151,6 +152,9 @@ class TileGrid {
       case DOUBLE_MIDDLE_CORNER_VERTICAL_RIGHT_TOP_RIGHT:
         drawBlueWallInCellGrid(x, y, getTileValue(x, y));
         break;
+      case INVISIBLE_WALL:
+        drawInvisibleWallInCellGrid(x, y);
+        break;
       case CORRIDOR:
         drawCorridorInCellGrid(x, y);
         break;
@@ -261,7 +265,8 @@ class TileGrid {
            || getTileValue(x, y) == SIMPLE_CONVEX_CORNER_TOP_LEFT
            || getTileValue(x, y) == SIMPLE_CONVEX_CORNER_TOP_RIGHT
            || getTileValue(x, y) == SIMPLE_CONVEX_CORNER_BOTTOM_LEFT
-           || getTileValue(x, y) == SIMPLE_CONVEX_CORNER_BOTTOM_RIGHT;
+           || getTileValue(x, y) == SIMPLE_CONVEX_CORNER_BOTTOM_RIGHT
+           || getTileValue(x, y) == INVISIBLE_WALL;
   }
 
   boolean isPellet(int x, int y) {

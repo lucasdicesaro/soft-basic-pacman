@@ -1,11 +1,119 @@
 
-color wallColor = color(33, 33, 222);//Blue
+color wallColor = color(25, 25, 166);//Blue
+color eyesColor = color(33, 33, 222);//Blue
 
 void drawCreature(int drawX, int drawY, color c) {
   noStroke();
   fill(c);
   /* drawX, drawY are the center of the circle */
   circle(drawX, drawY, CREATURE_SIZE);
+  stroke(0);
+}
+
+void drawGhost(int drawX, int drawY, color c) {
+  stroke(c);
+  strokeWeight(PIXEL_SIZE);
+  line(drawX - ONE_PIXEL, drawY - SEVEN_PIXELS, drawX + TWO_PIXELS, drawY - SEVEN_PIXELS);
+  line(drawX - THREE_PIXELS, drawY - SIX_PIXELS, drawX + FOUR_PIXELS, drawY - SIX_PIXELS);
+  line(drawX - FOUR_PIXELS, drawY - FIVE_PIXELS, drawX + FIVE_PIXELS, drawY - FIVE_PIXELS);
+  line(drawX - FIVE_PIXELS, drawY - FOUR_PIXELS, drawX + SIX_PIXELS, drawY - FOUR_PIXELS);
+  line(drawX - FIVE_PIXELS, drawY - THREE_PIXELS, drawX + SIX_PIXELS, drawY - THREE_PIXELS);
+  line(drawX - FIVE_PIXELS, drawY - TWO_PIXELS, drawX + SIX_PIXELS, drawY - TWO_PIXELS);
+  line(drawX - SIX_PIXELS, drawY - ONE_PIXEL, drawX + SEVEN_PIXELS, drawY - ONE_PIXEL);
+  line(drawX - SIX_PIXELS, drawY, drawX + SEVEN_PIXELS, drawY);
+  line(drawX - SIX_PIXELS, drawY + ONE_PIXEL, drawX + SEVEN_PIXELS, drawY + ONE_PIXEL);
+  line(drawX - SIX_PIXELS, drawY + TWO_PIXELS, drawX + SEVEN_PIXELS, drawY + TWO_PIXELS);
+  line(drawX - SIX_PIXELS, drawY + THREE_PIXELS, drawX + SEVEN_PIXELS, drawY + THREE_PIXELS);
+  line(drawX - SIX_PIXELS, drawY + FOUR_PIXELS, drawX + SEVEN_PIXELS, drawY + FOUR_PIXELS);
+  // ghost fringes
+  strokeWeight(PIXEL_SIZE);
+  strokeCap(PROJECT); // Point appears square. This is for point() function.
+
+  point(drawX - SIX_PIXELS, drawY + FIVE_PIXELS);
+  point(drawX - FIVE_PIXELS, drawY + FIVE_PIXELS);
+  point(drawX - THREE_PIXELS, drawY + FIVE_PIXELS);
+  point(drawX - TWO_PIXELS, drawY + FIVE_PIXELS);
+  point(drawX - ONE_PIXEL, drawY + FIVE_PIXELS);
+  point(drawX + TWO_PIXELS, drawY + FIVE_PIXELS);
+  point(drawX + THREE_PIXELS, drawY + FIVE_PIXELS);
+  point(drawX + FOUR_PIXELS, drawY + FIVE_PIXELS);
+  point(drawX + SIX_PIXELS, drawY + FIVE_PIXELS);
+  point(drawX + SEVEN_PIXELS, drawY + FIVE_PIXELS);
+
+  point(drawX - SIX_PIXELS, drawY + SIX_PIXELS);
+  point(drawX - TWO_PIXELS, drawY + SIX_PIXELS);
+  point(drawX - ONE_PIXEL, drawY + SIX_PIXELS);
+  point(drawX + TWO_PIXELS, drawY + SIX_PIXELS);
+  point(drawX + THREE_PIXELS, drawY + SIX_PIXELS);
+  point(drawX + SEVEN_PIXELS, drawY + SIX_PIXELS);
+
+  // back to default
+  strokeWeight(1);
+  stroke(0);
+}
+
+void drawEyes(int drawX, int drawY, int selectedMovement) {
+  strokeWeight(PIXEL_SIZE);
+    switch(selectedMovement) {
+      case UP:
+        break;
+      case DOWN:
+        break;
+      case LEFT:
+        // Left eye
+        stroke(255);
+        line(drawX - FOUR_PIXELS, drawY - FOUR_PIXELS, drawX - THREE_PIXELS, drawY - FOUR_PIXELS);
+        line(drawX - FIVE_PIXELS, drawY - THREE_PIXELS, drawX - TWO_PIXELS, drawY - THREE_PIXELS);
+        line(drawX - FIVE_PIXELS, drawY - TWO_PIXELS, drawX - TWO_PIXELS, drawY - TWO_PIXELS);
+        line(drawX - FIVE_PIXELS, drawY - ONE_PIXEL, drawX - TWO_PIXELS, drawY - ONE_PIXEL);
+        line(drawX - FOUR_PIXELS, drawY, drawX - THREE_PIXELS, drawY);
+
+        // Left pupil
+        stroke(eyesColor);
+        line(drawX - FIVE_PIXELS, drawY - TWO_PIXELS, drawX - FOUR_PIXELS, drawY - TWO_PIXELS);
+        line(drawX - FIVE_PIXELS, drawY - ONE_PIXEL, drawX - FOUR_PIXELS, drawY - ONE_PIXEL);
+
+        // Right eye
+        stroke(255);
+        line(drawX + TWO_PIXELS, drawY - FOUR_PIXELS, drawX + THREE_PIXELS, drawY - FOUR_PIXELS);
+        line(drawX + ONE_PIXEL, drawY - THREE_PIXELS, drawX + FOUR_PIXELS, drawY - THREE_PIXELS);
+        line(drawX + ONE_PIXEL, drawY - TWO_PIXELS, drawX + FOUR_PIXELS, drawY - TWO_PIXELS);
+        line(drawX + ONE_PIXEL, drawY - ONE_PIXEL, drawX + FOUR_PIXELS, drawY - ONE_PIXEL);
+        line(drawX + TWO_PIXELS, drawY, drawX + THREE_PIXELS, drawY);
+
+        // Right pupil
+        stroke(eyesColor);
+        line(drawX + ONE_PIXEL, drawY - TWO_PIXELS, drawX + TWO_PIXELS, drawY - TWO_PIXELS);
+        line(drawX + ONE_PIXEL, drawY - ONE_PIXEL, drawX + TWO_PIXELS, drawY - ONE_PIXEL);
+        break;
+      case RIGHT:
+        break;
+    }
+
+  // back to default
+  strokeWeight(1);
+  stroke(0);
+}
+
+void drawPacman(int drawX, int drawY, color c) {
+  stroke(c);
+  strokeWeight(PIXEL_SIZE);
+  line(drawX - TWO_PIXELS, drawY - SIX_PIXELS, drawX + TWO_PIXELS, drawY - SIX_PIXELS);
+  line(drawX - FOUR_PIXELS, drawY - FIVE_PIXELS, drawX + FOUR_PIXELS, drawY - FIVE_PIXELS);
+  line(drawX - FIVE_PIXELS, drawY - FOUR_PIXELS, drawX + FIVE_PIXELS, drawY - FOUR_PIXELS);
+  line(drawX - FIVE_PIXELS, drawY - THREE_PIXELS, drawX + FIVE_PIXELS, drawY - THREE_PIXELS);
+  line(drawX - SIX_PIXELS, drawY - TWO_PIXELS, drawX + SIX_PIXELS, drawY - TWO_PIXELS);
+  line(drawX - SIX_PIXELS, drawY - ONE_PIXEL, drawX + SIX_PIXELS, drawY - ONE_PIXEL);
+  line(drawX - SIX_PIXELS, drawY, drawX + SIX_PIXELS, drawY);
+  line(drawX - SIX_PIXELS, drawY + ONE_PIXEL, drawX + SIX_PIXELS, drawY + ONE_PIXEL);
+  line(drawX - SIX_PIXELS, drawY + TWO_PIXELS, drawX + SIX_PIXELS, drawY + TWO_PIXELS);
+  line(drawX - FIVE_PIXELS, drawY + THREE_PIXELS, drawX + FIVE_PIXELS, drawY + THREE_PIXELS);
+  line(drawX - FIVE_PIXELS, drawY + FOUR_PIXELS, drawX + FIVE_PIXELS, drawY + FOUR_PIXELS);
+  line(drawX - FOUR_PIXELS, drawY + FIVE_PIXELS, drawX + FOUR_PIXELS, drawY + FIVE_PIXELS);
+  line(drawX - TWO_PIXELS, drawY + SIX_PIXELS, drawX + TWO_PIXELS, drawY + SIX_PIXELS);
+
+  // back to default
+  strokeWeight(1);
   stroke(0);
 }
 
@@ -28,6 +136,11 @@ void drawBlackCell(int drawX, int drawY) {
 
 // Grid positions
 void drawCorridorInCellGrid(int x, int y) {
+  stroke(0);
+  drawSquare(cellToCoord(x), cellToCoord(y));
+}
+
+void drawInvisibleWallInCellGrid(int x, int y) {
   stroke(0);
   drawSquare(cellToCoord(x), cellToCoord(y));
 }

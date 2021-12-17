@@ -6,7 +6,7 @@ class Pacman extends Creature {
   }
   
   void drawYourSelf() {
-    drawCreature(drawX, drawY, c);
+    drawPacman(drawX, drawY, c);
     //drawCreatureCenter(drawX, drawY, color(0, 204, 255));
     //drawBlackCell(drawX, drawY);
   }

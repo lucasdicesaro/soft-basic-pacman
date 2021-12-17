@@ -32,11 +32,10 @@ class Ghost extends Creature {
   }
   
   void drawYourSelf() {
-    if (eaten) {
-      drawCreatureCenter(drawX, drawY, c);
-    } else {
-      drawCreature(drawX, drawY, !isFrightened() ? c : frightenedColor);
+    if (!eaten) {
+      drawGhost(drawX, drawY, !isFrightened() ? c : frightenedColor);
     }
+    drawEyes(drawX, drawY, selectedMovement);
     //drawBlackCell(drawX, drawY);
   }
   
