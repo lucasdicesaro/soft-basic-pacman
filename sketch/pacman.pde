@@ -1,12 +1,19 @@
 
 class Pacman extends Creature { 
-
+  int sprite;
   Pacman (int drawX, int drawY) {
     super(drawX, drawY, PACMAN_TYPE, "Pacman", color(255, 204, 0));
+    sprite = 0;
   }
 
   void drawYourSelf() {
-    drawPacman(drawX, drawY, c, selectedMovement);
+    if (isValidDirection(selectedMovement)) {
+      sprite++;
+      if (sprite > 11) {
+        sprite = 0;
+      }
+    }
+    drawPacman(drawX, drawY, c, selectedMovement, sprite);
     //drawCreatureCenter(drawX, drawY, color(0, 204, 255));
     //drawBlackCell(drawX, drawY);
   }

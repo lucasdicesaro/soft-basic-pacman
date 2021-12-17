@@ -3,23 +3,27 @@ color wallColor = color(25, 25, 166);
 color eyesColor = color(33, 33, 222);
 color frightenedColor = color(33, 33, 222);
 
-int pacmanSprite = 1;
-void drawPacman(int drawX, int drawY, color c, int selectedMovement) {
-  if (pacmanSprite > 2) {
-    pacmanSprite = 0;
-  }
+void drawPacman(int drawX, int drawY, color c, int selectedMovement, int pacmanSprite) {
   switch(pacmanSprite) {
     case 0:
+    case 1:
+    case 2:
+    case 3:
       drawClosedPacman(drawX, drawY, c);
       break;
-    case 1:
-      drawPacmanSemiOpen(drawX, drawY, c, selectedMovement);
+    case 4:
+    case 5:
+    case 6:
+    case 7:
+      drawPacmanOpen(drawX, drawY, c, selectedMovement);
       break;
-    case 2:
+    case 8:
+    case 9:
+    case 10:
+    case 11:
       drawPacmanOpen(drawX, drawY, c, selectedMovement);
       break;
   }
-  pacmanSprite++;
 }
 
 void drawClosedPacman(int drawX, int drawY, color c) {
@@ -180,25 +184,25 @@ void drawPacmanOpen(int drawX, int drawY, color c, int selectedMovement) {
       line(drawX - TWO_PIXELS, drawY + SIX_PIXELS, drawX + TWO_PIXELS, drawY + SIX_PIXELS);
       break;
     case UP:
-      line(drawX - SIX_PIXELS, drawY - SIX_PIXELS, drawX - FIVE_PIXELS, drawY - SIX_PIXELS);
-      line(drawX + FIVE_PIXELS, drawY - SIX_PIXELS, drawX + SIX_PIXELS, drawY - SIX_PIXELS);
+      line(drawX - SIX_PIXELS, drawY - TWO_PIXELS, drawX - FIVE_PIXELS, drawY - TWO_PIXELS);
+      line(drawX + FIVE_PIXELS, drawY - TWO_PIXELS, drawX + SIX_PIXELS, drawY - TWO_PIXELS);
 
-      line(drawX - SIX_PIXELS, drawY - FIVE_PIXELS, drawX - FOUR_PIXELS, drawY - FIVE_PIXELS);
-      line(drawX + FOUR_PIXELS, drawY - FIVE_PIXELS, drawX + SIX_PIXELS, drawY - FIVE_PIXELS);
+      line(drawX - SIX_PIXELS, drawY - ONE_PIXEL, drawX - FOUR_PIXELS, drawY - ONE_PIXEL);
+      line(drawX + FOUR_PIXELS, drawY - ONE_PIXEL, drawX + SIX_PIXELS, drawY - ONE_PIXEL);
 
-      line(drawX - SIX_PIXELS, drawY - FOUR_PIXELS, drawX - THREE_PIXELS, drawY - FOUR_PIXELS);
-      line(drawX + THREE_PIXELS, drawY - FOUR_PIXELS, drawX + SIX_PIXELS, drawY - FOUR_PIXELS);
+      line(drawX - SIX_PIXELS, drawY, drawX - THREE_PIXELS, drawY);
+      line(drawX + THREE_PIXELS, drawY, drawX + SIX_PIXELS, drawY);
 
-      line(drawX - SIX_PIXELS, drawY - THREE_PIXELS, drawX - TWO_PIXELS, drawY - THREE_PIXELS);
-      line(drawX + TWO_PIXELS, drawY - THREE_PIXELS, drawX + SIX_PIXELS, drawY - THREE_PIXELS);
+      line(drawX - SIX_PIXELS, drawY + ONE_PIXEL, drawX - TWO_PIXELS, drawY + ONE_PIXEL);
+      line(drawX + TWO_PIXELS, drawY + ONE_PIXEL, drawX + SIX_PIXELS, drawY + ONE_PIXEL);
 
-      line(drawX - SIX_PIXELS, drawY - TWO_PIXELS, drawX - ONE_PIXEL, drawY - TWO_PIXELS);
-      line(drawX + ONE_PIXEL, drawY - TWO_PIXELS, drawX + SIX_PIXELS, drawY - TWO_PIXELS);
+      line(drawX - SIX_PIXELS, drawY + TWO_PIXELS, drawX - ONE_PIXEL, drawY + TWO_PIXELS);
+      line(drawX + ONE_PIXEL, drawY + TWO_PIXELS, drawX + SIX_PIXELS, drawY + TWO_PIXELS);
 
-      line(drawX - FIVE_PIXELS, drawY - ONE_PIXEL, drawX + FIVE_PIXELS, drawY - ONE_PIXEL);
-      line(drawX - FIVE_PIXELS, drawY, drawX + FIVE_PIXELS, drawY);
-      line(drawX - FOUR_PIXELS, drawY + ONE_PIXEL, drawX + FOUR_PIXELS, drawY + ONE_PIXEL);
-      line(drawX - TWO_PIXELS, drawY + TWO_PIXELS, drawX + TWO_PIXELS, drawY + TWO_PIXELS);
+      line(drawX - FIVE_PIXELS, drawY + THREE_PIXELS, drawX + FIVE_PIXELS, drawY + THREE_PIXELS);
+      line(drawX - FIVE_PIXELS, drawY + FOUR_PIXELS, drawX + FIVE_PIXELS, drawY + FOUR_PIXELS);
+      line(drawX - FOUR_PIXELS, drawY + FIVE_PIXELS, drawX + FOUR_PIXELS, drawY + FIVE_PIXELS);
+      line(drawX - TWO_PIXELS, drawY + SIX_PIXELS, drawX + TWO_PIXELS, drawY + SIX_PIXELS);
       break;
     case DOWN:
       line(drawX - TWO_PIXELS, drawY - SIX_PIXELS, drawX + TWO_PIXELS, drawY - SIX_PIXELS);
