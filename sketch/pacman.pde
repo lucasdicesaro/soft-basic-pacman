@@ -2,7 +2,7 @@
 class Pacman extends Creature { 
   int sprite;
   Pacman (int drawX, int drawY) {
-    super(drawX, drawY, PACMAN_TYPE, "Pacman", color(255, 204, 0), PIXEL_SIZE * 80 / 100);
+    super(drawX, drawY, PACMAN_TYPE, "Pacman", color(255, 204, 0), PACMAN_NORMAL_STOP);
     sprite = 0;
   }
 
@@ -45,8 +45,9 @@ class Pacman extends Creature {
     if (tileGrid.isPellet(this) || tileGrid.isPowerPellet(this)) {
       pelletCounter++;
       if (tileGrid.isPowerPellet(this)) {
+        changeStopMovingRateTo(PACMAN_FREIGHT_STOP);
         for(Ghost ghost : ghosts) {
-          ghost.changeModeTo(FRIGHTENED);
+          ghost.markAsFrightened();
         }
       }
       tileGrid.setCorridor(this); // Remove pellet from maze

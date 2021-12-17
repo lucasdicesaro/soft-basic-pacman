@@ -79,12 +79,12 @@ class TileGrid {
         delay(2000);
         for(Creature creature : creatures) {
           cleanPreviousPosition(creature);
-          creature.reset();
+          creature.respawn();
         }
         refreshGrid();
         //delay(3000);
       } else {
-        ghostCollitioned.setEaten(true);
+        ghostCollitioned.markAsEaten();
       }
     }
   }

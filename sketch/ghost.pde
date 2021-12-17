@@ -18,16 +18,15 @@ class Ghost extends Creature {
   int previousMode;
 
   Ghost (int drawX, int drawY, int type, String name, color c) {  
-    super(drawX, drawY, type, name, c, PIXEL_SIZE * 75 / 100);
+    super(drawX, drawY, type, name, c, GHOST_NORMAL_STOP);
     targetX = 0;
     targetY = 0;
     previousTargetX = targetX;
     previousTargetY = targetY;
     insideHouse = true;
     scheduleReverseDirection = false;
-    currentMode = CHASE;
     previousMode = CHASE;
-    eaten = false;
+    respawn();
   }
   
   void drawYourSelf() {
@@ -210,8 +209,20 @@ class Ghost extends Creature {
   }
 
   void respawn() {
+    super.respawn();
     eaten = false;
     changeModeTo(CHASE);
+    changeStopMovingRateTo(GHOST_NORMAL_STOP);
+  }
+
+  void markAsFrightened() {
+    changeModeTo(FRIGHTENED);
+    changeStopMovingRateTo(GHOST_FREIGHT_STOP);
+  }
+
+  void markAsEaten() {
+    eaten = true;
+    changeStopMovingRateTo(GHOST_EYES_STOP);
   }
 
   void setEatenTarget() {
@@ -236,15 +247,6 @@ class Ghost extends Creature {
 
   void scheduleReverseDirection() {
     scheduleReverseDirection = true;
-  }
-
-  void setEaten(boolean eaten) {
-    this.eaten = eaten;
-  }
-
-  void reset() {
-    super.reset();
-    currentMode = CHASE;
   }
 
   void showTarget() {
