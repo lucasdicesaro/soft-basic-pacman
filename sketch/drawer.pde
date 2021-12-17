@@ -15,7 +15,7 @@ void drawPacman(int drawX, int drawY, color c, int selectedMovement, int pacmanS
     case 5:
     case 6:
     case 7:
-      drawPacmanOpen(drawX, drawY, c, selectedMovement);
+      drawPacmanSemiOpen(drawX, drawY, c, selectedMovement);
       break;
     case 8:
     case 9:
