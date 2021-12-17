@@ -1,7 +1,4 @@
 
-final int X_VELOCITY = 2;
-final int Y_VELOCITY = 2;
-
 MapFile mapFile;
 TileGrid tileGrid;
 Keyboard keyboard;
@@ -45,12 +42,8 @@ void draw() {
   if (!keyboard.isUserKeyReleased()) {
     pacman.setSelectedMovement(keyboard.getUserKeyPressed());
   }
-  for(Ghost ghost : ghosts) {
-    ghost.showTarget();
-  }
-  pacman.processMovement();
-  for(Ghost ghost : ghosts) {
-    ghost.processMovement();
+  for(Creature creature : creatures) {
+    creature.processMovement();
   }
 
   tileGrid.refreshGrid();

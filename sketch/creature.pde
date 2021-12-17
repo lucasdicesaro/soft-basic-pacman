@@ -1,6 +1,7 @@
 
 class Creature { 
 
+  int velocity;
   int initialDrawX;
   int initialDrawY;
   int drawX;
@@ -11,11 +12,12 @@ class Creature {
   int selectedMovement;
   int creatureRadiusCells;
 
-  Creature (int drawX, int drawY, int type, String name, color c) {  
+  Creature (int drawX, int drawY, int type, String name, color c, int velocity) {
     //window(672, 864);
     //grid(28, 35)
     // 672 / 28 = 24
     // 864 / 35 = 24
+    this.velocity = velocity;
     this.initialDrawX = drawX;
     this.initialDrawY = drawY;
     this.drawX = drawX;
@@ -23,8 +25,8 @@ class Creature {
     this.type = type;
     this.name = name;
     this.c = c;
-    creatureRadiusCells = coordToCell(CREATURE_SIZE/2)+1;
-    selectedMovement = LEFT;
+    this.creatureRadiusCells = coordToCell(CREATURE_SIZE/2)+1;
+    this.selectedMovement = LEFT;
   }
 
   void reset() {
@@ -34,22 +36,22 @@ class Creature {
   }
 
   void moveLeft() {
-    drawX = drawX - X_VELOCITY;
+    drawX = drawX - velocity;
     drawY = cuantizeCoord(drawY) + (CELL_SIZE / 2); // Forces Pacman to stay in the middle of the corridor
   }
 
   void moveRight() {
-    drawX = drawX + X_VELOCITY;
+    drawX = drawX + velocity;
     drawY = cuantizeCoord(drawY) + (CELL_SIZE / 2);
   }
   
   void moveUp() {
-    drawY = drawY - Y_VELOCITY;
+    drawY = drawY - velocity;
     drawX = cuantizeCoord(drawX) + (CELL_SIZE / 2);
   }
 
   void moveDown() {
-    drawY = drawY + Y_VELOCITY;
+    drawY = drawY + velocity;
     drawX = cuantizeCoord(drawX) + (CELL_SIZE / 2);
   }
 
@@ -93,6 +95,6 @@ class Creature {
 
   void debug() {
     //println(name + " CREATURE_SCALE: " + CREATURE_SCALE + " CREATURE_SIZE: " + CREATURE_SIZE + " creatureRadiusCells: " + creatureRadiusCells);
-    println(name + "\tdraw X,Y: " + drawX + "," + drawY + "\tgrid pos X,Y: " + coordToCell(drawX) + "," + coordToCell(drawY) + "\tselectedMovement: " + selectedMovement + "\tisCenterOfTheCell: " + tileGrid.isCenterOfTheCell(this));
+    println(name + "\tdraw X,Y: " + drawX + "," + drawY + "\tgrid pos X,Y: " + coordToCell(drawX) + "," + coordToCell(drawY) + "\tvelocity: " + velocity + "\tselectedMovement: " + selectedMovement + "\tisCenterOfTheCell: " + tileGrid.isCenterOfTheCell(this));
   }
 } 

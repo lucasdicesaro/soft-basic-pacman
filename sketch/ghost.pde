@@ -18,7 +18,7 @@ class Ghost extends Creature {
   int previousMode;
 
   Ghost (int drawX, int drawY, int type, String name, color c) {  
-    super(drawX, drawY, type, name, c);
+    super(drawX, drawY, type, name, c, PIXEL_SIZE * 75 / 100);
     targetX = 0;
     targetY = 0;
     previousTargetX = targetX;

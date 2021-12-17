@@ -2,7 +2,7 @@
 class Pacman extends Creature { 
   int sprite;
   Pacman (int drawX, int drawY) {
-    super(drawX, drawY, PACMAN_TYPE, "Pacman", color(255, 204, 0));
+    super(drawX, drawY, PACMAN_TYPE, "Pacman", color(255, 204, 0), PIXEL_SIZE * 80 / 100);
     sprite = 0;
   }
 

@@ -83,23 +83,20 @@ void drawPacmanSemiOpen(int drawX, int drawY, color c, int selectedMovement) {
       line(drawX - TWO_PIXELS, drawY + SIX_PIXELS, drawX + TWO_PIXELS, drawY + SIX_PIXELS);
       break;
     case UP:
-      line(drawX - FOUR_PIXELS, drawY - SIX_PIXELS, drawX - THREE_PIXELS, drawY - SIX_PIXELS);
-      line(drawX + THREE_PIXELS, drawY - SIX_PIXELS, drawX + FOUR_PIXELS, drawY - SIX_PIXELS);
+      line(drawX - FOUR_PIXELS, drawY - FIVE_PIXELS, drawX - THREE_PIXELS, drawY - FIVE_PIXELS);
+      line(drawX + THREE_PIXELS, drawY - FIVE_PIXELS, drawX + FOUR_PIXELS, drawY - FIVE_PIXELS);
 
-      line(drawX - FIVE_PIXELS, drawY - FIVE_PIXELS, drawX - THREE_PIXELS, drawY - FIVE_PIXELS);
-      line(drawX + THREE_PIXELS, drawY - FIVE_PIXELS, drawX + FIVE_PIXELS, drawY - FIVE_PIXELS);
+      line(drawX - FIVE_PIXELS, drawY - FOUR_PIXELS, drawX - THREE_PIXELS, drawY - FOUR_PIXELS);
+      line(drawX + THREE_PIXELS, drawY - FOUR_PIXELS, drawX + FIVE_PIXELS, drawY - FOUR_PIXELS);
 
-      line(drawX - FIVE_PIXELS, drawY - FOUR_PIXELS, drawX - TWO_PIXELS, drawY - FOUR_PIXELS);
-      line(drawX + TWO_PIXELS, drawY - FOUR_PIXELS, drawX + FIVE_PIXELS, drawY - FOUR_PIXELS);
-
-      line(drawX - SIX_PIXELS, drawY - THREE_PIXELS, drawX - TWO_PIXELS, drawY - THREE_PIXELS);
-      line(drawX + TWO_PIXELS, drawY - THREE_PIXELS, drawX + SIX_PIXELS, drawY - THREE_PIXELS);
+      line(drawX - FIVE_PIXELS, drawY - THREE_PIXELS, drawX - TWO_PIXELS, drawY - THREE_PIXELS);
+      line(drawX + TWO_PIXELS, drawY - THREE_PIXELS, drawX + FIVE_PIXELS, drawY - THREE_PIXELS);
 
       line(drawX - SIX_PIXELS, drawY - TWO_PIXELS, drawX - TWO_PIXELS, drawY - TWO_PIXELS);
       line(drawX + TWO_PIXELS, drawY - TWO_PIXELS, drawX + SIX_PIXELS, drawY - TWO_PIXELS);
 
-      line(drawX - SIX_PIXELS, drawY - ONE_PIXEL, drawX - ONE_PIXEL, drawY - ONE_PIXEL);
-      line(drawX + ONE_PIXEL, drawY - ONE_PIXEL, drawX + SIX_PIXELS, drawY - ONE_PIXEL);
+      line(drawX - SIX_PIXELS, drawY - ONE_PIXEL, drawX - TWO_PIXELS, drawY - ONE_PIXEL);
+      line(drawX + TWO_PIXELS, drawY - ONE_PIXEL, drawX + SIX_PIXELS, drawY - ONE_PIXEL);
 
       line(drawX - SIX_PIXELS, drawY, drawX - ONE_PIXEL, drawY);
       line(drawX + ONE_PIXEL, drawY, drawX + SIX_PIXELS, drawY);
@@ -107,10 +104,13 @@ void drawPacmanSemiOpen(int drawX, int drawY, color c, int selectedMovement) {
       line(drawX - SIX_PIXELS, drawY + ONE_PIXEL, drawX - ONE_PIXEL, drawY + ONE_PIXEL);
       line(drawX + ONE_PIXEL, drawY + ONE_PIXEL, drawX + SIX_PIXELS, drawY + ONE_PIXEL);
 
-      line(drawX - FIVE_PIXELS, drawY + TWO_PIXELS, drawX + FIVE_PIXELS, drawY + TWO_PIXELS);
+      line(drawX - SIX_PIXELS, drawY + TWO_PIXELS, drawX - ONE_PIXEL, drawY + TWO_PIXELS);
+      line(drawX + ONE_PIXEL, drawY + TWO_PIXELS, drawX + SIX_PIXELS, drawY + TWO_PIXELS);
+
       line(drawX - FIVE_PIXELS, drawY + THREE_PIXELS, drawX + FIVE_PIXELS, drawY + THREE_PIXELS);
-      line(drawX - FOUR_PIXELS, drawY + FOUR_PIXELS, drawX + FOUR_PIXELS, drawY + FOUR_PIXELS);
-      line(drawX - TWO_PIXELS, drawY + FIVE_PIXELS, drawX + TWO_PIXELS, drawY + FIVE_PIXELS);
+      line(drawX - FIVE_PIXELS, drawY + FOUR_PIXELS, drawX + FIVE_PIXELS, drawY + FOUR_PIXELS);
+      line(drawX - FOUR_PIXELS, drawY + FIVE_PIXELS, drawX + FOUR_PIXELS, drawY + FIVE_PIXELS);
+      line(drawX - TWO_PIXELS, drawY + SIX_PIXELS, drawX + TWO_PIXELS, drawY + SIX_PIXELS);
       break;
     case DOWN:
       line(drawX - TWO_PIXELS, drawY - SIX_PIXELS, drawX + TWO_PIXELS, drawY - SIX_PIXELS);
