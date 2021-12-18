@@ -11,9 +11,7 @@ int FOUR_PIXELS;
 int FIVE_PIXELS;
 int SIX_PIXELS;
 int SEVEN_PIXELS;
-int CREATURE_SIZE;
 int CREATURE_CENTER_SIZE;
-float CREATURE_SCALE = 1.8;
 float CREATURE_CENTER_SCALE = 0.5;
 
 void initializeScaleVariables() {
@@ -27,7 +25,6 @@ void initializeScaleVariables() {
   FIVE_PIXELS = (PIXEL_SIZE * 5);
   SIX_PIXELS = (PIXEL_SIZE * 6);
   SEVEN_PIXELS = (PIXEL_SIZE * 7);
-  CREATURE_SIZE = (int) (CELL_SIZE * CREATURE_SCALE);
   CREATURE_CENTER_SIZE = (int) (CELL_SIZE * CREATURE_CENTER_SCALE);
 }
 

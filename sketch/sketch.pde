@@ -38,17 +38,8 @@ void draw() {
     pacman.setSelectedMovement(keyboard.getUserKeyPressed());
   }
 
-  if (pacman.shouldMoveMySelf()) {
-    pacman.processMovement();
-  }
-  for(Ghost ghost : ghosts) {
-    if (ghost.shouldMoveMySelf()) {
-      ghost.processMovement();
-    }
-  }
-
+  tileGrid.processMovements();
   tileGrid.refreshGrid();
-  tileGrid.processCollisions();
 
   drawPalletCounter();
 }

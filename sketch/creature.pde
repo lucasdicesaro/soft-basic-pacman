@@ -9,7 +9,6 @@ class Creature {
   String name;
   color c;
   int selectedMovement;
-  int creatureRadiusCells;
   float stopMovingRate;
 
   Creature (int drawX, int drawY, int type, String name, color c, float stopMovingRate) {
@@ -24,7 +23,6 @@ class Creature {
     this.type = type;
     this.name = name;
     this.c = c;
-    this.creatureRadiusCells = coordToCell(CREATURE_SIZE/2)+1;
     this.selectedMovement = LEFT;
     this.stopMovingRate = stopMovingRate;
   }
@@ -77,10 +75,6 @@ class Creature {
 
   int getSelectedMovement() {
     return selectedMovement;
-  }
-  
-  int getCreatureRadiusCells() {
-    return creatureRadiusCells;
   }
 
   String getName() {

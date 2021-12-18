@@ -210,9 +210,14 @@ class Ghost extends Creature {
 
   void respawn() {
     super.respawn();
+    cleanEyes();
     eaten = false;
     changeModeTo(CHASE);
     changeStopMovingRateTo(GHOST_NORMAL_STOP);
+  }
+
+  void cleanEyes() {
+    tileGrid.cleanSection((previousTargetX - 1), (previousTargetX + 3), (previousTargetY - 1), (previousTargetY + 1));
   }
 
   void markAsFrightened() {

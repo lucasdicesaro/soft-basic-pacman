@@ -38,6 +38,36 @@ final int PINK_GHOST_TYPE = 168;
 final int BLUE_GHOST_TYPE = 169;
 final int ORANGE_GHOST_TYPE = 170;
 
+final int[] allWallTypes = new int[] {
+  DOUBLE_CORNER_TOP_LEFT,
+  DOUBLE_CORNER_TOP_RIGHT,
+  DOUBLE_CORNER_BOTTOM_LEFT,
+  DOUBLE_CORNER_BOTTOM_RIGHT,
+  DOUBLE_WALL_VERTICAL_LEFT,
+  DOUBLE_WALL_VERTICAL_RIGHT,
+  DOUBLE_WALL_HORIZONTAL_TOP,
+  DOUBLE_WALL_HORIZONTAL_BOTTOM,
+  DOUBLE_MIDDLE_CORNER_HORIZONTAL_TOP_LEFT,
+  DOUBLE_MIDDLE_CORNER_HORIZONTAL_TOP_RIGHT,
+  DOUBLE_MIDDLE_CORNER_VERTICAL_LEFT_BOTTOM_LEFT,
+  DOUBLE_MIDDLE_CORNER_VERTICAL_LEFT_TOP_LEFT,
+  DOUBLE_MIDDLE_CORNER_VERTICAL_RIGHT_BOTTOM_RIGHT,
+  DOUBLE_MIDDLE_CORNER_VERTICAL_RIGHT_TOP_RIGHT,
+  SIMPLE_CORNER_TOP_LEFT,
+  SIMPLE_CORNER_TOP_RIGHT,
+  SIMPLE_CORNER_BOTTOM_LEFT,
+  SIMPLE_CORNER_BOTTOM_RIGHT,
+  SIMPLE_WALL_VERTICAL_LEFT,
+  SIMPLE_WALL_VERTICAL_RIGHT,
+  SIMPLE_WALL_HORIZONTAL_TOP,
+  SIMPLE_WALL_HORIZONTAL_BOTTOM,
+  SIMPLE_CONVEX_CORNER_TOP_LEFT,
+  SIMPLE_CONVEX_CORNER_TOP_RIGHT,
+  SIMPLE_CONVEX_CORNER_BOTTOM_LEFT,
+  SIMPLE_CONVEX_CORNER_BOTTOM_RIGHT,
+  INVISIBLE_WALL
+};
+
 class TileGrid {
   int[][] grid;
 
@@ -71,20 +101,30 @@ class TileGrid {
     }
   }
 
+  void processMovements() {
+    for(Creature creature : creatures) {
+      if (creature.shouldMoveMySelf()) {
+        creature.processMovement();
+      }
+    }
+
+    processCollisions();
+  }
+
   void processCollisions() {
-    Ghost ghostCollitioned = checkCollisions();
-    if (ghostCollitioned != null) {
-      if (!ghostCollitioned.isFrightened()){
-        // Pacman has been eaten
+    Ghost collitionedGhost = checkCollisions();
+    if (collitionedGhost != null) {
+      if (!collitionedGhost.isFrightened()){
+        // Pacman eaten by a ghost
         delay(2000);
         for(Creature creature : creatures) {
           cleanPreviousPosition(creature);
           creature.respawn();
         }
-        refreshGrid();
-        //delay(3000);
       } else {
-        ghostCollitioned.markAsEaten();
+        //delay(500);
+        // TODO: Move eyes's ghost forward one position
+        collitionedGhost.markAsEaten();
       }
     }
   }
@@ -102,8 +142,7 @@ class TileGrid {
   void cleanPreviousPosition(Creature creature) {
     int currentXgrid = creature.getGridCellX();
     int currentYgrid = creature.getGridCellY();
-    int creatureRadiusCells = creature.getCreatureRadiusCells();
-    cleanSection((currentXgrid - creatureRadiusCells), (currentXgrid + creatureRadiusCells), (currentYgrid - creatureRadiusCells), (currentYgrid + creatureRadiusCells));
+    cleanSection((currentXgrid - 1), (currentXgrid + 1), (currentYgrid - 1), (currentYgrid + 1));
   }
 
   void cleanCell(int x, int y) {
@@ -125,48 +164,23 @@ class TileGrid {
   }
 
   void drawStage(int x, int y) {
-    switch (getTileValue(x, y)) {
-      case TEST_CELL:
-      case DOUBLE_WALL_VERTICAL_LEFT:
-      case DOUBLE_WALL_VERTICAL_RIGHT:
-      case DOUBLE_WALL_HORIZONTAL_TOP:
-      case DOUBLE_CORNER_TOP_LEFT:
-      case DOUBLE_CORNER_TOP_RIGHT:
-      case DOUBLE_CORNER_BOTTOM_LEFT:
-      case DOUBLE_CORNER_BOTTOM_RIGHT:
-      case DOUBLE_WALL_HORIZONTAL_BOTTOM:
-      case SIMPLE_WALL_VERTICAL_LEFT:
-      case SIMPLE_WALL_VERTICAL_RIGHT:
-      case SIMPLE_WALL_HORIZONTAL_TOP:
-      case SIMPLE_WALL_HORIZONTAL_BOTTOM:
-      case SIMPLE_CORNER_TOP_LEFT:
-      case SIMPLE_CORNER_TOP_RIGHT:
-      case SIMPLE_CORNER_BOTTOM_LEFT:
-      case SIMPLE_CORNER_BOTTOM_RIGHT:
-      case SIMPLE_CONVEX_CORNER_TOP_LEFT:
-      case SIMPLE_CONVEX_CORNER_TOP_RIGHT:
-      case SIMPLE_CONVEX_CORNER_BOTTOM_LEFT:
-      case SIMPLE_CONVEX_CORNER_BOTTOM_RIGHT:
-      case DOUBLE_MIDDLE_CORNER_HORIZONTAL_TOP_LEFT:
-      case DOUBLE_MIDDLE_CORNER_HORIZONTAL_TOP_RIGHT:
-      case DOUBLE_MIDDLE_CORNER_VERTICAL_LEFT_BOTTOM_LEFT:
-      case DOUBLE_MIDDLE_CORNER_VERTICAL_LEFT_TOP_LEFT:
-      case DOUBLE_MIDDLE_CORNER_VERTICAL_RIGHT_BOTTOM_RIGHT:
-      case DOUBLE_MIDDLE_CORNER_VERTICAL_RIGHT_TOP_RIGHT:
-        drawBlueWallInCellGrid(x, y, getTileValue(x, y));
-        break;
-      case INVISIBLE_WALL:
-        drawInvisibleWallInCellGrid(x, y);
-        break;
-      case CORRIDOR:
-        drawCorridorInCellGrid(x, y);
-        break;
-      case PELLET:
-        drawPelletInCellGrid(x, y);
-        break;
-      case POWER_PELLET:
-        drawPowerPelletInCellGrid(x, y);
-        break;
+    if (isWall(x, y)) {
+      drawBlueWallInCellGrid(x, y, getTileValue(x, y));
+    } else {
+      switch (getTileValue(x, y)) {
+        case INVISIBLE_WALL:
+          drawInvisibleWallInCellGrid(x, y);
+          break;
+        case CORRIDOR:
+          drawCorridorInCellGrid(x, y);
+          break;
+        case PELLET:
+          drawPelletInCellGrid(x, y);
+          break;
+        case POWER_PELLET:
+          drawPowerPelletInCellGrid(x, y);
+          break;
+      }
     }
   }
 
@@ -243,33 +257,13 @@ class TileGrid {
   }
 
   boolean isWall(int x, int y) {
-    return getTileValue(x, y) == DOUBLE_CORNER_TOP_LEFT
-           || getTileValue(x, y) == DOUBLE_CORNER_TOP_RIGHT
-           || getTileValue(x, y) == DOUBLE_CORNER_BOTTOM_LEFT
-           || getTileValue(x, y) == DOUBLE_CORNER_BOTTOM_RIGHT
-           || getTileValue(x, y) == DOUBLE_WALL_VERTICAL_LEFT
-           || getTileValue(x, y) == DOUBLE_WALL_VERTICAL_RIGHT
-           || getTileValue(x, y) == DOUBLE_WALL_HORIZONTAL_TOP
-           || getTileValue(x, y) == DOUBLE_WALL_HORIZONTAL_BOTTOM
-           || getTileValue(x, y) == DOUBLE_MIDDLE_CORNER_HORIZONTAL_TOP_LEFT
-           || getTileValue(x, y) == DOUBLE_MIDDLE_CORNER_HORIZONTAL_TOP_RIGHT
-           || getTileValue(x, y) == DOUBLE_MIDDLE_CORNER_VERTICAL_LEFT_BOTTOM_LEFT
-           || getTileValue(x, y) == DOUBLE_MIDDLE_CORNER_VERTICAL_LEFT_TOP_LEFT
-           || getTileValue(x, y) == DOUBLE_MIDDLE_CORNER_VERTICAL_RIGHT_BOTTOM_RIGHT
-           || getTileValue(x, y) == DOUBLE_MIDDLE_CORNER_VERTICAL_RIGHT_TOP_RIGHT
-           || getTileValue(x, y) == SIMPLE_CORNER_TOP_LEFT
-           || getTileValue(x, y) == SIMPLE_CORNER_TOP_RIGHT
-           || getTileValue(x, y) == SIMPLE_CORNER_BOTTOM_LEFT
-           || getTileValue(x, y) == SIMPLE_CORNER_BOTTOM_RIGHT
-           || getTileValue(x, y) == SIMPLE_WALL_VERTICAL_LEFT
-           || getTileValue(x, y) == SIMPLE_WALL_VERTICAL_RIGHT
-           || getTileValue(x, y) == SIMPLE_WALL_HORIZONTAL_TOP
-           || getTileValue(x, y) == SIMPLE_WALL_HORIZONTAL_BOTTOM
-           || getTileValue(x, y) == SIMPLE_CONVEX_CORNER_TOP_LEFT
-           || getTileValue(x, y) == SIMPLE_CONVEX_CORNER_TOP_RIGHT
-           || getTileValue(x, y) == SIMPLE_CONVEX_CORNER_BOTTOM_LEFT
-           || getTileValue(x, y) == SIMPLE_CONVEX_CORNER_BOTTOM_RIGHT
-           || getTileValue(x, y) == INVISIBLE_WALL;
+    int gridValue = getTileValue(x, y);
+    for (int i = 0; i < allWallTypes.length; i++) {
+      if (gridValue == allWallTypes[i]) {
+        return true;
+      }
+    }
+    return false;
   }
 
   boolean isPellet(int x, int y) {
