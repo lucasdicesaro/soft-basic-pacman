@@ -2,6 +2,7 @@
 MapFile mapFile;
 TileGrid tileGrid;
 Keyboard keyboard;
+Interactor interactor;
 
 java.util.List<Creature> creatures = new ArrayList<>();
 java.util.List<Ghost> ghosts = new ArrayList<>();
@@ -31,6 +32,7 @@ void setup() {
   mapFile = new MapFile();
   tileGrid = mapFile.fillGrid();
   tileGrid.renderGrid();
+  interactor = new Interactor();
 }
 
 void draw() {
@@ -38,7 +40,7 @@ void draw() {
     pacman.setSelectedMovement(keyboard.getUserKeyPressed());
   }
 
-  tileGrid.processMovements();
+  interactor.processMovements();
   tileGrid.refreshGrid();
 
   drawPalletCounter();
@@ -56,17 +58,11 @@ void keyPressed() {
       creature.debug();
     }
   } else if (key == 'c') {
-    for(Ghost ghost : ghosts) {
-      ghost.changeModeTo(CHASE);
-    }
+    interactor.changeGhostsModeTo(CHASE);
   } else if (key == 's') {
-    for(Ghost ghost : ghosts) {
-      ghost.changeModeTo(SCATTER);
-    }
+    interactor.changeGhostsModeTo(SCATTER);
   } else if (key == 'f') {
-    for(Ghost ghost : ghosts) {
-      ghost.changeModeTo(FRIGHTENED);
-    }
+    interactor.changeGhostsModeTo(FRIGHTENED);
   }
 }
 
