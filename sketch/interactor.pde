@@ -24,9 +24,8 @@ class Interactor {
           tileGrid.cleanPreviousPosition(creature);
           creature.respawn();
         }
-      } else {
-        //delay(500);
-        // TODO: Move eyes's ghost forward one position
+      } else if (!collitionedGhost.isEaten()) {
+        delay(300);
         collitionedGhost.markAsEaten();
       }
     }

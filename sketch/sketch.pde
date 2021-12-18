@@ -3,6 +3,7 @@ MapFile mapFile;
 TileGrid tileGrid;
 Keyboard keyboard;
 Interactor interactor;
+StopWatchTimer stopWatchTimer;
 
 java.util.List<Creature> creatures = new ArrayList<>();
 java.util.List<Ghost> ghosts = new ArrayList<>();

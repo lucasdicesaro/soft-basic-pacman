@@ -16,16 +16,10 @@ class Ghost extends Creature {
   boolean eaten;
   int currentMode;
   int previousMode;
+  StopWatchTimer stopWatchTimer = new StopWatchTimer();
 
   Ghost (int drawX, int drawY, int type, String name, color c) {  
     super(drawX, drawY, type, name, c, GHOST_NORMAL_STOP);
-    targetX = 0;
-    targetY = 0;
-    previousTargetX = targetX;
-    previousTargetY = targetY;
-    insideHouse = true;
-    scheduleReverseDirection = false;
-    previousMode = CHASE;
     respawn();
   }
   
@@ -46,6 +40,32 @@ class Ghost extends Creature {
     if (insideHouse && hasToGoOutFromHouse()) {
       goOutFromHouse();
       insideHouse = false;
+    }
+
+    // TODO: Check if I can move this
+    // TODO: Check if ghosts change to its original mode when Power pellets effect finishes
+    if (!isFrightened()) {
+      if (!isChase() && stopWatchTimer.second() >= 7 && stopWatchTimer.second() < 27) {
+        changeModeTo(CHASE);
+      }
+      if (!isScatter() && stopWatchTimer.second() >= 27 && stopWatchTimer.second() < 34) {// 20 Seconds
+        changeModeTo(SCATTER);
+      }
+      if (!isChase() && stopWatchTimer.second() >= 34 && stopWatchTimer.second() < 54) {// 7 Seconds
+        changeModeTo(CHASE);
+      }
+      if (!isScatter() && stopWatchTimer.second() >= 54 && stopWatchTimer.second() < 59) {// 20 Seconds
+        changeModeTo(SCATTER);
+      }
+      if (!isChase() && stopWatchTimer.second() >= 59 && stopWatchTimer.second() < 79) {// 5 Seconds
+        changeModeTo(CHASE);
+      }
+      if (!isScatter() && stopWatchTimer.second() >= 79 && stopWatchTimer.second() < 84) {// 20 Seconds
+        changeModeTo(SCATTER);
+      }
+      if (!isChase() && stopWatchTimer.second() >= 84) {// 5 Seconds
+        changeModeTo(CHASE);
+      }
     }
 
     checkIfShouldReverseDirection();
@@ -211,9 +231,17 @@ class Ghost extends Creature {
   void respawn() {
     super.respawn();
     cleanEyes();
+    targetX = 0;
+    targetY = 0;
+    previousTargetX = targetX;
+    previousTargetY = targetY;
+    insideHouse = true;
+    scheduleReverseDirection = false;
     eaten = false;
-    changeModeTo(CHASE);
+    previousMode = SCATTER;
+    changeModeTo(SCATTER);
     changeStopMovingRateTo(GHOST_NORMAL_STOP);
+    stopWatchTimer.resume();
   }
 
   void cleanEyes() {
@@ -223,6 +251,7 @@ class Ghost extends Creature {
   void markAsFrightened() {
     changeModeTo(FRIGHTENED);
     changeStopMovingRateTo(GHOST_FREIGHT_STOP);
+    stopWatchTimer.pause();
   }
 
   void markAsEaten() {
@@ -241,6 +270,10 @@ class Ghost extends Creature {
 
   boolean hasToGoOutFromHouse() {
     return false;
+  }
+
+  boolean isEaten() {
+    return eaten;
   }
 
   void goOutFromHouse() {
