@@ -16,7 +16,7 @@ class Ghost extends Creature {
   boolean eaten;
   int currentMode;
   int previousMode;
-  StopWatchTimer stopWatchTimer = new StopWatchTimer();
+  StopWatchTimer changeModeTimer = new StopWatchTimer();
 
   Ghost (int drawX, int drawY, int type, String name, color c) {  
     super(drawX, drawY, type, name, c, GHOST_NORMAL_STOP);
@@ -42,31 +42,7 @@ class Ghost extends Creature {
       insideHouse = false;
     }
 
-    // TODO: Check if I can move this
-    // TODO: Check if ghosts change to its original mode when Power pellets effect finishes
-    if (!isFrightened()) {
-      if (!isChase() && stopWatchTimer.second() >= 7 && stopWatchTimer.second() < 27) {
-        changeModeTo(CHASE);
-      }
-      if (!isScatter() && stopWatchTimer.second() >= 27 && stopWatchTimer.second() < 34) {// 20 Seconds
-        changeModeTo(SCATTER);
-      }
-      if (!isChase() && stopWatchTimer.second() >= 34 && stopWatchTimer.second() < 54) {// 7 Seconds
-        changeModeTo(CHASE);
-      }
-      if (!isScatter() && stopWatchTimer.second() >= 54 && stopWatchTimer.second() < 59) {// 20 Seconds
-        changeModeTo(SCATTER);
-      }
-      if (!isChase() && stopWatchTimer.second() >= 59 && stopWatchTimer.second() < 79) {// 5 Seconds
-        changeModeTo(CHASE);
-      }
-      if (!isScatter() && stopWatchTimer.second() >= 79 && stopWatchTimer.second() < 84) {// 20 Seconds
-        changeModeTo(SCATTER);
-      }
-      if (!isChase() && stopWatchTimer.second() >= 84) {// 5 Seconds
-        changeModeTo(CHASE);
-      }
-    }
+    checkIfShouldChangeMode();
 
     checkIfShouldReverseDirection();
 
@@ -152,6 +128,39 @@ class Ghost extends Creature {
 
   boolean isFrightened() {
     return FRIGHTENED == currentMode;
+  }
+
+  void checkIfShouldChangeMode() {
+    // TODO: Check if ghosts change to its original mode when Power pellets effect finishes
+    if (!isFrightened()) {
+      if (!isChase() && changeModeTimer.second() >= getCurrentLevelVariables().scatterModeDuration1 &&
+            changeModeTimer.second() < getCurrentLevelVariables().chaseModeDuration1) {// 7 Seconds
+        changeModeTo(CHASE);
+      }
+      if (!isScatter() && changeModeTimer.second() >= getCurrentLevelVariables().chaseModeDuration1 &&
+        changeModeTimer.second() < getCurrentLevelVariables().scatterModeDuration2) {// 20 Seconds
+        changeModeTo(SCATTER);
+      }
+      if (!isChase() && changeModeTimer.second() >= getCurrentLevelVariables().scatterModeDuration2 &&
+            changeModeTimer.second() < getCurrentLevelVariables().chaseModeDuration2) {// 7 Seconds
+        changeModeTo(CHASE);
+      }
+      if (!isScatter() && changeModeTimer.second() >= getCurrentLevelVariables().chaseModeDuration2 &&
+        changeModeTimer.second() < getCurrentLevelVariables().scatterModeDuration3) {// 20 Seconds
+        changeModeTo(SCATTER);
+      }
+      if (!isChase() && changeModeTimer.second() >= getCurrentLevelVariables().scatterModeDuration3 &&
+            changeModeTimer.second() < getCurrentLevelVariables().chaseModeDuration3) {// 7 Seconds
+        changeModeTo(CHASE);
+      }
+      if (!isScatter() && changeModeTimer.second() >= getCurrentLevelVariables().chaseModeDuration3 &&
+        changeModeTimer.second() < getCurrentLevelVariables().scatterModeDuration4) {// 20 Seconds
+        changeModeTo(SCATTER);
+      }
+      if (!isChase() && changeModeTimer.second() >= getCurrentLevelVariables().scatterModeDuration4) {// 5 Seconds
+        changeModeTo(CHASE);
+      }
+    }
   }
 
   void checkIfShouldReverseDirection() {
@@ -241,7 +250,13 @@ class Ghost extends Creature {
     previousMode = SCATTER;
     changeModeTo(SCATTER);
     changeStopMovingRateTo(GHOST_NORMAL_STOP);
-    stopWatchTimer.resume();
+    changeModeTimer.resume();
+  }
+
+  void resumeToNormalMode() {
+    changeModeTo(previousMode);
+    changeStopMovingRateTo(GHOST_NORMAL_STOP);
+    changeModeTimer.resume();
   }
 
   void cleanEyes() {
@@ -251,7 +266,7 @@ class Ghost extends Creature {
   void markAsFrightened() {
     changeModeTo(FRIGHTENED);
     changeStopMovingRateTo(GHOST_FREIGHT_STOP);
-    stopWatchTimer.pause();
+    changeModeTimer.pause();
   }
 
   void markAsEaten() {

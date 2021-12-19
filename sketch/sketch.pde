@@ -13,7 +13,6 @@ Pink pink;
 Blue blue;
 Orange orange;
 
-int pelletCounter;
 PFont f;
 
 void setup() {
@@ -26,9 +25,9 @@ void setup() {
   f = createFont("Arial", 16, true);
   initializeScaleVariables();
   initializeSpeedVariables();
+  initializeLevelVariables();
 
   keyboard = new Keyboard();
-  pelletCounter = 0;
 
   mapFile = new MapFile();
   tileGrid = mapFile.fillGrid();

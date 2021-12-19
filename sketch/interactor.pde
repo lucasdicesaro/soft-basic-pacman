@@ -1,7 +1,10 @@
+int pelletCounter;
+StopWatchTimer powerPelletEffectTimer = new StopWatchTimer();
 
 class Interactor {
-  Interactor () {  
 
+  Interactor () {
+    pelletCounter = 0;
   }
 
   void processMovements() {
@@ -10,6 +13,8 @@ class Interactor {
         creature.processMovement();
       }
     }
+
+    processPellets();
 
     processCollisions();
   }
@@ -39,6 +44,28 @@ class Interactor {
       }
     }
     return null;
+  }
+
+  void processPellets() {
+    if (powerPelletEffectTimer.running && powerPelletEffectTimer.second() >= getCurrentLevelVariables().powerPelletEffectDuration) {
+      powerPelletEffectTimer.stop();
+      pacman.changeStopMovingRateTo(PACMAN_NORMAL_STOP);
+      for(Ghost ghost : ghosts) {
+        ghost.resumeToNormalMode();
+      }
+    }
+
+    if (tileGrid.isPellet(pacman) || tileGrid.isPowerPellet(pacman)) {
+      pelletCounter++;
+      if (tileGrid.isPowerPellet(pacman)) {
+        pacman.changeStopMovingRateTo(PACMAN_FREIGHT_STOP);
+        for(Ghost ghost : ghosts) {
+          ghost.markAsFrightened();
+        }
+        powerPelletEffectTimer.start();
+      }
+      tileGrid.setCorridor(pacman); // Remove pellet from maze
+    }
   }
 
   void changeGhostsModeTo(int mode) {
