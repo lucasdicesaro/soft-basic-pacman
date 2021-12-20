@@ -250,7 +250,7 @@ class Ghost extends Creature {
     previousMode = SCATTER;
     changeModeTo(SCATTER);
     changeStopMovingRateTo(GHOST_NORMAL_STOP);
-    changeModeTimer.resume();
+    changeModeTimer.start();
   }
 
   void resumeToNormalMode() {
@@ -305,5 +305,10 @@ class Ghost extends Creature {
   void showTarget() {
     tileGrid.cleanCell(previousTargetX, previousTargetY);
     drawTarget(targetX, targetY, c);
+  }
+
+  void debug() {
+    super.debug();
+    println("changeModeTimer.second(): " + changeModeTimer.second());
   }
 } 

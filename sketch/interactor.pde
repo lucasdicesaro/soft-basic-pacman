@@ -51,7 +51,9 @@ class Interactor {
       powerPelletEffectTimer.stop();
       pacman.changeStopMovingRateTo(PACMAN_NORMAL_STOP);
       for(Ghost ghost : ghosts) {
-        ghost.resumeToNormalMode();
+        if (ghost.isFrightened() && !ghost.isEaten()) {
+          ghost.resumeToNormalMode();
+        }
       }
     }
 
