@@ -38,6 +38,9 @@ final int PINK_GHOST_TYPE = 168;
 final int BLUE_GHOST_TYPE = 169;
 final int ORANGE_GHOST_TYPE = 170;
 
+int GHOSTS_HOUSE_EXIT_X;
+int GHOSTS_HOUSE_EXIT_Y;
+
 final int[] allWallTypes = new int[] {
   DOUBLE_CORNER_TOP_LEFT,
   DOUBLE_CORNER_TOP_RIGHT,
@@ -107,6 +110,12 @@ class TileGrid {
     cleanSection((currentXgrid - 1), (currentXgrid + 1), (currentYgrid - 1), (currentYgrid + 1));
   }
 
+  void cleanPreviousTarget(Ghost ghost) {
+    int previousTargetXgrid = ghost.getPreviousTargetX();
+    int previousTargetYgrid = ghost.getPreviousTargetY();
+    cleanSection((previousTargetXgrid - 1), (previousTargetXgrid + 1), (previousTargetYgrid - 1), (previousTargetYgrid + 1));
+  }
+
   void cleanCell(int x, int y) {
     cleanSection(x, x, y, y);
   }
@@ -158,6 +167,8 @@ class TileGrid {
         creatures.add(red);
         ghosts.add(red);
         setCorridor(red); // Once ghost has spawn, we clean its mark in the corridor.
+        GHOSTS_HOUSE_EXIT_X = x;
+        GHOSTS_HOUSE_EXIT_Y = y;
         break;
       case PINK_GHOST_TYPE:
         pink = new Pink(convertToCoordInCellCenter(x), convertToCoordInCellCenter(y));

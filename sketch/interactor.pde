@@ -25,12 +25,15 @@ class Interactor {
       if (!collitionedGhost.isFrightened()){
         // Pacman eaten by a ghost
         delay(2000);
+        for(Ghost ghost : ghosts) {
+          tileGrid.cleanPreviousTarget(ghost);
+        }
         for(Creature creature : creatures) {
           tileGrid.cleanPreviousPosition(creature);
           creature.respawn();
         }
       } else if (!collitionedGhost.isEaten()) {
-        delay(300);
+        delay(200);
         collitionedGhost.markAsEaten();
       }
     }

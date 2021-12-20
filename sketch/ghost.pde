@@ -1,5 +1,3 @@
-final int GHOSTS_HOUSE_EXIT_X = 14;
-final int GHOSTS_HOUSE_EXIT_Y = 14;
 
 final int CHASE = 0;
 final int SCATTER = 1;
@@ -36,19 +34,19 @@ class Ghost extends Creature {
   }
   
   void processMovement() {
-    
+
     if (insideHouse && hasToGoOutFromHouse()) {
       goOutFromHouse();
       insideHouse = false;
     }
 
-    checkIfShouldChangeMode();
-
-    checkIfShouldReverseDirection();
-
     if (eaten && hasArrivedToDoor()) {
       respawn();
     }
+
+    checkIfShouldChangeMode();
+
+    checkIfShouldReverseDirection();
 
     // Ghost only change its move, when it is in the center of the cell.
     if (tileGrid.isCenterOfTheCell(this)) {
@@ -131,33 +129,32 @@ class Ghost extends Creature {
   }
 
   void checkIfShouldChangeMode() {
-    // TODO: Check if ghosts change to its original mode when Power pellets effect finishes
     if (!isFrightened()) {
       if (!isChase() && changeModeTimer.second() >= getCurrentLevelVariables().scatterModeDuration1 &&
-            changeModeTimer.second() < getCurrentLevelVariables().chaseModeDuration1) {// 7 Seconds
+            changeModeTimer.second() < getCurrentLevelVariables().chaseModeDuration1) {// 20 seconds
         changeModeTo(CHASE);
       }
       if (!isScatter() && changeModeTimer.second() >= getCurrentLevelVariables().chaseModeDuration1 &&
-        changeModeTimer.second() < getCurrentLevelVariables().scatterModeDuration2) {// 20 Seconds
+        changeModeTimer.second() < getCurrentLevelVariables().scatterModeDuration2) {// 7 seconds
         changeModeTo(SCATTER);
       }
       if (!isChase() && changeModeTimer.second() >= getCurrentLevelVariables().scatterModeDuration2 &&
-            changeModeTimer.second() < getCurrentLevelVariables().chaseModeDuration2) {// 7 Seconds
+            changeModeTimer.second() < getCurrentLevelVariables().chaseModeDuration2) {// 20 seconds
         changeModeTo(CHASE);
       }
       if (!isScatter() && changeModeTimer.second() >= getCurrentLevelVariables().chaseModeDuration2 &&
-        changeModeTimer.second() < getCurrentLevelVariables().scatterModeDuration3) {// 20 Seconds
+        changeModeTimer.second() < getCurrentLevelVariables().scatterModeDuration3) {// 5 seconds
         changeModeTo(SCATTER);
       }
       if (!isChase() && changeModeTimer.second() >= getCurrentLevelVariables().scatterModeDuration3 &&
-            changeModeTimer.second() < getCurrentLevelVariables().chaseModeDuration3) {// 7 Seconds
+            changeModeTimer.second() < getCurrentLevelVariables().chaseModeDuration3) {// 20 seconds
         changeModeTo(CHASE);
       }
       if (!isScatter() && changeModeTimer.second() >= getCurrentLevelVariables().chaseModeDuration3 &&
-        changeModeTimer.second() < getCurrentLevelVariables().scatterModeDuration4) {// 20 Seconds
+        changeModeTimer.second() < getCurrentLevelVariables().scatterModeDuration4) {// 5 seconds
         changeModeTo(SCATTER);
       }
-      if (!isChase() && changeModeTimer.second() >= getCurrentLevelVariables().scatterModeDuration4) {// 5 Seconds
+      if (!isChase() && changeModeTimer.second() >= getCurrentLevelVariables().scatterModeDuration4) {// Indefinite
         changeModeTo(CHASE);
       }
     }
@@ -300,6 +297,14 @@ class Ghost extends Creature {
 
   void scheduleReverseDirection() {
     scheduleReverseDirection = true;
+  }
+
+  int getPreviousTargetX() {
+    return previousTargetX;
+  }
+
+  int getPreviousTargetY() {
+    return previousTargetY;
   }
 
   void showTarget() {
