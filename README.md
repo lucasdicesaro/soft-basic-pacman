@@ -4,6 +4,9 @@
 2. Download Processing https://processing.org/download
 3. Open Processing, open the repo, run and fun!
 
+Credits
+ - All my efforts in this work are thanks to the great and detailed explanation of Jamey Pittman in his <a href="https://www.gamasutra.com/view/feature/3938/the_pacman_dossier.php?print=1" target="_blank">Dossier</a>
+
 # Backlog
 
 - ~~Add timer for power pellet effect~~
