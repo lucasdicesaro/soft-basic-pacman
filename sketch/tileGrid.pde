@@ -81,6 +81,8 @@ class TileGrid {
         cleanTile(x, y);
       }
     }
+    creatures = new ArrayList<>();
+    ghosts = new ArrayList<>();
   }
 
   void renderGrid() {
@@ -102,6 +104,8 @@ class TileGrid {
     for(Creature creature : creatures) {
       creature.drawYourSelf();
     }
+
+    drawPalletCounter();
   }
 
   void cleanPreviousPosition(Creature creature) {

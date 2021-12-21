@@ -1,11 +1,22 @@
-int TOTAL_LEVELS = 1;
-int CURRENT_LEVEL;
+int TOTAL_LEVELS = 2;
+int CURRENT_LEVEL = 0;
 
 Level[] levels = new Level[TOTAL_LEVELS];
 
 void initializeLevelVariables() {
-  CURRENT_LEVEL = 1;
-  levels[(CURRENT_LEVEL-1)] = new Level(
+  int levelIndex = 0;
+  levels[levelIndex++] = new Level(
+    11,
+    7,
+    7 + 20,
+    7 + 20 + 7,
+    7 + 20 + 7 + 20,
+    7 + 20 + 7 + 20 + 5,
+    7 + 20 + 7 + 20 + 5 + 20,
+    7 + 20 + 7 + 20 + 5 + 20 + 5
+  );
+  // TODO: Change values for level 2
+  levels[levelIndex++] = new Level(
     11,
     7,
     7 + 20,
@@ -17,12 +28,12 @@ void initializeLevelVariables() {
   );
 }
 
-void levelPassed() {
+void addLevel() {
   CURRENT_LEVEL++;
 }
 
 Level getCurrentLevelVariables() {
-  return levels[(CURRENT_LEVEL-1)];
+  return levels[CURRENT_LEVEL-1];
 }
 
 

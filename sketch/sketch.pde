@@ -5,8 +5,8 @@ Keyboard keyboard;
 Interactor interactor;
 StopWatchTimer stopWatchTimer;
 
-java.util.List<Creature> creatures = new ArrayList<>();
-java.util.List<Ghost> ghosts = new ArrayList<>();
+java.util.List<Creature> creatures;
+java.util.List<Ghost> ghosts;
 Pacman pacman;
 Red red;
 Pink pink;
@@ -28,11 +28,8 @@ void setup() {
   initializeLevelVariables();
 
   keyboard = new Keyboard();
-
-  mapFile = new MapFile();
-  tileGrid = mapFile.fillGrid();
-  tileGrid.renderGrid();
   interactor = new Interactor();
+  interactor.startNextLevel();
 }
 
 void draw() {
@@ -40,10 +37,7 @@ void draw() {
     pacman.setSelectedMovement(keyboard.getUserKeyPressed());
   }
 
-  interactor.processMovements();
-  tileGrid.refreshGrid();
-
-  drawPalletCounter();
+  interactor.processIteration();
 }
 
 void keyPressed() {

@@ -111,9 +111,11 @@ class Ghost extends Creature {
   }
 
   void changeModeTo(int newMode) {
-    previousMode = currentMode;
-    currentMode = newMode;
-    scheduleReverseDirection();
+    if (newMode != currentMode) {
+      previousMode = currentMode;
+      currentMode = newMode;
+      scheduleReverseDirection();
+    }
   }
 
   boolean isChase() {
@@ -236,11 +238,6 @@ class Ghost extends Creature {
 
   void respawn() {
     super.respawn();
-    cleanEyes();
-    targetX = 0;
-    targetY = 0;
-    previousTargetX = targetX;
-    previousTargetY = targetY;
     insideHouse = true;
     scheduleReverseDirection = false;
     eaten = false;
@@ -254,10 +251,6 @@ class Ghost extends Creature {
     changeModeTo(previousMode);
     changeStopMovingRateTo(GHOST_NORMAL_STOP);
     changeModeTimer.resume();
-  }
-
-  void cleanEyes() {
-    tileGrid.cleanSection((previousTargetX - 1), (previousTargetX + 3), (previousTargetY - 1), (previousTargetY + 1));
   }
 
   void markAsFrightened() {

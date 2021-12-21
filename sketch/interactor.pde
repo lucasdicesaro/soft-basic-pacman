@@ -4,15 +4,16 @@ StopWatchTimer powerPelletEffectTimer = new StopWatchTimer();
 class Interactor {
 
   Interactor () {
-    pelletCounter = 0;
   }
 
-  void processMovements() {
+  void processIteration() {
     for(Creature creature : creatures) {
       if (creature.shouldMoveMySelf()) {
         creature.processMovement();
       }
     }
+
+    tileGrid.refreshGrid();
 
     processPellets();
 
@@ -24,14 +25,7 @@ class Interactor {
     if (collitionedGhost != null) {
       if (!collitionedGhost.isFrightened()){
         // Pacman eaten by a ghost
-        delay(2000);
-        for(Ghost ghost : ghosts) {
-          tileGrid.cleanPreviousTarget(ghost);
-        }
-        for(Creature creature : creatures) {
-          tileGrid.cleanPreviousPosition(creature);
-          creature.respawn();
-        }
+        restartAfterLostLife();
       } else if (!collitionedGhost.isEaten()) {
         delay(200);
         collitionedGhost.markAsEaten();
@@ -70,6 +64,39 @@ class Interactor {
         powerPelletEffectTimer.start();
       }
       tileGrid.setCorridor(pacman); // Remove pellet from maze
+
+      // TODO: Review this...
+      // TODO: Calculate 244 dynamically on grid building
+      if (pelletCounter == 244) {
+        if (CURRENT_LEVEL < TOTAL_LEVELS) {
+          // TODO: Add 'level completed' maze blinking
+          startNextLevel();
+        } else {
+          println("THE END. BYE");
+          delay(2000);
+          exit();
+        }
+      }
+    }
+  }
+
+  void startNextLevel() {
+    addLevel();
+    mapFile = new MapFile();
+    tileGrid = mapFile.fillGrid();
+    tileGrid.renderGrid();
+    restartAfterLostLife();
+    pelletCounter = 0;
+  }
+
+  void restartAfterLostLife() {
+    delay(2000);
+    for(Ghost ghost : ghosts) {
+      tileGrid.cleanPreviousTarget(ghost);
+    }
+    for(Creature creature : creatures) {
+      tileGrid.cleanPreviousPosition(creature);
+      creature.respawn();
     }
   }
 
