@@ -24,7 +24,6 @@ void setup() {
 
   f = createFont("Arial", 16, true);
   initializeScaleVariables();
-  initializeSpeedVariables();
   initializeLevelVariables();
 
   keyboard = new Keyboard();

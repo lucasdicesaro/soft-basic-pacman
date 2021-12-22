@@ -1,4 +1,5 @@
 int pelletCounter;
+boolean levelCompleted;
 StopWatchTimer powerPelletEffectTimer = new StopWatchTimer();
 
 class Interactor {
@@ -13,9 +14,20 @@ class Interactor {
       }
     }
 
+    processPellets();
+
     tileGrid.refreshGrid();
 
-    processPellets();
+    if (levelCompleted) {
+      if (CURRENT_LEVEL < TOTAL_LEVELS) {
+        // TODO: Add 'level completed' maze blinking
+        startNextLevel();
+      } else {
+        println("THE END. BYE");
+        delay(2000);
+        exit();
+      }
+    }
 
     processCollisions();
   }
@@ -64,29 +76,22 @@ class Interactor {
         powerPelletEffectTimer.start();
       }
       tileGrid.setCorridor(pacman); // Remove pellet from maze
-
-      // TODO: Review this...
-      // TODO: Calculate 244 dynamically on grid building
-      if (pelletCounter == 244) {
-        if (CURRENT_LEVEL < TOTAL_LEVELS) {
-          // TODO: Add 'level completed' maze blinking
-          startNextLevel();
-        } else {
-          println("THE END. BYE");
-          delay(2000);
-          exit();
-        }
-      }
+    }
+    // TODO: Calculate 244 dynamically on grid building
+    if (pelletCounter == 244 && tileGrid.isCenterOfTheCell(pacman)) {
+      levelCompleted = true;
     }
   }
 
   void startNextLevel() {
     addLevel();
+    initializeSpeedVariables();
     mapFile = new MapFile();
     tileGrid = mapFile.fillGrid();
     tileGrid.renderGrid();
     restartAfterLostLife();
     pelletCounter = 0;
+    levelCompleted = false;
   }
 
   void restartAfterLostLife() {
