@@ -7,6 +7,18 @@ class Interactor {
   Interactor () {
   }
 
+  void startNextLevel() {
+    addLevel();
+    initializeSpeedVariables();
+    mapFile = new MapFile();
+    tileGrid = mapFile.fillGrid();
+    tileGrid.countPellets();
+    tileGrid.renderGrid();
+    restartAfterLostLife();
+    pelletCounter = 0;
+    levelCompleted = false;
+  }
+
   void processIteration() {
     for(Creature creature : creatures) {
       if (creature.shouldMoveMySelf()) {
@@ -77,21 +89,9 @@ class Interactor {
       }
       tileGrid.setCorridor(pacman); // Remove pellet from maze
     }
-    // TODO: Calculate 244 dynamically on grid building
-    if (pelletCounter == 244 && tileGrid.isCenterOfTheCell(pacman)) {
+    if (pelletCounter == TOTAL_PELLETS && tileGrid.isCenterOfTheCell(pacman)) {
       levelCompleted = true;
     }
-  }
-
-  void startNextLevel() {
-    addLevel();
-    initializeSpeedVariables();
-    mapFile = new MapFile();
-    tileGrid = mapFile.fillGrid();
-    tileGrid.renderGrid();
-    restartAfterLostLife();
-    pelletCounter = 0;
-    levelCompleted = false;
   }
 
   void restartAfterLostLife() {

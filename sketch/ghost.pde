@@ -254,9 +254,11 @@ class Ghost extends Creature {
   }
 
   void markAsFrightened() {
-    changeModeTo(FRIGHTENED);
-    changeStopMovingRateTo(GHOST_FREIGHT_STOP);
-    changeModeTimer.pause();
+    if (!eaten) {
+      changeModeTo(FRIGHTENED);
+      changeStopMovingRateTo(GHOST_FREIGHT_STOP);
+      changeModeTimer.pause();
+    }
   }
 
   void markAsEaten() {

@@ -41,6 +41,8 @@ final int ORANGE_GHOST_TYPE = 170;
 int GHOSTS_HOUSE_EXIT_X;
 int GHOSTS_HOUSE_EXIT_Y;
 
+int TOTAL_PELLETS;
+
 final int[] allWallTypes = new int[] {
   DOUBLE_CORNER_TOP_LEFT,
   DOUBLE_CORNER_TOP_RIGHT,
@@ -83,6 +85,17 @@ class TileGrid {
     }
     creatures = new ArrayList<>();
     ghosts = new ArrayList<>();
+  }
+
+  void countPellets() {
+    TOTAL_PELLETS = 0;
+    for (int y = 0; y < MAX_ROWS; y++) {
+      for (int x = 0; x < MAX_COLS; x++) {
+        if (getTileValue(x, y) == PELLET || getTileValue(x, y) == POWER_PELLET) {
+          TOTAL_PELLETS++;
+        }
+      }
+    }
   }
 
   void renderGrid() {
@@ -284,6 +297,7 @@ class TileGrid {
       }
       println("");
     }
+    println("Total pellets: " + TOTAL_PELLETS);
   }
 
   int getTileValue(int x, int y) {

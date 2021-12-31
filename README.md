@@ -15,7 +15,7 @@
 ## Backlog
 
 - ~~Add timer for power pellet effect~~
-- Count pellets on maze building
+- ~~Count pellets on maze building~~
 - Add timer for ghost go out from its home
 - ~~Complete the level when Pacman eats all pellets~~
 - Limit Pacman lives
