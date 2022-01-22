@@ -78,7 +78,7 @@ class Interactor {
       }
     }
 
-    if (tileGrid.isPellet(pacman) || tileGrid.isPowerPellet(pacman)) {
+    if (tileGrid.isPellet(pacman) || tileGrid.isPowerPellet(pacman) || tileGrid.isUpRestrictedPositionWithPellet(pacman)) {
       pelletCounter++;
       if (tileGrid.isPowerPellet(pacman)) {
         pacman.changeStopMovingRateTo(PACMAN_FREIGHT_STOP);
@@ -87,7 +87,12 @@ class Interactor {
         }
         powerPelletEffectTimer.start();
       }
-      tileGrid.setCorridor(pacman); // Remove pellet from maze
+      // Remove pellet from maze
+      if (tileGrid.isPellet(pacman) || tileGrid.isPowerPellet(pacman)) {
+        tileGrid.setCorridor(pacman);
+      } else if (tileGrid.isUpRestrictedPositionWithPellet(pacman)) {
+        tileGrid.setUpRestrictedPositionWithoutPellet(pacman);
+      }
     }
     if (pelletCounter == TOTAL_PELLETS && tileGrid.isCenterOfTheCell(pacman)) {
       levelCompleted = true;

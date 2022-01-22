@@ -44,6 +44,7 @@ void keyPressed() {
     // https://forum.processing.org/one/topic/holding-down-a-key-bug.html
     keyboard.setUserKeyPressed();
     pacman.setSelectedMovement(keyboard.getUserKeyPressed());
+
   } else if (key == 'd') {
     mapFile.debug();
     tileGrid.debug();

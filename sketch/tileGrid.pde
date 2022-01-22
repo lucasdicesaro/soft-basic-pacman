@@ -28,6 +28,9 @@ final int SIMPLE_CONVEX_CORNER_TOP_RIGHT = 220;
 final int SIMPLE_CONVEX_CORNER_BOTTOM_LEFT = 221;
 final int SIMPLE_CONVEX_CORNER_BOTTOM_RIGHT = 222;
 
+final int UP_RESTRICTED_POSITION_WITH_PELLET = 212;
+final int UP_RESTRICTED_POSITION_WITHOUT_PELLET = 213;
+
 final int PELLET = 250;
 final int POWER_PELLET = 254;
 final int CORRIDOR = 32;
@@ -160,9 +163,11 @@ class TileGrid {
           drawInvisibleWallInCellGrid(x, y);
           break;
         case CORRIDOR:
+        case UP_RESTRICTED_POSITION_WITHOUT_PELLET:
           drawCorridorInCellGrid(x, y);
           break;
         case PELLET:
+        case UP_RESTRICTED_POSITION_WITH_PELLET:
           drawPelletInCellGrid(x, y);
           break;
         case POWER_PELLET:
@@ -221,6 +226,10 @@ class TileGrid {
     setTileValue(creature.getGridCellX(), creature.getGridCellY(), CORRIDOR);
   }
 
+  void setUpRestrictedPositionWithoutPellet(Creature creature) {
+    setTileValue(creature.getGridCellX(), creature.getGridCellY(), UP_RESTRICTED_POSITION_WITHOUT_PELLET);
+  }
+
   // Movement is only validated when creature is in the center of the cell.
   boolean isNotWallOnCreatureLeft(Creature creature) {
     return !isHorizontalCenterOfTheCell(creature) || !isWall(creature.getGridCellX()-1, creature.getGridCellY());
@@ -246,6 +255,14 @@ class TileGrid {
     return isPowerPellet(creature.getGridCellX(), creature.getGridCellY());
   }
 
+  boolean isUpRestricted(Creature creature) {
+    return isUpRestricted(creature.getGridCellX(), creature.getGridCellY());
+  }
+
+  boolean isUpRestrictedPositionWithPellet(Creature creature) {
+    return isUpRestrictedPositionWithPellet(creature.getGridCellX(), creature.getGridCellY());
+  }
+
   boolean isWall(int x, int y) {
     int gridValue = getTileValue(x, y);
     for (int i = 0; i < allWallTypes.length; i++) {
@@ -262,6 +279,14 @@ class TileGrid {
 
   boolean isPowerPellet(int x, int y) {
     return getTileValue(x, y) == POWER_PELLET;
+  }
+
+  boolean isUpRestricted(int x, int y) {
+    return getTileValue(x, y) == UP_RESTRICTED_POSITION_WITH_PELLET || getTileValue(x, y) == UP_RESTRICTED_POSITION_WITHOUT_PELLET;
+  }
+
+  boolean isUpRestrictedPositionWithPellet(int x, int y) {
+    return getTileValue(x, y) == UP_RESTRICTED_POSITION_WITH_PELLET;
   }
 
   // Checks if coord is the center of the cell

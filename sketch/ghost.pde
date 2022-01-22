@@ -78,7 +78,7 @@ class Ghost extends Creature {
     int x = getGridCellX();
     int y = getGridCellY();
     float distance = 0;
-    if (selectedMovement != DOWN && tileGrid.isNotWallOnCreatureUp(this)) {
+    if (selectedMovement != DOWN && tileGrid.isNotWallOnCreatureUp(this) && !tileGrid.isUpRestricted(this)) {
       distance = dist(x, y-1, targetX, targetY);
       if (min > distance) {
         min = distance;
@@ -309,6 +309,6 @@ class Ghost extends Creature {
 
   void debug() {
     super.debug();
-    println("changeModeTimer.second(): " + changeModeTimer.second());
+    println("changeModeTimer.second(): " + changeModeTimer.second() + " tileGrid.isUpRestricted(this): " + tileGrid.isUpRestricted(this));
   }
 } 
