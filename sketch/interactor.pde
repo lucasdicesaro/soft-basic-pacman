@@ -10,7 +10,7 @@ class Interactor {
   void startNextLevel() {
     increaseLevel();
     initializeSpeedVariables();
-    mapFile = new MapFile();
+    mapFile = new MapFile(CURRENT_LEVEL);
     tileGrid = mapFile.fillGrid();
     tileGrid.countPellets();
     tileGrid.renderGrid();
@@ -78,7 +78,7 @@ class Interactor {
       }
     }
 
-    if (tileGrid.isPellet(pacman) || tileGrid.isPowerPellet(pacman) || tileGrid.isUpRestrictedPositionWithPellet(pacman)) {
+    if (tileGrid.isAnyKindOfPellet(pacman)) {
       pelletCounter++;
       if (tileGrid.isPowerPellet(pacman)) {
         pacman.changeStopMovingRateTo(PACMAN_FREIGHT_STOP);

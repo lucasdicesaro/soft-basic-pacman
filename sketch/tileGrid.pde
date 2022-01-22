@@ -94,7 +94,7 @@ class TileGrid {
     TOTAL_PELLETS = 0;
     for (int y = 0; y < MAX_ROWS; y++) {
       for (int x = 0; x < MAX_COLS; x++) {
-        if (getTileValue(x, y) == PELLET || getTileValue(x, y) == POWER_PELLET) {
+        if (isAnyKindOfPellet(x, y)) {
           TOTAL_PELLETS++;
         }
       }
@@ -263,6 +263,10 @@ class TileGrid {
     return isUpRestrictedPositionWithPellet(creature.getGridCellX(), creature.getGridCellY());
   }
 
+  boolean isAnyKindOfPellet(Creature creature) {
+    return isAnyKindOfPellet(creature.getGridCellX(), creature.getGridCellY());
+  }
+
   boolean isWall(int x, int y) {
     int gridValue = getTileValue(x, y);
     for (int i = 0; i < allWallTypes.length; i++) {
@@ -271,6 +275,10 @@ class TileGrid {
       }
     }
     return false;
+  }
+
+  boolean isAnyKindOfPellet(int x, int y) {
+    return getTileValue(x, y) == PELLET || getTileValue(x, y) == POWER_PELLET || getTileValue(x, y) == UP_RESTRICTED_POSITION_WITH_PELLET;
   }
 
   boolean isPellet(int x, int y) {

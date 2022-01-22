@@ -2,8 +2,8 @@
 class MapFile { 
   String[] lines;
   
-  MapFile () {  
-    lines = loadStrings("maps/map_1.txt");
+  MapFile (int level) {
+    lines = loadStrings("maps/map_" + level + ".txt");
   }
   
   TileGrid fillGrid() {
