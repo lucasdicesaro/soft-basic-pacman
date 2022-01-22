@@ -3,7 +3,7 @@ class MapFile {
   String[] lines;
   
   MapFile () {  
-    lines = loadStrings("map_1.txt");
+    lines = loadStrings("maps/map_2.txt");
   }
   
   TileGrid fillGrid() {

@@ -39,11 +39,11 @@ void initializeLevelVariables() {
     0.85,  // GHOST_NORMAL_SPEED
     0.55,  // GHOST_FREIGHT_SPEED
     1.0,   // GHOST_EYES_SPEED
-    0.45    // GHOST_TUNNEL_SPEED
+    0.45   // GHOST_TUNNEL_SPEED
   );
 }
 
-void addLevel() {
+void increaseLevel() {
   CURRENT_LEVEL++;
 }
 

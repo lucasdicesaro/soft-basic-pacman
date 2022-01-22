@@ -132,31 +132,31 @@ class Ghost extends Creature {
 
   void checkIfShouldChangeMode() {
     if (!isFrightened()) {
-      if (!isChase() && changeModeTimer.second() >= getCurrentLevelVariables().scatterModeDuration1 &&
-            changeModeTimer.second() < getCurrentLevelVariables().chaseModeDuration1) {// 20 seconds
+      if (changeModeTimer.second() >= getCurrentLevelVariables().scatterModeDuration1 &&
+          changeModeTimer.second() < getCurrentLevelVariables().chaseModeDuration1) {// 20 seconds
         changeModeTo(CHASE);
       }
-      if (!isScatter() && changeModeTimer.second() >= getCurrentLevelVariables().chaseModeDuration1 &&
-        changeModeTimer.second() < getCurrentLevelVariables().scatterModeDuration2) {// 7 seconds
+      if (changeModeTimer.second() >= getCurrentLevelVariables().chaseModeDuration1 &&
+          changeModeTimer.second() < getCurrentLevelVariables().scatterModeDuration2) {// 7 seconds
         changeModeTo(SCATTER);
       }
-      if (!isChase() && changeModeTimer.second() >= getCurrentLevelVariables().scatterModeDuration2 &&
-            changeModeTimer.second() < getCurrentLevelVariables().chaseModeDuration2) {// 20 seconds
+      if (changeModeTimer.second() >= getCurrentLevelVariables().scatterModeDuration2 &&
+          changeModeTimer.second() < getCurrentLevelVariables().chaseModeDuration2) {// 20 seconds
         changeModeTo(CHASE);
       }
-      if (!isScatter() && changeModeTimer.second() >= getCurrentLevelVariables().chaseModeDuration2 &&
-        changeModeTimer.second() < getCurrentLevelVariables().scatterModeDuration3) {// 5 seconds
+      if (changeModeTimer.second() >= getCurrentLevelVariables().chaseModeDuration2 &&
+          changeModeTimer.second() < getCurrentLevelVariables().scatterModeDuration3) {// 5 seconds
         changeModeTo(SCATTER);
       }
-      if (!isChase() && changeModeTimer.second() >= getCurrentLevelVariables().scatterModeDuration3 &&
-            changeModeTimer.second() < getCurrentLevelVariables().chaseModeDuration3) {// 20 seconds
+      if (changeModeTimer.second() >= getCurrentLevelVariables().scatterModeDuration3 &&
+          changeModeTimer.second() < getCurrentLevelVariables().chaseModeDuration3) {// 20 seconds
         changeModeTo(CHASE);
       }
-      if (!isScatter() && changeModeTimer.second() >= getCurrentLevelVariables().chaseModeDuration3 &&
-        changeModeTimer.second() < getCurrentLevelVariables().scatterModeDuration4) {// 5 seconds
+      if (changeModeTimer.second() >= getCurrentLevelVariables().chaseModeDuration3 &&
+          changeModeTimer.second() < getCurrentLevelVariables().scatterModeDuration4) {// 5 seconds
         changeModeTo(SCATTER);
       }
-      if (!isChase() && changeModeTimer.second() >= getCurrentLevelVariables().scatterModeDuration4) {// Indefinite
+      if (changeModeTimer.second() >= getCurrentLevelVariables().scatterModeDuration4) {// Indefinite
         changeModeTo(CHASE);
       }
     }

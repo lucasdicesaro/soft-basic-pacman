@@ -8,7 +8,7 @@ class Interactor {
   }
 
   void startNextLevel() {
-    addLevel();
+    increaseLevel();
     initializeSpeedVariables();
     mapFile = new MapFile();
     tileGrid = mapFile.fillGrid();
