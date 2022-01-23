@@ -41,10 +41,17 @@ final int PINK_GHOST_TYPE = 168;
 final int BLUE_GHOST_TYPE = 169;
 final int ORANGE_GHOST_TYPE = 170;
 
-int GHOSTS_HOUSE_EXIT_X;
-int GHOSTS_HOUSE_EXIT_Y;
+// Default values
+// These values will be changed dynamically with map file information
+int GHOSTS_HOUSE_EXIT_X = 14;
+int GHOSTS_HOUSE_EXIT_Y = 14;
 
-int TOTAL_PELLETS;
+int TOTAL_PELLETS = 0;
+
+int MAZE_INIT_X = 0;
+int MAZE_INIT_Y = 0;
+int MAZE_END_X = MAX_ROWS - 1;
+int MAZE_END_Y = MAX_COLS - 1;
 
 final int[] allWallTypes = new int[] {
   DOUBLE_CORNER_TOP_LEFT,
@@ -91,11 +98,22 @@ class TileGrid {
   }
 
   void countPellets() {
+    boolean mazeInitGridCoordSet = false;
     TOTAL_PELLETS = 0;
     for (int y = 0; y < MAX_ROWS; y++) {
       for (int x = 0; x < MAX_COLS; x++) {
         if (isAnyKindOfPellet(x, y)) {
           TOTAL_PELLETS++;
+        } else if (getTileValue(x, y) == RED_GHOST_TYPE) {
+          GHOSTS_HOUSE_EXIT_X = x;
+          GHOSTS_HOUSE_EXIT_Y = y;
+        } else if (getTileValue(x, y) == DOUBLE_CORNER_TOP_LEFT && !mazeInitGridCoordSet) { // The first occurrence matters
+          MAZE_INIT_X = x;
+          MAZE_INIT_Y = y;
+          mazeInitGridCoordSet = true;
+        } else if (getTileValue(x, y) == DOUBLE_CORNER_BOTTOM_RIGHT) { // The last occurrence matters
+          MAZE_END_X = x;
+          MAZE_END_Y = y;
         }
       }
     }
@@ -189,8 +207,6 @@ class TileGrid {
         creatures.add(red);
         ghosts.add(red);
         setCorridor(red); // Once ghost has spawn, we clean its mark in the corridor.
-        GHOSTS_HOUSE_EXIT_X = x;
-        GHOSTS_HOUSE_EXIT_Y = y;
         break;
       case PINK_GHOST_TYPE:
         pink = new Pink(convertToCoordInCellCenter(x), convertToCoordInCellCenter(y));
@@ -330,7 +346,7 @@ class TileGrid {
       }
       println("");
     }
-    println("Total pellets: " + TOTAL_PELLETS);
+    println("MAZE_INIT_X: " + MAZE_INIT_X + " MAZE_INIT_Y: " + MAZE_INIT_Y + " MAZE_END_X: " + MAZE_END_X + " MAZE_END_Y: " + MAZE_END_Y + " TOTAL_PELLETS: " + TOTAL_PELLETS + " GHOSTS_HOUSE_EXIT_X: " + GHOSTS_HOUSE_EXIT_X + " GHOSTS_HOUSE_EXIT_Y: " + GHOSTS_HOUSE_EXIT_Y);
   }
 
   int getTileValue(int x, int y) {

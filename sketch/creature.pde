@@ -36,29 +36,41 @@ class Creature {
   void moveLeft() {
     drawX = drawX - PIXEL_SIZE;
     drawY = cuantizeCoord(drawY) + (CELL_SIZE / 2); // Forces Pacman to stay in the middle of the corridor
-    if (getGridCellX() == 0) {
+    if (getGridCellX() == MAZE_INIT_X) {
+      // Tp from left to right
       tileGrid.cleanPreviousPosition(this);
-      drawX = cellToCoord(MAX_COLS) - (1 * PIXEL_SIZE);
+      drawX = cellToCoord(MAZE_END_X) + SEVEN_PIXELS;
     }
   }
 
   void moveRight() {
     drawX = drawX + PIXEL_SIZE;
     drawY = cuantizeCoord(drawY) + (CELL_SIZE / 2);
-    if (getGridCellX() == MAX_COLS - 1) {
+    if (getGridCellX() == MAZE_END_X) {
+      // Tp from right to left
       tileGrid.cleanPreviousPosition(this);
-      drawX = PIXEL_SIZE;
+      drawX = cellToCoord(MAZE_INIT_X);
     }
   }
   
   void moveUp() {
     drawY = drawY - PIXEL_SIZE;
     drawX = cuantizeCoord(drawX) + (CELL_SIZE / 2);
+    if (getGridCellY() == MAZE_INIT_Y - 1) {
+      // Tp from top to bottom
+      tileGrid.cleanPreviousPosition(this);
+      drawY = cellToCoord(MAZE_END_Y) + SEVEN_PIXELS;
+    }
   }
 
   void moveDown() {
     drawY = drawY + PIXEL_SIZE;
     drawX = cuantizeCoord(drawX) + (CELL_SIZE / 2);
+    if (getGridCellY() == MAZE_END_Y + 1) {
+      // Tp from bottom to top
+      tileGrid.cleanPreviousPosition(this);
+      drawY = cellToCoord(MAZE_INIT_Y);
+    }
   }
 
   int getDrawX() {
