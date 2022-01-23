@@ -36,11 +36,19 @@ class Creature {
   void moveLeft() {
     drawX = drawX - PIXEL_SIZE;
     drawY = cuantizeCoord(drawY) + (CELL_SIZE / 2); // Forces Pacman to stay in the middle of the corridor
+    if (getGridCellX() == 0) {
+      tileGrid.cleanPreviousPosition(this);
+      drawX = cellToCoord(MAX_COLS) - (1 * PIXEL_SIZE);
+    }
   }
 
   void moveRight() {
     drawX = drawX + PIXEL_SIZE;
     drawY = cuantizeCoord(drawY) + (CELL_SIZE / 2);
+    if (getGridCellX() == MAX_COLS - 1) {
+      tileGrid.cleanPreviousPosition(this);
+      drawX = PIXEL_SIZE;
+    }
   }
   
   void moveUp() {
