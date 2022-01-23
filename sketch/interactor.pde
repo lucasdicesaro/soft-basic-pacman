@@ -110,9 +110,23 @@ class Interactor {
     }
   }
 
+  // Debbuging purposes
   void changeGhostsModeTo(int mode) {
     for(Ghost ghost : ghosts) {
-      ghost.changeModeTo(mode);
+      switch(mode) {
+        case CHASE:
+          ghost.previousMode = mode;
+          ghost.resumeToNormalMode();
+          break;
+        case SCATTER:
+          ghost.previousMode = mode;
+          ghost.resumeToNormalMode();
+          break;
+        case FRIGHTENED:
+          ghost.markAsFrightened();
+          break;
+      }
+      ghost.changeModeTimer.stop();
     }
   }
 }

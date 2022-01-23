@@ -78,7 +78,7 @@ class Ghost extends Creature {
     int x = getGridCellX();
     int y = getGridCellY();
     float distance = 0;
-    if (selectedMovement != DOWN && tileGrid.isNotWallOnCreatureUp(this) && !tileGrid.isUpRestricted(this)) {
+    if (selectedMovement != DOWN && tileGrid.isNotWallOnCreatureUp(this) && isFrightenedOrIsNotUpRestricted()) {
       distance = dist(x, y-1, targetX, targetY);
       if (min > distance) {
         min = distance;
@@ -128,6 +128,10 @@ class Ghost extends Creature {
 
   boolean isFrightened() {
     return FRIGHTENED == currentMode;
+  }
+
+  boolean isFrightenedOrIsNotUpRestricted() {
+    return isFrightened() || !tileGrid.isUpRestricted(this);
   }
 
   void checkIfShouldChangeMode() {
