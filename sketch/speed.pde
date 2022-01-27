@@ -1,13 +1,13 @@
 
-float PACMAN_NORMAL_STOP;
-float PACMAN_REGULAR_PELLET_STOP;
-float PACMAN_POWER_PELLET_STOP;
-float PACMAN_FREIGHT_STOP;
+int PACMAN_NORMAL_STOP;
+int PACMAN_REGULAR_PELLET_STOP;
+int PACMAN_POWER_PELLET_STOP;
+int PACMAN_FREIGHT_STOP;
 
-float GHOST_NORMAL_STOP;
-float GHOST_FREIGHT_STOP;
-float GHOST_EYES_STOP;
-float GHOST_TUNNEL_STOP;
+int GHOST_NORMAL_STOP;
+int GHOST_FREIGHT_STOP;
+int GHOST_EYES_STOP;
+int GHOST_TUNNEL_STOP;
 
 void initializeSpeedVariables() {
   
@@ -22,15 +22,19 @@ void initializeSpeedVariables() {
   GHOST_TUNNEL_STOP = calculateStopRate(getCurrentLevelVariables().GHOST_TUNNEL_SPEED);
 }
 
-float calculateStopRate(float speed) {
-  return frameRate / (frameRate - (frameRate * speed));
+// frameRate = 60
+// speed = 0,75
+// 60 / (60 - (60 * 0,75)) = 4
+// calculateStopRate = 4
+// This means that a creature with speed=0,75 will stops every 4 frames.
+// TODO If a ghost has %55 of speed, so its stopMovingRate will be 2,22. So module never is 0. So ghost never stops.
+// workaround: round
+int calculateStopRate(float speed) {
+  return round(frameRate / (frameRate - (frameRate * speed)));
 }
 
 boolean shouldMove(float stopMovingRate) {
-  // TODO If a ghost has %55 of speed, so its stopMovingRate will be 2,22. So module never is 0. So ghost never stops.
-  // Ugly workaround: cast to int
-  int stopMovingRateInt = (int) stopMovingRate;
-  if (stopMovingRateInt == 0)
+  if (stopMovingRate == 0)
     return true;
-  return frameCount % stopMovingRateInt != 0;
+  return frameCount % stopMovingRate != 0;
 }

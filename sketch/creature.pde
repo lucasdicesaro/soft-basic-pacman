@@ -9,9 +9,9 @@ class Creature {
   String name;
   color c;
   int selectedMovement;
-  float stopMovingRate;
+  int stopMovingRate;
 
-  Creature (int drawX, int drawY, int type, String name, color c, float stopMovingRate) {
+  Creature (int drawX, int drawY, int type, String name, color c, int stopMovingRate) {
     //window(672, 864);
     //grid(28, 35)
     // 672 / 28 = 24
@@ -101,7 +101,7 @@ class Creature {
     return name;
   }
 
-  void changeStopMovingRateTo(float stopMovingRate) {
+  void changeStopMovingRateTo(int stopMovingRate) {
     this.stopMovingRate = stopMovingRate;
   }
 

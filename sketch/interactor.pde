@@ -68,7 +68,7 @@ class Interactor {
   }
 
   void processPellets() {
-    if (powerPelletEffectTimer.running && powerPelletEffectTimer.second() >= getCurrentLevelVariables().powerPelletEffectDuration) {
+    if (hasPowerPelletEffectFinished()) {
       powerPelletEffectTimer.stop();
       pacman.changeStopMovingRateTo(PACMAN_NORMAL_STOP);
       for(Ghost ghost : ghosts) {
@@ -88,15 +88,21 @@ class Interactor {
         powerPelletEffectTimer.start();
       }
       // Remove pellet from maze
-      if (tileGrid.isPellet(pacman) || tileGrid.isPowerPellet(pacman)) {
-        tileGrid.setCorridor(pacman);
-      } else if (tileGrid.isUpRestrictedPositionWithPellet(pacman)) {
-        tileGrid.setUpRestrictedPositionWithoutPellet(pacman);
+      if (tileGrid.isAnyKindOfPellet(pacman)) {
+        if (tileGrid.isUpRestrictedPositionWithPellet(pacman)) {
+          tileGrid.setUpRestrictedPositionWithoutPellet(pacman);
+        } else {
+          tileGrid.setCorridor(pacman);
+        }
       }
     }
     if (pelletCounter == TOTAL_PELLETS && tileGrid.isCenterOfTheCell(pacman)) {
       levelCompleted = true;
     }
+  }
+
+  boolean hasPowerPelletEffectFinished() {
+    return powerPelletEffectTimer.running && powerPelletEffectTimer.second() >= getCurrentLevelVariables().powerPelletEffectDuration;
   }
 
   void restartAfterLostLife() {

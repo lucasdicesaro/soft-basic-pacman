@@ -23,7 +23,7 @@
 - ~~Count pellets on maze building~~
 - ~~Add Up movement restriction for ghosts on the 4 special cells ~~
 - ~~Connect the teleport tunnel~~
-- Slow down ghosts speed when they walk through teleport tunnel
+- ~~Slow down ghosts speed when they walk through teleport tunnel~~
 - Limit Pacman lives
 - Add timer for ghost go out from its home
 - Pacman animation when he is eaten

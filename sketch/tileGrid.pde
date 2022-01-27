@@ -31,6 +31,9 @@ final int SIMPLE_CONVEX_CORNER_BOTTOM_RIGHT = 222;
 final int UP_RESTRICTED_POSITION_WITH_PELLET = 212;
 final int UP_RESTRICTED_POSITION_WITHOUT_PELLET = 213;
 
+final int TUNNEL_BOUNDS_WITH_PELLET = 214;
+final int TUNNEL_BOUNDS_WITHOUT_PELLET = 215;
+
 final int PELLET = 250;
 final int POWER_PELLET = 254;
 final int CORRIDOR = 32;
@@ -182,10 +185,12 @@ class TileGrid {
           break;
         case CORRIDOR:
         case UP_RESTRICTED_POSITION_WITHOUT_PELLET:
+        case TUNNEL_BOUNDS_WITHOUT_PELLET:
           drawCorridorInCellGrid(x, y);
           break;
         case PELLET:
         case UP_RESTRICTED_POSITION_WITH_PELLET:
+        case TUNNEL_BOUNDS_WITH_PELLET:
           drawPelletInCellGrid(x, y);
           break;
         case POWER_PELLET:
@@ -283,6 +288,10 @@ class TileGrid {
     return isAnyKindOfPellet(creature.getGridCellX(), creature.getGridCellY());
   }
 
+  boolean isTunnelBounds(Creature creature) {
+    return isTunnelBounds(creature.getGridCellX(), creature.getGridCellY());
+  }
+
   boolean isWall(int x, int y) {
     int gridValue = getTileValue(x, y);
     for (int i = 0; i < allWallTypes.length; i++) {
@@ -294,7 +303,7 @@ class TileGrid {
   }
 
   boolean isAnyKindOfPellet(int x, int y) {
-    return getTileValue(x, y) == PELLET || getTileValue(x, y) == POWER_PELLET || getTileValue(x, y) == UP_RESTRICTED_POSITION_WITH_PELLET;
+    return getTileValue(x, y) == PELLET || getTileValue(x, y) == POWER_PELLET || getTileValue(x, y) == UP_RESTRICTED_POSITION_WITH_PELLET || getTileValue(x, y) == TUNNEL_BOUNDS_WITH_PELLET;
   }
 
   boolean isPellet(int x, int y) {
@@ -311,6 +320,10 @@ class TileGrid {
 
   boolean isUpRestrictedPositionWithPellet(int x, int y) {
     return getTileValue(x, y) == UP_RESTRICTED_POSITION_WITH_PELLET;
+  }
+
+  boolean isTunnelBounds(int x, int y) {
+    return getTileValue(x, y) == TUNNEL_BOUNDS_WITH_PELLET || getTileValue(x, y) == TUNNEL_BOUNDS_WITHOUT_PELLET;
   }
 
   // Checks if coord is the center of the cell

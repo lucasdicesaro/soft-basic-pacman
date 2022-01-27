@@ -14,6 +14,7 @@ class Ghost extends Creature {
   boolean eaten;
   int currentMode;
   int previousMode;
+  boolean inTunnel;
   StopWatchTimer changeModeTimer = new StopWatchTimer();
 
   Ghost (int drawX, int drawY, int type, String name, color c) {  
@@ -50,6 +51,9 @@ class Ghost extends Creature {
 
     // Ghost only change its move, when it is in the center of the cell.
     if (tileGrid.isCenterOfTheCell(this)) {
+      if (tileGrid.isTunnelBounds(this)) {
+        inTunnel = !inTunnel;
+      }
       selectedMovement = getCalculatedMovement(selectedMovement);
     }
 
@@ -245,6 +249,7 @@ class Ghost extends Creature {
     insideHouse = true;
     scheduleReverseDirection = false;
     eaten = false;
+    inTunnel = false;
     previousMode = SCATTER;
     changeModeTo(SCATTER);
     changeStopMovingRateTo(GHOST_NORMAL_STOP);
@@ -287,6 +292,10 @@ class Ghost extends Creature {
     return eaten;
   }
 
+  boolean isInTunnel() {
+    return inTunnel;
+  }
+
   void goOutFromHouse() {
     drawX = convertToCoordInCellCenter(GHOSTS_HOUSE_EXIT_X);
     drawY = convertToCoordInCellCenter(GHOSTS_HOUSE_EXIT_Y);
@@ -311,8 +320,12 @@ class Ghost extends Creature {
     drawTarget(targetX, targetY, c);
   }
 
+  boolean shouldMoveMySelf() {
+    return shouldMove(inTunnel? GHOST_TUNNEL_STOP : stopMovingRate);
+  }
+
   void debug() {
     super.debug();
-    println("changeModeTimer.second(): " + changeModeTimer.second() + " tileGrid.isUpRestricted(this): " + tileGrid.isUpRestricted(this));
+    println("inTunnel: " + inTunnel + " changeModeTimer.second(): " + changeModeTimer.second() + " tileGrid.isUpRestricted(this): " + tileGrid.isUpRestricted(this));
   }
 } 
