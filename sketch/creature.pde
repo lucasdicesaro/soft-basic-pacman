@@ -34,42 +34,46 @@ class Creature {
   }
 
   void moveLeft() {
-    drawX = drawX - PIXEL_SIZE;
-    drawY = cuantizeCoord(drawY) + (CELL_SIZE / 2); // Forces Pacman to stay in the middle of the corridor
-    if (getGridCellX() == MAZE_INIT_X) {
+    if (drawX > MAZE_MIN_COORD_X) {
+      drawX = drawX - PIXEL_SIZE;
+      drawY = cuantizeCoord(drawY) + (CELL_SIZE / 2); // Forces Pacman to stay in the middle of the corridor
+    } else if (drawX <= MAZE_MIN_COORD_X) {
       // Tp from left to right
       tileGrid.cleanPreviousPosition(this);
-      drawX = cellToCoord(MAZE_END_X) + SEVEN_PIXELS;
+      drawX = MAZE_MAX_COORD_X;
     }
   }
 
   void moveRight() {
-    drawX = drawX + PIXEL_SIZE;
-    drawY = cuantizeCoord(drawY) + (CELL_SIZE / 2);
-    if (getGridCellX() == MAZE_END_X) {
+    if (drawX < MAZE_MAX_COORD_X) {
+      drawX = drawX + PIXEL_SIZE;
+      drawY = cuantizeCoord(drawY) + (CELL_SIZE / 2);
+    } else if (drawX >= MAZE_MAX_COORD_X) {
       // Tp from right to left
       tileGrid.cleanPreviousPosition(this);
-      drawX = cellToCoord(MAZE_INIT_X);
+      drawX = MAZE_MIN_COORD_X;
     }
   }
   
   void moveUp() {
-    drawY = drawY - PIXEL_SIZE;
-    drawX = cuantizeCoord(drawX) + (CELL_SIZE / 2);
-    if (getGridCellY() == MAZE_INIT_Y - 1) {
+    if (drawY > MAZE_MIN_COORD_Y) {
+      drawY = drawY - PIXEL_SIZE;
+      drawX = cuantizeCoord(drawX) + (CELL_SIZE / 2);
+    } else if (drawY <= MAZE_MIN_COORD_Y) {
       // Tp from top to bottom
       tileGrid.cleanPreviousPosition(this);
-      drawY = cellToCoord(MAZE_END_Y) + SEVEN_PIXELS;
+      drawY = MAZE_MAX_COORD_Y;
     }
   }
 
   void moveDown() {
-    drawY = drawY + PIXEL_SIZE;
-    drawX = cuantizeCoord(drawX) + (CELL_SIZE / 2);
-    if (getGridCellY() == MAZE_END_Y + 1) {
+    if (drawY < MAZE_MAX_COORD_Y) {
+      drawY = drawY + PIXEL_SIZE;
+      drawX = cuantizeCoord(drawX) + (CELL_SIZE / 2);
+    } else if (drawY >= MAZE_MAX_COORD_Y) {
       // Tp from bottom to top
       tileGrid.cleanPreviousPosition(this);
-      drawY = cellToCoord(MAZE_INIT_Y);
+      drawY = MAZE_MIN_COORD_Y;
     }
   }
 

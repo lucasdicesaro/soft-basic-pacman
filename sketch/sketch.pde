@@ -46,6 +46,7 @@ void keyPressed() {
     pacman.setSelectedMovement(keyboard.getUserKeyPressed());
 
   } else if (key == 'd') {
+    debug(); // windows dimensions
     mapFile.debug();
     tileGrid.debug();
     for(Creature creature : creatures) {
@@ -62,4 +63,8 @@ void keyPressed() {
 
 void keyReleased() {
   keyboard.releaseUserKey();
+}
+
+void debug() {
+  println("height: " + height + "\nwidth: " + width + "\nCELL_SIZE: " + CELL_SIZE + "\nPIXEL_SIZE: " + PIXEL_SIZE + "\nCREATURE_CENTER_SCALE: " + CREATURE_CENTER_SCALE + "\nCREATURE_CENTER_SIZE: " + CREATURE_CENTER_SIZE);
 }

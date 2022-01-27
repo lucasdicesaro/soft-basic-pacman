@@ -55,6 +55,10 @@ int MAZE_INIT_X = 0;
 int MAZE_INIT_Y = 0;
 int MAZE_END_X = MAX_ROWS - 1;
 int MAZE_END_Y = MAX_COLS - 1;
+int MAZE_MIN_COORD_X = cellToCoord(MAZE_INIT_X);
+int MAZE_MIN_COORD_Y = cellToCoord(MAZE_INIT_Y);
+int MAZE_MAX_COORD_X = cellToCoord(MAZE_END_X) + SEVEN_PIXELS;
+int MAZE_MAX_COORD_Y = cellToCoord(MAZE_END_Y) + SEVEN_PIXELS;
 
 final int[] allWallTypes = new int[] {
   DOUBLE_CORNER_TOP_LEFT,
@@ -84,6 +88,13 @@ final int[] allWallTypes = new int[] {
   SIMPLE_CONVEX_CORNER_BOTTOM_LEFT,
   SIMPLE_CONVEX_CORNER_BOTTOM_RIGHT,
   INVISIBLE_WALL
+};
+
+final int[] allPelletTypes = new int[] {
+  PELLET,
+  POWER_PELLET,
+  UP_RESTRICTED_POSITION_WITH_PELLET,
+  TUNNEL_BOUNDS_WITH_PELLET
 };
 
 class TileGrid {
@@ -120,6 +131,11 @@ class TileGrid {
         }
       }
     }
+
+    MAZE_MIN_COORD_X = cellToCoord(MAZE_INIT_X);
+    MAZE_MIN_COORD_Y = cellToCoord(MAZE_INIT_Y);
+    MAZE_MAX_COORD_X = cellToCoord(MAZE_END_X) + SEVEN_PIXELS;
+    MAZE_MAX_COORD_Y = cellToCoord(MAZE_END_Y) + SEVEN_PIXELS;
   }
 
   void renderGrid() {
@@ -303,7 +319,13 @@ class TileGrid {
   }
 
   boolean isAnyKindOfPellet(int x, int y) {
-    return getTileValue(x, y) == PELLET || getTileValue(x, y) == POWER_PELLET || getTileValue(x, y) == UP_RESTRICTED_POSITION_WITH_PELLET || getTileValue(x, y) == TUNNEL_BOUNDS_WITH_PELLET;
+    int gridValue = getTileValue(x, y);
+    for (int i = 0; i < allPelletTypes.length; i++) {
+      if (gridValue == allPelletTypes[i]) {
+        return true;
+      }
+    }
+    return false;
   }
 
   boolean isPellet(int x, int y) {
@@ -363,7 +385,9 @@ class TileGrid {
   }
 
   int getTileValue(int x, int y) {
-    return grid[y][x];
+    int validX = validateCoordinate(x, MAX_COLS);
+    int validY = validateCoordinate(y, MAX_ROWS);
+    return grid[validY][validX];
   } 
 
   void setTileValue(int x, int y, int value) {
