@@ -2,6 +2,7 @@
 MapFile mapFile;
 TileGrid tileGrid;
 Keyboard keyboard;
+Sound sound;
 Interactor interactor;
 StopWatchTimer stopWatchTimer;
 
@@ -27,6 +28,7 @@ void setup() {
   initializeLevelVariables();
 
   keyboard = new Keyboard();
+  sound = new Sound();
   interactor = new Interactor();
   interactor.startNextLevel();
 }
@@ -49,6 +51,7 @@ void keyPressed() {
     debug(); // windows dimensions
     mapFile.debug();
     tileGrid.debug();
+    sound.debug();
     for(Creature creature : creatures) {
       creature.debug();
     }
@@ -67,4 +70,8 @@ void keyReleased() {
 
 void debug() {
   println("height: " + height + "\nwidth: " + width + "\nCELL_SIZE: " + CELL_SIZE + "\nPIXEL_SIZE: " + PIXEL_SIZE + "\nCREATURE_CENTER_SCALE: " + CREATURE_CENTER_SCALE + "\nCREATURE_CENTER_SIZE: " + CREATURE_CENTER_SIZE);
+}
+
+SoundFile getSoundFile(String fileName) {
+  return new SoundFile(this, "sounds/" + fileName);
 }

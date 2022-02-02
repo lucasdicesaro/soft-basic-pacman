@@ -14,6 +14,8 @@ class Interactor {
     tileGrid = mapFile.fillGrid();
     tileGrid.countPellets();
     tileGrid.renderGrid();
+    sound.playGameStart();
+    delay(3000);
     restartAfterLostLife();
     pelletCounter = 0;
     levelCompleted = false;
@@ -28,15 +30,25 @@ class Interactor {
 
     processPellets();
 
+    if (!sound.isEyesPlaying() && isEatenGhosts()) {
+      sound.playEyes();
+    } else if (sound.isEyesPlaying() && !isEatenGhosts()) {
+      sound.stopEyes();
+      if (sound.isPowerPelletPlaying()) {
+        sound.playPowerPellet();
+      }
+    }
+
     tileGrid.refreshGrid();
 
     if (levelCompleted) {
+      sound.stopAll();
+      delay(2000);
       if (CURRENT_LEVEL < TOTAL_LEVELS) {
         // TODO: Add 'level completed' maze blinking
         startNextLevel();
       } else {
         println("THE END. BYE");
-        delay(2000);
         exit();
       }
     }
@@ -49,8 +61,10 @@ class Interactor {
     if (collitionedGhost != null) {
       if (!collitionedGhost.isFrightened()){
         // Pacman eaten by a ghost
+        sound.playPacDeath();
         restartAfterLostLife();
       } else if (!collitionedGhost.isEaten()) {
+        sound.playEatGhost();
         delay(200);
         collitionedGhost.markAsEaten();
       }
@@ -70,6 +84,7 @@ class Interactor {
   void processPellets() {
     if (hasPowerPelletEffectFinished()) {
       powerPelletEffectTimer.stop();
+      sound.playSiren();
       pacman.changeStopMovingRateTo(PACMAN_NORMAL_STOP);
       for(Ghost ghost : ghosts) {
         if (ghost.isFrightened() && !ghost.isEaten()) {
@@ -80,7 +95,9 @@ class Interactor {
 
     if (tileGrid.isAnyKindOfPellet(pacman)) {
       pelletCounter++;
+      sound.playMunch();
       if (tileGrid.isPowerPellet(pacman)) {
+        sound.playPowerPellet();
         pacman.changeStopMovingRateTo(PACMAN_FREIGHT_STOP);
         for(Ghost ghost : ghosts) {
           ghost.markAsFrightened();
@@ -105,8 +122,18 @@ class Interactor {
     return powerPelletEffectTimer.running && powerPelletEffectTimer.second() >= getCurrentLevelVariables().powerPelletEffectDuration;
   }
 
+  boolean isEatenGhosts() {
+    for(Ghost ghost : ghosts) {
+      if (ghost.isEaten()) {
+        return true;
+      }
+    }
+    return false;
+  }
+
   void restartAfterLostLife() {
     delay(2000);
+    sound.playSiren();
     for(Ghost ghost : ghosts) {
       tileGrid.cleanPreviousTarget(ghost);
     }

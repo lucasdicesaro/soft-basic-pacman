@@ -1,12 +1,13 @@
-# soft-basic-pacman
+# soft-basic-pacman with sound
 
 ## Instructions
 
 1. Download <a href="https://github.com/lucasdicesaro/soft-basic-pacman/archive/refs/heads/main.zip" target="_blank">this code</a> and unzip it.
 2. Download <a href="https://processing.org/download" target="_blank">Processing</a> and unzip it (<a href="https://www.youtube.com/watch?v=cVyy5EUVt4g" target="_blank">See how to download and install Processing</a>)
 3. Once Processing is installed and open, select `File` from the menu and find the `sketch.pde` file in the `sketch` folder downloaded in step 1.
-4. Once you've opened the file, select Run (play button)
-5. Enjoy!
+4. This branch has an aditional step. Processing.org 4 doesn´t include the Sound library. So, you need install it. Please follow <a href="https://stackoverflow.com/questions/30559754/how-to-install-the-sound-library-for-processing-in-a-simple-way/30560769#30560769" target="_blank">these instructions</a>.
+5. Once you've opened the file, select Run (play button)
+6. Enjoy!
 
 ## Credits
 

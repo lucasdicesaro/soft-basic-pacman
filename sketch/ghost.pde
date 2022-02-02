@@ -41,7 +41,7 @@ class Ghost extends Creature {
       insideHouse = false;
     }
 
-    if (eaten && hasArrivedToDoor()) {
+    if (isEatenAndHasArrivedToDoor()) {
       respawn();
     }
 
@@ -322,6 +322,10 @@ class Ghost extends Creature {
 
   boolean shouldMoveMySelf() {
     return shouldMove(inTunnel? GHOST_TUNNEL_STOP : stopMovingRate);
+  }
+
+  boolean isEatenAndHasArrivedToDoor() {
+    return eaten && hasArrivedToDoor();
   }
 
   void debug() {
