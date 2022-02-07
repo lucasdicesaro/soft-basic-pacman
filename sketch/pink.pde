@@ -14,7 +14,7 @@ class Pink extends Ghost {
     switch(pacman.getSelectedMovement()){
       case UP:
         targetY = pacmanY - 4;
-        targetX = pacmanX - 4; // Intentional bug
+        targetX = pacmanX - 4; // Intentional
       break;
       case LEFT:
         targetX = pacmanX - 4;
