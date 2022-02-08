@@ -111,7 +111,7 @@ class TileGrid {
     ghosts = new ArrayList<>();
   }
 
-  void countPellets() {
+  void initializeSpecialVariables() {
     boolean mazeInitGridCoordSet = false;
     TOTAL_PELLETS = 0;
     for (int y = 0; y < MAX_ROWS; y++) {

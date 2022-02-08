@@ -317,7 +317,9 @@ class Ghost extends Creature {
 
   void showTarget() {
     tileGrid.cleanCell(previousTargetX, previousTargetY);
-    drawTarget(targetX, targetY, c);
+    if (targetX >= 0 && targetX < MAX_COLS && targetY >= 0 && targetY < MAX_ROWS) {
+      drawTarget(targetX, targetY, c);
+    }
   }
 
   boolean shouldMoveMySelf() {

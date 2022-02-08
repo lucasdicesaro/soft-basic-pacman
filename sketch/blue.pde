@@ -12,7 +12,7 @@ class Blue extends Ghost {
     switch(pacman.getSelectedMovement()){
       case UP:
         pacmanY = pacmanY - 2;
-        pacmanX = pacmanX - 2; // Intentional bug
+        pacmanX = pacmanX - 2; // Intentional
       break;
       case LEFT:
         pacmanX = pacmanX - 2;

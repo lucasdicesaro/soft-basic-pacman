@@ -12,7 +12,7 @@ class Interactor {
     initializeSpeedVariables();
     mapFile = new MapFile(CURRENT_LEVEL);
     tileGrid = mapFile.fillGrid();
-    tileGrid.countPellets();
+    tileGrid.initializeSpecialVariables();
     tileGrid.renderGrid();
     sound.playGameStart();
     delay(3000);

@@ -9,6 +9,8 @@
 5. Once you've opened the file, select Run (play button)
 6. Enjoy!
 
+Note: If you want a Pac-Man with sound, please checkout <a href="https://github.com/lucasdicesaro/soft-basic-pacman/tree/pacman_with_sound" target="_blank">this branch</a>.
+
 ## Credits
 
  All my efforts in this work are thanks to:

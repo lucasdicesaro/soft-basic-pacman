@@ -17,11 +17,14 @@ Orange orange;
 PFont f;
 
 void setup() {
+  fullScreen();
   //size(224 * PIXEL_SIZE, 288 * PIXEL_SIZE);
   //size(224, 288); // PIXEL_SIZE = 1
   //size(448, 576); // PIXEL_SIZE = 2
-  size(672, 864); // PIXEL_SIZE = 3
+  //size(672, 864); // PIXEL_SIZE = 3
   //size(896, 1152); // PIXEL_SIZE = 4
+  //size(1120, 1440); // PIXEL_SIZE = 5
+  background(0);
 
   f = createFont("Arial", 16, true);
   initializeScaleVariables();
@@ -48,7 +51,7 @@ void keyPressed() {
     pacman.setSelectedMovement(keyboard.getUserKeyPressed());
 
   } else if (key == 'd') {
-    debug(); // windows dimensions
+    printScaleVariables();
     mapFile.debug();
     tileGrid.debug();
     sound.debug();
@@ -66,10 +69,6 @@ void keyPressed() {
 
 void keyReleased() {
   keyboard.releaseUserKey();
-}
-
-void debug() {
-  println("height: " + height + "\nwidth: " + width + "\nCELL_SIZE: " + CELL_SIZE + "\nPIXEL_SIZE: " + PIXEL_SIZE + "\nCREATURE_CENTER_SCALE: " + CREATURE_CENTER_SCALE + "\nCREATURE_CENTER_SIZE: " + CREATURE_CENTER_SIZE);
 }
 
 SoundFile getSoundFile(String fileName) {
