@@ -42,6 +42,11 @@ class Creature {
       tileGrid.cleanPreviousPosition(this);
       drawX = MAZE_MAX_COORD_X;
     }
+
+    if (getGridCellX() == MAZE_END_X) {
+      // Clean background outside maze when creature is tp
+      drawBlackSquareOutsideMaze(MAZE_MAX_COORD_X, drawY);
+    }
   }
 
   void moveRight() {
@@ -52,6 +57,11 @@ class Creature {
       // Tp from right to left
       tileGrid.cleanPreviousPosition(this);
       drawX = MAZE_MIN_COORD_X;
+    }
+
+    if (getGridCellX() == MAZE_INIT_X) {
+      // Clean background outside maze when creature is tp
+      drawBlackSquareOutsideMaze(MAZE_MAX_COORD_X, drawY);
     }
   }
   

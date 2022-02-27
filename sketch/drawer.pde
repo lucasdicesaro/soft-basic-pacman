@@ -436,6 +436,13 @@ void drawBlackCell(int drawX, int drawY) {
   drawSquare(drawX, drawY);
 }
 
+// Pixel coordinates
+void drawBlackSquareOutsideMaze(int drawX, int drawY) {
+  drawCorridorInCellGrid(coordToCell(drawX) + 1, coordToCell(drawY) - 1);
+  drawCorridorInCellGrid(coordToCell(drawX) + 1, coordToCell(drawY));
+  drawCorridorInCellGrid(coordToCell(drawX) + 1, coordToCell(drawY) + 1);
+}
+
 // Grid positions
 void drawCorridorInCellGrid(int x, int y) {
   stroke(0);
@@ -505,10 +512,7 @@ void drawTarget(int x, int y, color c) {
   stroke(0);
 }
 
-void drawPalletCounter() {
-  int x = 4;
-  int y = 0;
-  tileGrid.cleanSection(x, x+1, y, y+1);
+void drawPalletCounter(int x, int y) {
   textFont(f,16);
   fill(255);
   text(nf(pelletCounter, 3), cellToCoord(x), cellToCoord(y+1));

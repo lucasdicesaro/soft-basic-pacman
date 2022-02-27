@@ -51,10 +51,12 @@ int GHOSTS_HOUSE_EXIT_Y = 14;
 
 int TOTAL_PELLETS = 0;
 
+// Grid cell positions
 int MAZE_INIT_X = 0;
 int MAZE_INIT_Y = 0;
 int MAZE_END_X = MAX_ROWS - 1;
 int MAZE_END_Y = MAX_COLS - 1;
+// Window pixel coordinates
 int MAZE_MIN_COORD_X = cellToCoord(MAZE_INIT_X);
 int MAZE_MIN_COORD_Y = cellToCoord(MAZE_INIT_Y);
 int MAZE_MAX_COORD_X = cellToCoord(MAZE_END_X) + SEVEN_PIXELS;
@@ -158,26 +160,34 @@ class TileGrid {
       creature.drawYourSelf();
     }
 
-    drawPalletCounter();
+    refreshPalletCounter();
+  }
+
+  void refreshPalletCounter() {
+    // TODO: Make these coordinates to be relative.
+    int x = 4;
+    int y = 0;
+    tileGrid.cleanSection(x, y, x+1, y+1);
+    drawPalletCounter(x, y);
   }
 
   void cleanPreviousPosition(Creature creature) {
     int currentXgrid = creature.getGridCellX();
     int currentYgrid = creature.getGridCellY();
-    cleanSection((currentXgrid - 1), (currentXgrid + 1), (currentYgrid - 1), (currentYgrid + 1));
+    cleanSection((currentXgrid - 1), (currentYgrid - 1), (currentXgrid + 1), (currentYgrid + 1));
   }
 
   void cleanPreviousTarget(Ghost ghost) {
     int previousTargetXgrid = ghost.getPreviousTargetX();
     int previousTargetYgrid = ghost.getPreviousTargetY();
-    cleanSection((previousTargetXgrid - 1), (previousTargetXgrid + 1), (previousTargetYgrid - 1), (previousTargetYgrid + 1));
+    cleanSection((previousTargetXgrid - 1), (previousTargetYgrid - 1), (previousTargetXgrid + 1), (previousTargetYgrid + 1));
   }
 
   void cleanCell(int x, int y) {
-    cleanSection(x, x, y, y);
+    cleanSection(x, y, x, y);
   }
   
-  void cleanSection(int fromX, int toX, int fromY, int toY) {
+  void cleanSection(int fromX, int fromY, int toX, int toY) {
 
     fromX = validateCoordinate(fromX, MAX_COLS);
     toX = validateCoordinate(toX, MAX_COLS);
@@ -381,7 +391,9 @@ class TileGrid {
       }
       println("");
     }
-    println("MAZE_INIT_X: " + MAZE_INIT_X + " MAZE_INIT_Y: " + MAZE_INIT_Y + " MAZE_END_X: " + MAZE_END_X + " MAZE_END_Y: " + MAZE_END_Y + " TOTAL_PELLETS: " + TOTAL_PELLETS + " GHOSTS_HOUSE_EXIT_X: " + GHOSTS_HOUSE_EXIT_X + " GHOSTS_HOUSE_EXIT_Y: " + GHOSTS_HOUSE_EXIT_Y);
+    println("MAZE_INIT_X: " + MAZE_INIT_X + "\nMAZE_INIT_Y: " + MAZE_INIT_Y + "\nMAZE_END_X: " + MAZE_END_X + "\nMAZE_END_Y: " + MAZE_END_Y + 
+          "\nMAZE_MIN_COORD_X: " + MAZE_MIN_COORD_X + "\nMAZE_MIN_COORD_Y: " + MAZE_MIN_COORD_Y + "\nMAZE_MAX_COORD_X: " + MAZE_MAX_COORD_X + "\nMAZE_MAX_COORD_Y: " + MAZE_MAX_COORD_Y + 
+          "\nTOTAL_PELLETS: " + TOTAL_PELLETS + "\nGHOSTS_HOUSE_EXIT_X: " + GHOSTS_HOUSE_EXIT_X + "\nGHOSTS_HOUSE_EXIT_Y: " + GHOSTS_HOUSE_EXIT_Y);
   }
 
   int getTileValue(int x, int y) {
