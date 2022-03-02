@@ -530,118 +530,118 @@ void drawBlueWallInCellGrid(int x, int y, int wallId) {
       break;
     case DOUBLE_WALL_VERTICAL_LEFT:
       // Outside line
-      line(cellToCoord(x), cellToCoord(y), cellToCoord(x), cellToCoord(y) + CELL_SIZE); // Vertical line over the left side
+      line(cellToCoord(x), cellToCoord(y), cellToCoord(x), cellToCoord(y) + SEVEN_PIXELS); // Vertical line over the left side
       // Inside line
-      line(cellToCoord(x) + THREE_PIXELS, cellToCoord(y), cellToCoord(x) + THREE_PIXELS, cellToCoord(y) + CELL_SIZE); // Vertical line to 4 "pixels" (base + THREE_PIXELS) from left cell side
+      line(cellToCoord(x) + THREE_PIXELS, cellToCoord(y), cellToCoord(x) + THREE_PIXELS, cellToCoord(y) + SEVEN_PIXELS); // Vertical line to 4 "pixels" (base + THREE_PIXELS) from left cell side
       break;
     case DOUBLE_WALL_VERTICAL_RIGHT:
       // Outside line
-      line(cellToCoord(x) + SEVEN_PIXELS, cellToCoord(y), cellToCoord(x) + SEVEN_PIXELS, cellToCoord(y) + CELL_SIZE); // Vertical line over the right cell side
+      line(cellToCoord(x) + SEVEN_PIXELS, cellToCoord(y), cellToCoord(x) + SEVEN_PIXELS, cellToCoord(y) + SEVEN_PIXELS); // Vertical line over the right cell side
       // Inside line
-      line(cellToCoord(x) + FOUR_PIXELS, cellToCoord(y), cellToCoord(x) + FOUR_PIXELS, cellToCoord(y) + CELL_SIZE); // Vertical line to 5 "pixels" from right cell side
+      line(cellToCoord(x) + FOUR_PIXELS, cellToCoord(y), cellToCoord(x) + FOUR_PIXELS, cellToCoord(y) + SEVEN_PIXELS); // Vertical line to 5 "pixels" from right cell side
       break;
     case DOUBLE_WALL_HORIZONTAL_TOP:
       // Outside line
-      line(cellToCoord(x), cellToCoord(y), cellToCoord(x) + CELL_SIZE, cellToCoord(y)); // Horizontal line over the top cell side
+      line(cellToCoord(x), cellToCoord(y), cellToCoord(x) + SEVEN_PIXELS, cellToCoord(y)); // Horizontal line over the top cell side
       // Inside line
-      line(cellToCoord(x), cellToCoord(y) + THREE_PIXELS, cellToCoord(x) + CELL_SIZE, cellToCoord(y) + THREE_PIXELS); // Horizontal line to 4 "pixels" from top cell side
+      line(cellToCoord(x), cellToCoord(y) + THREE_PIXELS, cellToCoord(x) + SEVEN_PIXELS, cellToCoord(y) + THREE_PIXELS); // Horizontal line to 4 "pixels" from top cell side
       break;
     case DOUBLE_WALL_HORIZONTAL_BOTTOM:
       // Outside line
-      line(cellToCoord(x), cellToCoord(y) + SEVEN_PIXELS, cellToCoord(x) + CELL_SIZE, cellToCoord(y) + SEVEN_PIXELS); // Horizontal line over the bottom cell side
+      line(cellToCoord(x), cellToCoord(y) + SEVEN_PIXELS, cellToCoord(x) + SEVEN_PIXELS, cellToCoord(y) + SEVEN_PIXELS); // Horizontal line over the bottom cell side
       // Inside line
-      line(cellToCoord(x), cellToCoord(y) + FOUR_PIXELS, cellToCoord(x) + CELL_SIZE, cellToCoord(y) + FOUR_PIXELS); // Horizontal line to 5 "pixels" from top cell side
+      line(cellToCoord(x), cellToCoord(y) + FOUR_PIXELS, cellToCoord(x) + SEVEN_PIXELS, cellToCoord(y) + FOUR_PIXELS); // Horizontal line to 5 "pixels" from top cell side
       break;
     case DOUBLE_CORNER_TOP_LEFT:
       // Outside line
-      line(cellToCoord(x), cellToCoord(y), cellToCoord(x) + CELL_SIZE, cellToCoord(y)); // Horizontal line over the top cell side
-      line(cellToCoord(x), cellToCoord(y), cellToCoord(x), cellToCoord(y) + CELL_SIZE); // Vertical line over the left side
+      line(cellToCoord(x), cellToCoord(y), cellToCoord(x) + SEVEN_PIXELS, cellToCoord(y)); // Horizontal line over the top cell side
+      line(cellToCoord(x), cellToCoord(y), cellToCoord(x), cellToCoord(y) + SEVEN_PIXELS); // Vertical line over the left side
       // Inside corner
       doubleCornerTopLeft(x, y);
       break;
     case DOUBLE_CORNER_TOP_RIGHT:
       // Outside line
       line(cellToCoord(x), cellToCoord(y), cellToCoord(x) + SEVEN_PIXELS, cellToCoord(y)); // Horizontal line over the top cell side
-      line(cellToCoord(x) + SEVEN_PIXELS, cellToCoord(y), cellToCoord(x) + SEVEN_PIXELS, cellToCoord(y) + CELL_SIZE); // Vertical line over the right cell side
+      line(cellToCoord(x) + SEVEN_PIXELS, cellToCoord(y), cellToCoord(x) + SEVEN_PIXELS, cellToCoord(y) + SEVEN_PIXELS); // Vertical line over the right cell side
       // Inside corner
       doubleCornerTopRight(x, y);
       break;
     case DOUBLE_CORNER_BOTTOM_LEFT:
       // Outside line
-      line(cellToCoord(x), cellToCoord(y), cellToCoord(x), cellToCoord(y) + CELL_SIZE); // Vertical line over the left side
-      line(cellToCoord(x), cellToCoord(y) + SEVEN_PIXELS, cellToCoord(x) + CELL_SIZE, cellToCoord(y) + SEVEN_PIXELS); // Horizontal line over the bottom cell side
+      line(cellToCoord(x), cellToCoord(y), cellToCoord(x), cellToCoord(y) + SEVEN_PIXELS); // Vertical line over the left side
+      line(cellToCoord(x), cellToCoord(y) + SEVEN_PIXELS, cellToCoord(x) + SEVEN_PIXELS, cellToCoord(y) + SEVEN_PIXELS); // Horizontal line over the bottom cell side
       // Inside corner
       doubleCornerBottomLeft(x, y);
       break;
     case DOUBLE_CORNER_BOTTOM_RIGHT:
       // Outside line
-      line(cellToCoord(x) + SEVEN_PIXELS, cellToCoord(y), cellToCoord(x) + SEVEN_PIXELS, cellToCoord(y) + CELL_SIZE); // Vertical line over the right cell side
+      line(cellToCoord(x) + SEVEN_PIXELS, cellToCoord(y), cellToCoord(x) + SEVEN_PIXELS, cellToCoord(y) + SEVEN_PIXELS); // Vertical line over the right cell side
       line(cellToCoord(x), cellToCoord(y) + SEVEN_PIXELS, cellToCoord(x) + SEVEN_PIXELS, cellToCoord(y) + SEVEN_PIXELS); // Horizontal line over the bottom cell side
       // Inside corner
        doubleCornerBottomRight(x, y);
       break;
     case DOUBLE_MIDDLE_CORNER_HORIZONTAL_TOP_LEFT:
       // Outside horizontal top line
-      line(cellToCoord(x), cellToCoord(y), cellToCoord(x) + CELL_SIZE, cellToCoord(y)); // Horizontal line over the top cell side
+      line(cellToCoord(x), cellToCoord(y), cellToCoord(x) + SEVEN_PIXELS, cellToCoord(y)); // Horizontal line over the top cell side
       // Inside corner
       doubleCornerTopLeft(x, y);
       break;
     case DOUBLE_MIDDLE_CORNER_HORIZONTAL_TOP_RIGHT:
       // Outside horizontal top line
-      line(cellToCoord(x), cellToCoord(y), cellToCoord(x) + CELL_SIZE, cellToCoord(y)); // Horizontal line over the top cell side
+      line(cellToCoord(x), cellToCoord(y), cellToCoord(x) + SEVEN_PIXELS, cellToCoord(y)); // Horizontal line over the top cell side
       // Inside corner
       doubleCornerTopRight(x, y);
       break;
     case DOUBLE_MIDDLE_CORNER_VERTICAL_LEFT_BOTTOM_LEFT:
       // Outside vertical left line
-      line(cellToCoord(x), cellToCoord(y), cellToCoord(x), cellToCoord(y) + CELL_SIZE); // Vertical line over the left side
+      line(cellToCoord(x), cellToCoord(y), cellToCoord(x), cellToCoord(y) + SEVEN_PIXELS); // Vertical line over the left side
       // Inside corner
       doubleCornerBottomLeft(x, y);
       break;
     case DOUBLE_MIDDLE_CORNER_VERTICAL_LEFT_TOP_LEFT:
       // Outside vertical left line
-      line(cellToCoord(x), cellToCoord(y), cellToCoord(x), cellToCoord(y) + CELL_SIZE); // Vertical line over the left side
+      line(cellToCoord(x), cellToCoord(y), cellToCoord(x), cellToCoord(y) + SEVEN_PIXELS); // Vertical line over the left side
       // Inside corner
       doubleCornerTopLeft(x, y);
       break;
     case DOUBLE_MIDDLE_CORNER_VERTICAL_RIGHT_BOTTOM_RIGHT:
       // Outside vertical right line
-      line(cellToCoord(x) + SEVEN_PIXELS, cellToCoord(y), cellToCoord(x) + SEVEN_PIXELS, cellToCoord(y) + CELL_SIZE); // Vertical line over the right cell side
+      line(cellToCoord(x) + SEVEN_PIXELS, cellToCoord(y), cellToCoord(x) + SEVEN_PIXELS, cellToCoord(y) + SEVEN_PIXELS); // Vertical line over the right cell side
       // Inside corner
       doubleCornerBottomRight(x, y);
       break;
     case DOUBLE_MIDDLE_CORNER_VERTICAL_RIGHT_TOP_RIGHT:
       // Outside vertical right line
-      line(cellToCoord(x) + SEVEN_PIXELS, cellToCoord(y), cellToCoord(x) + SEVEN_PIXELS, cellToCoord(y) + CELL_SIZE); // Vertical line over the right cell side
+      line(cellToCoord(x) + SEVEN_PIXELS, cellToCoord(y), cellToCoord(x) + SEVEN_PIXELS, cellToCoord(y) + SEVEN_PIXELS); // Vertical line over the right cell side
       // Inside corner
       doubleCornerTopRight(x, y);
       break;
     case SIMPLE_WALL_VERTICAL_LEFT:
-      line(cellToCoord(x) + THREE_PIXELS, cellToCoord(y), cellToCoord(x) + THREE_PIXELS, cellToCoord(y) + CELL_SIZE); // Vertical line to 4 "pixels" from left cell side
+      line(cellToCoord(x) + THREE_PIXELS, cellToCoord(y), cellToCoord(x) + THREE_PIXELS, cellToCoord(y) + SEVEN_PIXELS); // Vertical line to 4 "pixels" from left cell side
       break;
     case SIMPLE_WALL_VERTICAL_RIGHT:
-      line(cellToCoord(x) + FOUR_PIXELS, cellToCoord(y), cellToCoord(x) + FOUR_PIXELS, cellToCoord(y) + CELL_SIZE); // Vertical line to 5 "pixels" from right cell side
+      line(cellToCoord(x) + FOUR_PIXELS, cellToCoord(y), cellToCoord(x) + FOUR_PIXELS, cellToCoord(y) + SEVEN_PIXELS); // Vertical line to 5 "pixels" from right cell side
       break;
     case SIMPLE_WALL_HORIZONTAL_TOP:
-      line(cellToCoord(x), cellToCoord(y) + THREE_PIXELS, cellToCoord(x) + CELL_SIZE, cellToCoord(y) + THREE_PIXELS); // Horizontal line to 4 "pixels" from top cell side
+      line(cellToCoord(x), cellToCoord(y) + THREE_PIXELS, cellToCoord(x) + SEVEN_PIXELS, cellToCoord(y) + THREE_PIXELS); // Horizontal line to 4 "pixels" from top cell side
       break;
     case SIMPLE_WALL_HORIZONTAL_BOTTOM:
-      line(cellToCoord(x), cellToCoord(y) + FOUR_PIXELS, cellToCoord(x) + CELL_SIZE, cellToCoord(y) + FOUR_PIXELS); // Horizontal line to 5 "pixels" from top cell side
+      line(cellToCoord(x), cellToCoord(y) + FOUR_PIXELS, cellToCoord(x) + SEVEN_PIXELS, cellToCoord(y) + FOUR_PIXELS); // Horizontal line to 5 "pixels" from top cell side
       break;
     case SIMPLE_CORNER_TOP_LEFT:
-      line(cellToCoord(x) + SIX_PIXELS, cellToCoord(y) + FOUR_PIXELS, cellToCoord(x) + CELL_SIZE, cellToCoord(y) + FOUR_PIXELS); // Horizontal line
+      line(cellToCoord(x) + SIX_PIXELS, cellToCoord(y) + FOUR_PIXELS, cellToCoord(x) + SEVEN_PIXELS, cellToCoord(y) + FOUR_PIXELS); // Horizontal line
       point(cellToCoord(x) + FIVE_PIXELS, cellToCoord(y) + FIVE_PIXELS); // Point between lines
-      line(cellToCoord(x) + FOUR_PIXELS, cellToCoord(y) + SIX_PIXELS, cellToCoord(x) + FOUR_PIXELS, cellToCoord(y) + CELL_SIZE); // Vertical line
+      line(cellToCoord(x) + FOUR_PIXELS, cellToCoord(y) + SIX_PIXELS, cellToCoord(x) + FOUR_PIXELS, cellToCoord(y) + SEVEN_PIXELS); // Vertical line
       break;
     case SIMPLE_CORNER_TOP_RIGHT:
       line(cellToCoord(x), cellToCoord(y) + FOUR_PIXELS, cellToCoord(x) + ONE_PIXEL, cellToCoord(y) + FOUR_PIXELS); // Horizontal line
       point(cellToCoord(x) + TWO_PIXELS, cellToCoord(y) + FIVE_PIXELS); // Point between lines
-      line(cellToCoord(x) + THREE_PIXELS, cellToCoord(y) + SIX_PIXELS, cellToCoord(x) + THREE_PIXELS, cellToCoord(y) + CELL_SIZE); // Vertical line
+      line(cellToCoord(x) + THREE_PIXELS, cellToCoord(y) + SIX_PIXELS, cellToCoord(x) + THREE_PIXELS, cellToCoord(y) + SEVEN_PIXELS); // Vertical line
       break;
     case SIMPLE_CORNER_BOTTOM_LEFT:
       line(cellToCoord(x) + FOUR_PIXELS, cellToCoord(y), cellToCoord(x) + FOUR_PIXELS, cellToCoord(y) + ONE_PIXEL); // Horizontal line
       point(cellToCoord(x) + FIVE_PIXELS, cellToCoord(y) + TWO_PIXELS); // Point between lines
-      line(cellToCoord(x) + SIX_PIXELS, cellToCoord(y) + THREE_PIXELS, cellToCoord(x) + CELL_SIZE, cellToCoord(y) + THREE_PIXELS); // Vertical line
+      line(cellToCoord(x) + SIX_PIXELS, cellToCoord(y) + THREE_PIXELS, cellToCoord(x) + SEVEN_PIXELS, cellToCoord(y) + THREE_PIXELS); // Vertical line
       break;
     case SIMPLE_CORNER_BOTTOM_RIGHT:
       line(cellToCoord(x) + THREE_PIXELS, cellToCoord(y), cellToCoord(x) + THREE_PIXELS, cellToCoord(y) + ONE_PIXEL); // Horizontal line
@@ -669,13 +669,13 @@ void drawBlueWallInCellGrid(int x, int y, int wallId) {
 void doubleCornerBottomLeft(int x, int y) {
   line(cellToCoord(x) + THREE_PIXELS, cellToCoord(y), cellToCoord(x) + THREE_PIXELS, cellToCoord(y) + TWO_PIXELS); // Vertical line
   point(cellToCoord(x) + FOUR_PIXELS, cellToCoord(y) + THREE_PIXELS); // Point between lines
-  line(cellToCoord(x) + FIVE_PIXELS, cellToCoord(y) + FOUR_PIXELS, cellToCoord(x) + CELL_SIZE, cellToCoord(y) + FOUR_PIXELS); // Horizontal line
+  line(cellToCoord(x) + FIVE_PIXELS, cellToCoord(y) + FOUR_PIXELS, cellToCoord(x) + SEVEN_PIXELS, cellToCoord(y) + FOUR_PIXELS); // Horizontal line
 }
 
 void doubleCornerTopLeft(int x, int y) {
-  line(cellToCoord(x) + FIVE_PIXELS, cellToCoord(y) + THREE_PIXELS, cellToCoord(x) + CELL_SIZE, cellToCoord(y) + THREE_PIXELS); // Horizontal line
+  line(cellToCoord(x) + FIVE_PIXELS, cellToCoord(y) + THREE_PIXELS, cellToCoord(x) + SEVEN_PIXELS, cellToCoord(y) + THREE_PIXELS); // Horizontal line
   point(cellToCoord(x) + FOUR_PIXELS, cellToCoord(y) + FOUR_PIXELS); // Point between lines
-  line(cellToCoord(x) + THREE_PIXELS, cellToCoord(y) + FIVE_PIXELS, cellToCoord(x) + THREE_PIXELS, cellToCoord(y) + CELL_SIZE); // Vertical line
+  line(cellToCoord(x) + THREE_PIXELS, cellToCoord(y) + FIVE_PIXELS, cellToCoord(x) + THREE_PIXELS, cellToCoord(y) + SEVEN_PIXELS); // Vertical line
 }
 
 void doubleCornerBottomRight(int x, int y) {
@@ -687,7 +687,7 @@ void doubleCornerBottomRight(int x, int y) {
 void doubleCornerTopRight(int x, int y) {
   line(cellToCoord(x), cellToCoord(y) + THREE_PIXELS, cellToCoord(x) + TWO_PIXELS, cellToCoord(y) + THREE_PIXELS); // Horizontal line
   point(cellToCoord(x) + THREE_PIXELS, cellToCoord(y) + FOUR_PIXELS); // Point between lines
-  line(cellToCoord(x) + FOUR_PIXELS, cellToCoord(y) + FIVE_PIXELS, cellToCoord(x) + FOUR_PIXELS, cellToCoord(y) + CELL_SIZE); // Vertical line
+  line(cellToCoord(x) + FOUR_PIXELS, cellToCoord(y) + FIVE_PIXELS, cellToCoord(x) + FOUR_PIXELS, cellToCoord(y) + SEVEN_PIXELS); // Vertical line
 }
 
 
