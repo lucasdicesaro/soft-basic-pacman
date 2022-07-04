@@ -1,5 +1,7 @@
 # soft-basic-pacman
 
+<img src="demo/demo.png" />
+
 ## Instructions
 
 1. Download <a href="https://github.com/lucasdicesaro/soft-basic-pacman/archive/refs/heads/main.zip" target="_blank">this code</a> and unzip it.
