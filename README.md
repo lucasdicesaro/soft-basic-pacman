@@ -1,6 +1,6 @@
 # soft-basic-pacman
 
-<img src="demo/demo.png" />
+![Screenshot](demo/demo.png)
 
 ## Instructions
 
