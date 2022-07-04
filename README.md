@@ -12,7 +12,7 @@
 
 Note: If you want a Pac-Man with sound, please checkout <a href="https://github.com/lucasdicesaro/soft-basic-pacman/tree/pacman_with_sound" target="_blank">this branch</a>.
 
-![Screenshot2](sketch/demo/demo1.png)
+![Screenshot2](sketch/demo/demo2.png)
 
 ## Credits
 
@@ -20,7 +20,7 @@ Note: If you want a Pac-Man with sound, please checkout <a href="https://github.
  - Chad Birch and his beautiful article <a href="https://gameinternals.com/understanding-pac-man-ghost-behavior" target="_blank">Understanding Pac-Man Ghost Behavior</a> and 
  - Jamey Pittman and his great and detailed article <a href="https://www.gamasutra.com/view/feature/3938/the_pacman_dossier.php?print=1" target="_blank">The Pac-Man Dossier</a>
 
-![Screenshot3](sketch/demo/demo1.png) 
+![Screenshot3](sketch/demo/demo3.png) 
 
 ## Backlog
 
