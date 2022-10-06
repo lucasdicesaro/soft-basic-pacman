@@ -32,6 +32,9 @@ void setup() {
   keyboard = new Keyboard();
   interactor = new Interactor();
   interactor.startNextLevel();
+
+  // https://discourse.processing.org/t/keypressed-only-works-sometimes/22340/2
+  surface.setVisible(true);  
 }
 
 void draw() {
