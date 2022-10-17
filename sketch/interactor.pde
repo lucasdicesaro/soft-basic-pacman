@@ -10,7 +10,7 @@ class Interactor {
   void startNextLevel() {
     increaseLevel();
     initializeSpeedVariables();
-    mapFile = new MapFile(CURRENT_LEVEL);
+    mapFile = new MapFile();
     tileGrid = mapFile.fillGrid();
     tileGrid.initializeSpecialVariables();
     tileGrid.renderGrid();
@@ -31,14 +31,8 @@ class Interactor {
     tileGrid.refreshGrid();
 
     if (levelCompleted) {
-      if (CURRENT_LEVEL < TOTAL_LEVELS) {
-        // TODO: Add 'level completed' maze blinking
-        startNextLevel();
-      } else {
-        println("THE END. BYE");
-        delay(2000);
-        exit();
-      }
+      // TODO: Add 'level completed' maze blinking
+      startNextLevel();
     }
 
     processCollisions();

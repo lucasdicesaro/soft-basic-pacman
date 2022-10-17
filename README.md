@@ -18,7 +18,7 @@ Note: If you want a Pac-Man with sound, please checkout <a href="https://github.
 
  All my efforts in this work are thanks to:
  - Chad Birch and his beautiful article <a href="https://gameinternals.com/understanding-pac-man-ghost-behavior" target="_blank">Understanding Pac-Man Ghost Behavior</a> and 
- - Jamey Pittman and his great and detailed article <a href="https://www.gamasutra.com/view/feature/3938/the_pacman_dossier.php?print=1" target="_blank">The Pac-Man Dossier</a>
+ - Jamey Pittman and his great and detailed article <a href="https://www.gamedeveloper.com/design/the-pac-man-dossier" target="_blank">The Pac-Man Dossier</a>
 
 ![Screenshot3](sketch/demo/demo3.png) 
 
@@ -34,6 +34,7 @@ Note: If you want a Pac-Man with sound, please checkout <a href="https://github.
 - ~~Add Up movement restriction for ghosts on the 4 special cells~~
 - ~~Connect the teleport tunnel~~
 - ~~Slow down ghosts speed when they walk through teleport tunnel~~
+- ~~Increasing speed, decreasing mode times, infinite levels~~
 - Limit Pacman lives
 - Add timer for ghost go out from its home
 - Pacman animation when he is eaten

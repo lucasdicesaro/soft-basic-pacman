@@ -27,7 +27,6 @@ void setup() {
 
   f = createFont("Arial", 16, true);
   initializeScaleVariables();
-  initializeLevelVariables();
 
   keyboard = new Keyboard();
   interactor = new Interactor();
@@ -64,6 +63,9 @@ void keyPressed() {
     interactor.changeGhostsModeTo(SCATTER);
   } else if (key == 'f') {
     interactor.changeGhostsModeTo(FRIGHTENED);
+  } else if (key == 'q') {
+    println("Terminated by the user. Bye.");
+    exit();
   }
 }
 

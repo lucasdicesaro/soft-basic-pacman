@@ -518,6 +518,12 @@ void drawPalletCounter(int x, int y) {
   text(nf(pelletCounter, 3), cellToCoord(x), cellToCoord(y+1));
 }
 
+void drawCurrentLevel(int x, int y) {
+  textFont(f,16);
+  fill(255);
+  text(nf(CURRENT_LEVEL, 3), cellToCoord(x), cellToCoord(y+1));
+}
+
 /* Walls */
 void drawBlueWallInCellGrid(int x, int y, int wallId) {
   drawCorridorInCellGrid(x, y);

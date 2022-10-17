@@ -147,6 +147,15 @@ class TileGrid {
         drawCharacters(x, y);
       }
     }
+    refreshCurrentLevel();
+  }
+
+  void refreshCurrentLevel() {
+    // TODO: Make these coordinates to be relative.
+    int x = 10;
+    int y = 0;
+    tileGrid.cleanSection(x, y, x+1, y+1);
+    drawCurrentLevel(x, y);
   }
 
   void refreshGrid() {

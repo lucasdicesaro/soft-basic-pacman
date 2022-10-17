@@ -1,54 +1,98 @@
-int TOTAL_LEVELS = 2;
 int CURRENT_LEVEL = 0;
-
-Level[] levels = new Level[TOTAL_LEVELS];
-
-void initializeLevelVariables() {
-  int levelIndex = 0;
-  levels[levelIndex++] = new Level(
-    11,      // powerPelletEffectDuration
-    7,       // scatterModeDuration1
-    7 + 20,  // chaseModeDuration1
-    7 + 20 + 7,
-    7 + 20 + 7 + 20,
-    7 + 20 + 7 + 20 + 5,
-    7 + 20 + 7 + 20 + 5 + 20,
-    7 + 20 + 7 + 20 + 5 + 20 + 5,
-    0.8,   // PACMAN_NORMAL_SPEED
-    0.71,  // PACMAN_REGULAR_PELLET_SPEED
-    0.78,  // PACMAN_POWER_PELLET_SPEED
-    0.9,   // PACMAN_FREIGHT_SPEED
-    0.75,  // GHOST_NORMAL_SPEED
-    0.5,   // GHOST_FREIGHT_SPEED
-    1.0,   // GHOST_EYES_SPEED
-    0.4    // GHOST_TUNNEL_SPEED
-    );
-  levels[levelIndex++] = new Level(
-    11,      // powerPelletEffectDuration
-    7,       // scatterModeDuration1
-    7 + 20,  // chaseModeDuration1
-    7 + 20 + 7,
-    7 + 20 + 7 + 20,
-    7 + 20 + 7 + 20 + 5,
-    7 + 20 + 7 + 20 + 5 + 1033,
-    7 + 20 + 7 + 20 + 5 + 1033 + 1,
-    0.9,   // PACMAN_NORMAL_SPEED
-    0.79,  // PACMAN_REGULAR_PELLET_SPEED
-    0.83,  // PACMAN_POWER_PELLET_SPEED
-    0.95,  // PACMAN_FREIGHT_SPEED
-    0.85,  // GHOST_NORMAL_SPEED
-    0.55,  // GHOST_FREIGHT_SPEED
-    1.0,   // GHOST_EYES_SPEED
-    0.45   // GHOST_TUNNEL_SPEED
-  );
-}
 
 void increaseLevel() {
   CURRENT_LEVEL++;
 }
 
 Level getCurrentLevelVariables() {
-  return levels[CURRENT_LEVEL-1];
+  Level level = null;
+
+  switch(CURRENT_LEVEL) {
+    case 1:
+        level = new Level(
+          11,      // powerPelletEffectDuration
+          7,       // scatterModeDuration1
+          7 + 20,  // chaseModeDuration1
+          7 + 20 + 7,
+          7 + 20 + 7 + 20,
+          7 + 20 + 7 + 20 + 5,
+          7 + 20 + 7 + 20 + 5 + 20,
+          7 + 20 + 7 + 20 + 5 + 20 + 5,
+          0.8,   // PACMAN_NORMAL_SPEED
+          0.71,  // PACMAN_REGULAR_PELLET_SPEED
+          0.78,  // PACMAN_POWER_PELLET_SPEED
+          0.9,   // PACMAN_FREIGHT_SPEED
+          0.75,  // GHOST_NORMAL_SPEED
+          0.5,   // GHOST_FREIGHT_SPEED
+          1.0,   // GHOST_EYES_SPEED
+          0.4    // GHOST_TUNNEL_SPEED
+         );
+      break;
+    case 2: case 3: case 4:
+        level = new Level(
+            11,      // powerPelletEffectDuration
+            7,       // scatterModeDuration1
+            7 + 20,  // chaseModeDuration1
+            7 + 20 + 7,
+            7 + 20 + 7 + 20,
+            7 + 20 + 7 + 20 + 5,
+            7 + 20 + 7 + 20 + 5 + 1033,
+            7 + 20 + 7 + 20 + 5 + 1033 + 1,
+            0.9,   // PACMAN_NORMAL_SPEED
+            0.79,  // PACMAN_REGULAR_PELLET_SPEED
+            0.83,  // PACMAN_POWER_PELLET_SPEED
+            0.95,  // PACMAN_FREIGHT_SPEED
+            0.85,  // GHOST_NORMAL_SPEED
+            0.55,  // GHOST_FREIGHT_SPEED
+            1.0,   // GHOST_EYES_SPEED
+            0.45   // GHOST_TUNNEL_SPEED
+          );
+      break;
+    case  5: case  6: case  7: case  8: case  9: case 10: case 11: case 12: case 13: case 14:
+    case 15: case 16: case 17: case 18: case 19: case 20:
+        level = new Level(
+            11,      // powerPelletEffectDuration
+            5,       // scatterModeDuration1
+            5 + 20,  // chaseModeDuration1
+            5 + 20 + 5,
+            5 + 20 + 5 + 20,
+            5 + 20 + 5 + 20 + 5,
+            5 + 20 + 5 + 20 + 5 + 1037,
+            5 + 20 + 5 + 20 + 5 + 1037 + 1,
+            1.0,   // PACMAN_NORMAL_SPEED
+            0.87,  // PACMAN_REGULAR_PELLET_SPEED
+            0.87,  // PACMAN_POWER_PELLET_SPEED
+            1.0,  // PACMAN_FREIGHT_SPEED
+            0.95,  // GHOST_NORMAL_SPEED
+            0.60,  // GHOST_FREIGHT_SPEED
+            1.0,   // GHOST_EYES_SPEED
+            0.50   // GHOST_TUNNEL_SPEED
+          );
+      break;
+    default:
+      // > 21
+        level = new Level(
+            11,      // powerPelletEffectDuration
+            5,       // scatterModeDuration1
+            5 + 20,  // chaseModeDuration1
+            5 + 20 + 5,
+            5 + 20 + 5 + 20,
+            5 + 20 + 5 + 20 + 5,
+            5 + 20 + 5 + 20 + 5 + 1037,
+            5 + 20 + 5 + 20 + 5 + 1037 + 1,
+            0.9,   // PACMAN_NORMAL_SPEED
+            0.79,  // PACMAN_REGULAR_PELLET_SPEED
+            0.83,  // PACMAN_POWER_PELLET_SPEED
+            0.95,  // PACMAN_FREIGHT_SPEED
+            0.95,  // GHOST_NORMAL_SPEED
+            0.60,  // GHOST_FREIGHT_SPEED
+            1.0,   // GHOST_EYES_SPEED
+            0.50   // GHOST_TUNNEL_SPEED
+          );
+      break;
+}
+
+  return level;
 }
 
 class Level {
