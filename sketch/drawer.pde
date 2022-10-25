@@ -419,11 +419,6 @@ void drawEyes(int drawX, int drawY, int selectedMovement) {
   stroke(0);
 }
 
-void drawCreatureCenter(int drawX, int drawY, color c) {
-  fill(c);
-  circle(drawX, drawY, CREATURE_CENTER_SIZE);
-}
-
 // It draws a square starting from left-up corner
 void drawWallCell(int drawX, int drawY) {
   stroke(255);
@@ -436,17 +431,30 @@ void drawBlackCell(int drawX, int drawY) {
   drawSquare(drawX, drawY);
 }
 
-// Pixel coordinates
-void drawBlackSquareOutsideMaze(int drawX, int drawY) {
+void drawBlackSquareRightSideOutsideMaze(int drawX, int drawY) {
   drawCorridorInCellGrid(coordToCell(drawX) + 1, coordToCell(drawY) - 1);
   drawCorridorInCellGrid(coordToCell(drawX) + 1, coordToCell(drawY));
   drawCorridorInCellGrid(coordToCell(drawX) + 1, coordToCell(drawY) + 1);
+}
+
+void drawBlackSquareLeftSideOutsideMaze(int drawX, int drawY) {
+  println("drawX: " + drawX + " drawX - CELL_SIZE: " + (drawX - CELL_SIZE) + " drawY: " + drawY);
+  drawCorridorInCoord(drawX - CELL_SIZE, drawY - CELL_SIZE);
+  drawCorridorInCoord(drawX - CELL_SIZE, drawY);
+//  drawCorridorInCellGrid(coordToCell(drawX), coordToCell(drawY) - 1);
+//  drawCorridorInCellGrid(coordToCell(drawX), coordToCell(drawY));
+//  drawCorridorInCellGrid(coordToCell(drawX), coordToCell(drawY) + 1);
 }
 
 // Grid positions
 void drawCorridorInCellGrid(int x, int y) {
   stroke(0);
   drawSquare(cellToCoord(x), cellToCoord(y));
+}
+
+void drawCorridorInCoord(int coordX, int coordY) {
+  stroke(0);
+  drawSquare(coordX, coordY);
 }
 
 void drawInvisibleWallInCellGrid(int x, int y) {
@@ -500,13 +508,26 @@ void drawPowerPelletInCellGrid(int x, int y) {
   stroke(0);
 }
 
+void drawCreatureCenter(int drawX, int drawY) {
+  fill(color(0, 204, 255));
+  circle(drawX, drawY, CREATURE_CENTER_SIZE);
+}
+
+void drawPos(int drawX, int drawY) {
+  drawEmptySquare(drawX, drawY, color(124, 252, 0));
+}
+
 void drawTarget(int x, int y, color c) {
+  drawEmptySquare(cellToCoord(x), cellToCoord(y), c);
+}
+
+void drawEmptySquare(int drawX, int drawY, color c) {
   stroke(c);
   strokeWeight(PIXEL_SIZE);
-  line(cellToCoord(x), cellToCoord(y), cellToCoord(x) + SEVEN_PIXELS, cellToCoord(y));
-  line(cellToCoord(x), cellToCoord(y), cellToCoord(x), cellToCoord(y) + SEVEN_PIXELS);
-  line(cellToCoord(x) + SEVEN_PIXELS, cellToCoord(y), cellToCoord(x) + SEVEN_PIXELS, cellToCoord(y) + SEVEN_PIXELS);
-  line(cellToCoord(x), cellToCoord(y) + SEVEN_PIXELS, cellToCoord(x) + SEVEN_PIXELS, cellToCoord(y) + SEVEN_PIXELS);
+  line(drawX, drawY, drawX + SEVEN_PIXELS, drawY);
+  line(drawX, drawY, drawX, drawY + SEVEN_PIXELS);
+  line(drawX + SEVEN_PIXELS, drawY, drawX + SEVEN_PIXELS, drawY + SEVEN_PIXELS);
+  line(drawX, drawY + SEVEN_PIXELS, drawX + SEVEN_PIXELS, drawY + SEVEN_PIXELS);
   // back to default
   strokeWeight(1);
   stroke(0);
@@ -702,6 +723,17 @@ void drawTestCellInCellGrid(int x, int y) {
     for (int pixelX = 0; pixelX < 8; pixelX++) {
        stroke(color(random(200), random(200), random(200)));
        point(cellToCoord(x) + (PIXEL_SIZE * pixelX), cellToCoord(y) + (PIXEL_SIZE * pixelY));
+    }
+  }
+  // back to wall color
+  stroke(wallColor);
+}
+
+void drawTestCellInCoord(int coordX, int coordY) {
+  for (int pixelY = 0; pixelY < 8; pixelY++) {
+    for (int pixelX = 0; pixelX < 8; pixelX++) {
+       stroke(color(random(200), random(200), random(200)));
+       point(coordX + (PIXEL_SIZE * pixelX), coordY + (PIXEL_SIZE * pixelY));
     }
   }
   // back to wall color

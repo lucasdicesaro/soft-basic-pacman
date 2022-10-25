@@ -41,7 +41,9 @@ void draw() {
     pacman.setSelectedMovement(keyboard.getUserKeyPressed());
   }
 
-  interactor.processIteration();
+  if (!debugEnabled) {
+    interactor.processIteration();
+  }
 }
 
 void keyPressed() {
@@ -50,6 +52,9 @@ void keyPressed() {
     keyboard.setUserKeyPressed();
     pacman.setSelectedMovement(keyboard.getUserKeyPressed());
 
+    if (debugEnabled) {
+      interactor.processIteration();
+    }
   } else if (key == 'd') {
     printScaleVariables();
     mapFile.debug();
@@ -57,6 +62,14 @@ void keyPressed() {
     for(Creature creature : creatures) {
       creature.debug();
     }
+    debugEnabled = !debugEnabled;
+  } else if (key == 't') {
+    for(Ghost ghost : ghosts) {
+      ghost.cleanTarget();
+    }
+    showTarget = !showTarget;
+  } else if (key == 'p') {
+    showCurrentPosition = !showCurrentPosition;
   } else if (key == 'c') {
     interactor.changeGhostsModeTo(CHASE);
   } else if (key == 's') {

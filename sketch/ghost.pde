@@ -31,7 +31,7 @@ class Ghost extends Creature {
     } else {
       drawFrightenedGhost(drawX, drawY);
     }
-    //drawBlackCell(drawX, drawY);
+    super.drawYourSelf();// For debug purposes
   }
   
   void processMovement() {
@@ -195,8 +195,6 @@ class Ghost extends Creature {
   }
 
   void setTarget() {
-    previousTargetX = targetX;
-    previousTargetY = targetY;
     switch(currentMode) {
       case CHASE:
         setChaseTarget();
@@ -320,9 +318,15 @@ class Ghost extends Creature {
     return previousTargetY;
   }
 
-  void showTarget() {
+  void cleanTarget() {
     tileGrid.cleanCell(previousTargetX, previousTargetY);
+  }
+
+  void showTarget() {
+    cleanTarget();
     if (targetX >= 0 && targetX < MAX_COLS && targetY >= 0 && targetY < MAX_ROWS) {
+      previousTargetX = targetX;
+      previousTargetY = targetY;
       drawTarget(targetX, targetY, c);
     }
   }

@@ -1,5 +1,8 @@
 int pelletCounter;
 boolean levelCompleted;
+boolean debugEnabled = false;
+boolean showTarget = false;
+boolean showCurrentPosition = false;
 StopWatchTimer powerPelletEffectTimer = new StopWatchTimer();
 
 class Interactor {

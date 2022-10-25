@@ -43,9 +43,10 @@ class Creature {
       drawX = MAZE_MAX_COORD_X;
     }
 
+    // Clean background outside maze when creature is tp
     if (getGridCellX() == MAZE_END_X) {
-      // Clean background outside maze when creature is tp
-      drawBlackSquareOutsideMaze(MAZE_MAX_COORD_X, drawY);
+      drawBlackSquareRightSideOutsideMaze(MAZE_MAX_COORD_X, drawY);
+      drawBlackSquareLeftSideOutsideMaze(MAZE_MIN_COORD_X, drawY);
     }
   }
 
@@ -59,9 +60,10 @@ class Creature {
       drawX = MAZE_MIN_COORD_X;
     }
 
+    // Clean background outside maze when creature is tp
     if (getGridCellX() == MAZE_INIT_X) {
-      // Clean background outside maze when creature is tp
-      drawBlackSquareOutsideMaze(MAZE_MAX_COORD_X, drawY);
+      drawBlackSquareRightSideOutsideMaze(MAZE_MAX_COORD_X, drawY);
+      drawBlackSquareLeftSideOutsideMaze(MAZE_MIN_COORD_X, drawY);
     }
   }
   
@@ -127,6 +129,10 @@ class Creature {
   }
 
   void drawYourSelf() {
+    if (showCurrentPosition) {
+      drawCreatureCenter(drawX, drawY);
+      drawPos(drawX, drawY);
+    }
   }
 
   void debug() {

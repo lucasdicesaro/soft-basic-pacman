@@ -162,8 +162,10 @@ class TileGrid {
     for(Creature creature : creatures) {
       cleanPreviousPosition(creature);
     }
-    for(Ghost ghost : ghosts) {
-      ghost.showTarget();
+    if (showTarget) {
+      for(Ghost ghost : ghosts) {
+        ghost.showTarget();
+      }
     }
     for(Creature creature : creatures) {
       creature.drawYourSelf();
