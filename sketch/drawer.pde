@@ -513,8 +513,8 @@ void drawCreatureCenter(int drawX, int drawY) {
   circle(drawX, drawY, CREATURE_CENTER_SIZE);
 }
 
-void drawPos(int drawX, int drawY) {
-  drawEmptySquare(drawX, drawY, color(124, 252, 0));
+void drawPos(int x, int y) {
+  drawEmptySquare(cellToCoord(x), cellToCoord(y), color(124, 252, 0));
 }
 
 void drawTarget(int x, int y, color c) {

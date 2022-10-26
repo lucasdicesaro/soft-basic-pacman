@@ -131,7 +131,7 @@ class Creature {
   void drawYourSelf() {
     if (showCurrentPosition) {
       drawCreatureCenter(drawX, drawY);
-      drawPos(drawX, drawY);
+      drawPos(getGridCellX(), getGridCellY());
     }
   }
 
