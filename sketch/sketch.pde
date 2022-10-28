@@ -17,12 +17,6 @@ PFont f;
 
 void setup() {
   fullScreen();
-  //size(224 * PIXEL_SIZE, 288 * PIXEL_SIZE);
-  //size(224, 288); // PIXEL_SIZE = 1
-  //size(448, 576); // PIXEL_SIZE = 2
-  //size(672, 864); // PIXEL_SIZE = 3
-  //size(896, 1152); // PIXEL_SIZE = 4
-  //size(1120, 1440); // PIXEL_SIZE = 5
   background(0);
 
   f = createFont("Arial", 16, true);
@@ -70,6 +64,9 @@ void keyPressed() {
     showTarget = !showTarget;
   } else if (key == 'p') {
     showCurrentPosition = !showCurrentPosition;
+  } else if (key == 'g') {
+    showGrid = !showGrid;
+    interactor.renderGrid();
   } else if (key == 'c') {
     interactor.changeGhostsModeTo(CHASE);
   } else if (key == 's') {

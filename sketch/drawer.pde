@@ -438,12 +438,8 @@ void drawBlackSquareRightSideOutsideMaze(int drawX, int drawY) {
 }
 
 void drawBlackSquareLeftSideOutsideMaze(int drawX, int drawY) {
-  println("drawX: " + drawX + " drawX - CELL_SIZE: " + (drawX - CELL_SIZE) + " drawY: " + drawY);
   drawCorridorInCoord(drawX - CELL_SIZE, drawY - CELL_SIZE);
   drawCorridorInCoord(drawX - CELL_SIZE, drawY);
-//  drawCorridorInCellGrid(coordToCell(drawX), coordToCell(drawY) - 1);
-//  drawCorridorInCellGrid(coordToCell(drawX), coordToCell(drawY));
-//  drawCorridorInCellGrid(coordToCell(drawX), coordToCell(drawY) + 1);
 }
 
 // Grid positions
@@ -519,6 +515,10 @@ void drawPos(int x, int y) {
 
 void drawTarget(int x, int y, color c) {
   drawEmptySquare(cellToCoord(x), cellToCoord(y), c);
+}
+
+void drawTile(int x, int y) {
+  drawEmptySquare(cellToCoord(x), cellToCoord(y), color(255, 255, 255));
 }
 
 void drawEmptySquare(int drawX, int drawY, color c) {

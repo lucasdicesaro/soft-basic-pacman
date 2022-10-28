@@ -2,6 +2,7 @@ int pelletCounter;
 boolean levelCompleted;
 boolean debugEnabled = false;
 boolean showTarget = false;
+boolean showGrid = false;
 boolean showCurrentPosition = false;
 StopWatchTimer powerPelletEffectTimer = new StopWatchTimer();
 
@@ -96,6 +97,10 @@ class Interactor {
     if (pelletCounter == TOTAL_PELLETS && tileGrid.isCenterOfTheCell(pacman)) {
       levelCompleted = true;
     }
+  }
+
+  void renderGrid() {
+    tileGrid.renderGrid();
   }
 
   boolean hasPowerPelletEffectFinished() {

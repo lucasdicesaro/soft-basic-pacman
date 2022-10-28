@@ -235,6 +235,9 @@ class TileGrid {
           break;
       }
     }
+    if (showGrid) {
+      drawTile(x, y);
+    }
   }
 
   void drawCharacters(int x, int y) {
