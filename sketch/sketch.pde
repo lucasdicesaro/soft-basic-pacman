@@ -62,6 +62,8 @@ void keyPressed() {
       ghost.cleanTarget();
     }
     showTarget = !showTarget;
+  } else if (key == 'r') {
+    showRoute = !showRoute;
   } else if (key == 'p') {
     showCurrentPosition = !showCurrentPosition;
   } else if (key == 'g') {

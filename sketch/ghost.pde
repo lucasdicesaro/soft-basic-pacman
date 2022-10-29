@@ -54,6 +54,11 @@ class Ghost extends Creature {
       if (tileGrid.isTunnelBounds(this)) {
         inTunnel = !inTunnel;
       }
+      setTarget();
+
+      if (showRoute && tileGrid.isCenterOfTheCell(this)) {
+        calculateRoute(name, selectedMovement, getGridCellX(), getGridCellY(), targetX, targetY, currentMode, 100); // max iteration allowed (for unreach targets)
+      }
       selectedMovement = getCalculatedMovement(selectedMovement);
     }
 
@@ -74,8 +79,6 @@ class Ghost extends Creature {
   }
 
   int getCalculatedMovement(int selectedMovement) {
-
-    setTarget();
 
     int newMovement = -1;
     float min = 99999;
@@ -112,6 +115,63 @@ class Ghost extends Creature {
     }
 
     return newMovement;
+  }
+
+  void calculateRoute(String ghostName, int currentMovement, int currentX, int currentY, int targetX, int targetY, int currentMode, int iteration) {
+
+    if (currentMode != CHASE) {
+      return;
+    }
+
+    if (iteration == 0 || (currentX == targetX && currentY == targetY)) {
+      return;
+    }
+    else {
+      iteration--;
+      int newMovement = -1;
+      int newCurrentX = currentX;
+      int newCurrentY = currentY;
+      float min = 99999;
+      float distance = 0;
+      if (currentMovement != DOWN && tileGrid.isNotWallOnCreatureUp(currentX, currentY) && !tileGrid.isUpRestricted(currentX, currentY)) {
+        distance = dist(currentX, currentY-1, targetX, targetY);
+        if (min > distance) {
+          min = distance;
+          newMovement = UP;
+          newCurrentY = currentY-1;
+        }
+      }
+      if (currentMovement != RIGHT && tileGrid.isNotWallOnCreatureLeft(currentX, currentY)) {
+        distance = dist(currentX-1, currentY, targetX, targetY);
+        if (min > distance) {
+          min = distance;
+          newMovement = LEFT;
+          newCurrentX = currentX-1;
+        }
+      }
+      if (currentMovement != UP && tileGrid.isNotWallOnCreatureDown(currentX, currentY)) {
+        distance = dist(currentX, currentY+1, targetX, targetY);
+        if (min > distance) {
+          min = distance;
+          newMovement = DOWN;
+          newCurrentY = currentY+1;
+        }
+      }
+      if (currentMovement != LEFT && tileGrid.isNotWallOnCreatureRight(currentX, currentY)) {
+        distance = dist(currentX+1, currentY, targetX, targetY);
+        if (min > distance) {
+          min = distance;
+          newMovement = RIGHT;
+          newCurrentX = currentX+1;
+        }
+      }
+
+      // TODO Add more shapes for the route calculation
+      drawVerticalLine(currentX, currentY, c);
+
+      //println("currentX: " + nf(currentX, 2) + " currentY: " + nf(currentY, 2) + " targetX: " + nf(targetX, 2) + " targetY: " + nf(targetY, 2) + " ghostName: " + ghostName);
+      calculateRoute(ghostName, newMovement, newCurrentX, newCurrentY, targetX, targetY, currentMode, iteration);
+    }
   }
 
   void changeModeTo(int newMode) {

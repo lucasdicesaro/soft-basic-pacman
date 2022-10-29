@@ -533,6 +533,25 @@ void drawEmptySquare(int drawX, int drawY, color c) {
   stroke(0);
 }
 
+void drawVerticalLine(int x, int y, color c) {
+  stroke(c);
+  strokeWeight(PIXEL_SIZE);
+  line(cellToCoord(x) + THREE_PIXELS, cellToCoord(y), cellToCoord(x) + THREE_PIXELS, cellToCoord(y) + SEVEN_PIXELS);
+  // back to default
+  strokeWeight(1);
+  stroke(0);
+}
+
+void drawHorizontalLine(int x, int y, color c) {
+  stroke(c);
+  strokeWeight(PIXEL_SIZE);
+  line(cellToCoord(x), cellToCoord(y) + THREE_PIXELS, cellToCoord(x) + SEVEN_PIXELS, cellToCoord(y) + THREE_PIXELS);
+  // back to default
+  strokeWeight(1);
+  stroke(0);
+}
+
+
 void drawPalletCounter(int x, int y) {
   textFont(f,16);
   fill(255);

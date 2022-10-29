@@ -2,6 +2,7 @@ int pelletCounter;
 boolean levelCompleted;
 boolean debugEnabled = false;
 boolean showTarget = false;
+boolean showRoute = false;
 boolean showGrid = false;
 boolean showCurrentPosition = false;
 StopWatchTimer powerPelletEffectTimer = new StopWatchTimer();

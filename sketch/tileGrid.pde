@@ -308,6 +308,24 @@ class TileGrid {
     return !isVerticalCenterOfTheCell(creature) || !isWall(creature.getGridCellX(), creature.getGridCellY()+1);
   }
 
+  // Used to calculate the entire route (actually, not used in the ghost logic)
+  boolean isNotWallOnCreatureLeft(int currentX, int currentY) {
+    return !isWall(currentX-1, currentY);
+  }
+
+  boolean isNotWallOnCreatureRight(int currentX, int currentY) {
+    return !isWall(currentX+1, currentY);
+  }
+
+  boolean isNotWallOnCreatureUp(int currentX, int currentY) {
+    return !isWall(currentX, currentY-1);
+  }
+
+  boolean isNotWallOnCreatureDown(int currentX, int currentY) {
+    return !isWall(currentX, currentY+1);
+  }
+
+
   boolean isPellet(Creature creature) {
     return isPellet(creature.getGridCellX(), creature.getGridCellY());
   }
