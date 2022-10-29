@@ -15,6 +15,7 @@ class Ghost extends Creature {
   int currentMode;
   int previousMode;
   boolean inTunnel;
+  java.util.List<UnitVector> route = new ArrayList<>();
   StopWatchTimer changeModeTimer = new StopWatchTimer();
 
   Ghost (int drawX, int drawY, int type, String name, color c) {  
@@ -56,9 +57,14 @@ class Ghost extends Creature {
       }
       setTarget();
 
-      if (showRoute && tileGrid.isCenterOfTheCell(this)) {
-        calculateRoute(name, selectedMovement, getGridCellX(), getGridCellY(), targetX, targetY, currentMode, 100); // max iteration allowed (for unreach targets)
+      // Not used for the ghost "IA"
+      if (showRoute && !insideHouse && tileGrid.isCenterOfTheCell(this)) {
+        cleanPreviousRoute();
+        route = new ArrayList<>();
+        calculateRoute(name, selectedMovement, getGridCellX(), getGridCellY(), targetX, targetY, currentMode, 60, route); // 60 max iteration allowed (for unreachable targets)
       }
+
+      // Used for the ghost "IA"
       selectedMovement = getCalculatedMovement(selectedMovement);
     }
 
@@ -75,6 +81,12 @@ class Ghost extends Creature {
       case DOWN:
         moveDown();
         break;
+    }
+  }
+
+  void cleanPreviousRoute() {
+    for (UnitVector cell : route) {
+      tileGrid.cleanCell(cell.x, cell.y);
     }
   }
 
@@ -117,13 +129,9 @@ class Ghost extends Creature {
     return newMovement;
   }
 
-  void calculateRoute(String ghostName, int currentMovement, int currentX, int currentY, int targetX, int targetY, int currentMode, int iteration) {
+  void calculateRoute(String ghostName, int currentMovement, int currentX, int currentY, int targetX, int targetY, int currentMode, int iteration, java.util.List<UnitVector> route) {
 
-    if (currentMode != CHASE) {
-      return;
-    }
-
-    if (iteration == 0 || (currentX == targetX && currentY == targetY)) {
+    if (iteration == 0 || currentX < 0 || currentY < 0 || currentX >= MAX_COLS || currentY >= MAX_ROWS || (currentX == targetX && currentY == targetY)) {
       return;
     }
     else {
@@ -166,11 +174,16 @@ class Ghost extends Creature {
         }
       }
 
-      // TODO Add more shapes for the route calculation
-      drawVerticalLine(currentX, currentY, c);
+      route.add(new UnitVector(currentX, currentY, currentMovement));
+      // TODO Add corner shapes for the route calculation
+      if (newMovement == LEFT || newMovement == RIGHT) {
+         drawHorizontalLine(currentX, currentY, c);
+      } else {
+         drawVerticalLine(currentX, currentY, c);
+      }
 
       //println("currentX: " + nf(currentX, 2) + " currentY: " + nf(currentY, 2) + " targetX: " + nf(targetX, 2) + " targetY: " + nf(targetY, 2) + " ghostName: " + ghostName);
-      calculateRoute(ghostName, newMovement, newCurrentX, newCurrentY, targetX, targetY, currentMode, iteration);
+      calculateRoute(ghostName, newMovement, newCurrentX, newCurrentY, targetX, targetY, currentMode, iteration, route);
     }
   }
 
@@ -397,6 +410,6 @@ class Ghost extends Creature {
 
   void debug() {
     super.debug();
-    println("inTunnel: " + inTunnel + " changeModeTimer.second(): " + changeModeTimer.second() + " tileGrid.isUpRestricted(this): " + tileGrid.isUpRestricted(this));
+    println("inTunnel: " + inTunnel + " changeModeTimer.second(): " + changeModeTimer.second() + " tileGrid.isUpRestricted(this): " + tileGrid.isUpRestricted(this) + " insideHouse: " + insideHouse);
   }
 } 

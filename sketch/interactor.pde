@@ -117,6 +117,7 @@ class Interactor {
       tileGrid.cleanPreviousPosition(creature);
       creature.respawn();
     }
+    red.insideHouse = false;
   }
 
   // Debbuging purposes
