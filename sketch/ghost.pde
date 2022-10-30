@@ -146,7 +146,6 @@ class Ghost extends Creature {
         if (min > distance) {
           min = distance;
           newMovement = UP;
-          newCurrentY = currentY-1;
         }
       }
       if (currentMovement != RIGHT && tileGrid.isNotWallOnCreatureLeft(currentX, currentY)) {
@@ -154,7 +153,6 @@ class Ghost extends Creature {
         if (min > distance) {
           min = distance;
           newMovement = LEFT;
-          newCurrentX = currentX-1;
         }
       }
       if (currentMovement != UP && tileGrid.isNotWallOnCreatureDown(currentX, currentY)) {
@@ -162,7 +160,6 @@ class Ghost extends Creature {
         if (min > distance) {
           min = distance;
           newMovement = DOWN;
-          newCurrentY = currentY+1;
         }
       }
       if (currentMovement != LEFT && tileGrid.isNotWallOnCreatureRight(currentX, currentY)) {
@@ -170,20 +167,45 @@ class Ghost extends Creature {
         if (min > distance) {
           min = distance;
           newMovement = RIGHT;
-          newCurrentX = currentX+1;
         }
       }
 
-      route.add(new UnitVector(currentX, currentY, currentMovement));
-      // TODO Add corner shapes for the route calculation
-      if (newMovement == LEFT || newMovement == RIGHT) {
-         drawHorizontalLine(currentX, currentY, c);
-      } else {
-         drawVerticalLine(currentX, currentY, c);
-      }
+      if (newMovement != -1) {
 
-      //println("currentX: " + nf(currentX, 2) + " currentY: " + nf(currentY, 2) + " targetX: " + nf(targetX, 2) + " targetY: " + nf(targetY, 2) + " ghostName: " + ghostName);
-      calculateRoute(ghostName, newMovement, newCurrentX, newCurrentY, targetX, targetY, currentMode, iteration, route);
+        switch(newMovement) {
+          case LEFT:
+            newCurrentX = currentX-1;
+            break;
+          case RIGHT:
+            newCurrentX = currentX+1;
+            break;
+          case UP:
+            newCurrentY = currentY-1;
+            break;
+          case DOWN:
+            newCurrentY = currentY+1;
+            break;
+        }
+
+        route.add(new UnitVector(currentX, currentY, currentMovement));
+
+        if ((currentMovement == DOWN && newMovement == LEFT) || (currentMovement == RIGHT && newMovement == UP)) {
+          drawBottomLeftCornerRoute(currentX, currentY, c);
+        } else if ((currentMovement == UP && newMovement == LEFT) || (currentMovement == RIGHT && newMovement == DOWN)) {
+          drawTopLeftCornerRoute(currentX, currentY, c);
+        } else if ((currentMovement == DOWN && newMovement == RIGHT) || (currentMovement == LEFT && newMovement == UP)) {
+          drawBottomRightCornerRoute(currentX, currentY, c);
+        } else if ((currentMovement == UP && newMovement == RIGHT) || (currentMovement == LEFT && newMovement == DOWN)) {
+          drawTopRightCornerRoute(currentX, currentY, c);
+        } else if (newMovement == LEFT || newMovement == RIGHT) {
+          drawHorizontalRoute(currentX, currentY, c);
+        } else if (newMovement == UP || newMovement == DOWN) {
+          drawVerticalRoute(currentX, currentY, c);
+        }
+
+        //println("currentX: " + nf(currentX, 2) + " currentY: " + nf(currentY, 2) + " targetX: " + nf(targetX, 2) + " targetY: " + nf(targetY, 2) + " ghostName: " + ghostName);
+        calculateRoute(ghostName, newMovement, newCurrentX, newCurrentY, targetX, targetY, currentMode, iteration, route);
+      }
     }
   }
 
@@ -411,5 +433,9 @@ class Ghost extends Creature {
   void debug() {
     super.debug();
     println("inTunnel: " + inTunnel + " changeModeTimer.second(): " + changeModeTimer.second() + " tileGrid.isUpRestricted(this): " + tileGrid.isUpRestricted(this) + " insideHouse: " + insideHouse);
+    println("route: ");
+    for (UnitVector cell : route) {
+      println("x: " + cell.x + " y: " + cell.y);
+    }
   }
 } 

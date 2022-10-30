@@ -533,7 +533,7 @@ void drawEmptySquare(int drawX, int drawY, color c) {
   stroke(0);
 }
 
-void drawVerticalLine(int x, int y, color c) {
+void drawVerticalRoute(int x, int y, color c) {
   stroke(c);
   strokeWeight(PIXEL_SIZE);
   line(cellToCoord(x) + THREE_PIXELS, cellToCoord(y), cellToCoord(x) + THREE_PIXELS, cellToCoord(y) + SEVEN_PIXELS);
@@ -542,7 +542,7 @@ void drawVerticalLine(int x, int y, color c) {
   stroke(0);
 }
 
-void drawHorizontalLine(int x, int y, color c) {
+void drawHorizontalRoute(int x, int y, color c) {
   stroke(c);
   strokeWeight(PIXEL_SIZE);
   line(cellToCoord(x), cellToCoord(y) + THREE_PIXELS, cellToCoord(x) + SEVEN_PIXELS, cellToCoord(y) + THREE_PIXELS);
@@ -550,6 +550,56 @@ void drawHorizontalLine(int x, int y, color c) {
   strokeWeight(1);
   stroke(0);
 }
+
+void drawBottomLeftCornerRoute(int x, int y, color c) {
+  stroke(c);
+  strokeWeight(PIXEL_SIZE);
+  // Vertical
+  line(cellToCoord(x) + THREE_PIXELS, cellToCoord(y), cellToCoord(x) + THREE_PIXELS, cellToCoord(y) + THREE_PIXELS);
+  // Horizontal
+  line(cellToCoord(x), cellToCoord(y) + THREE_PIXELS, cellToCoord(x) + THREE_PIXELS, cellToCoord(y) + THREE_PIXELS);
+  // back to default
+  strokeWeight(1);
+  stroke(0);
+}
+
+void drawTopLeftCornerRoute(int x, int y, color c) {
+  stroke(c);
+  strokeWeight(PIXEL_SIZE);
+  // Vertical
+  line(cellToCoord(x) + THREE_PIXELS, cellToCoord(y) + THREE_PIXELS, cellToCoord(x) + THREE_PIXELS, cellToCoord(y) + SEVEN_PIXELS);
+  // Horizontal
+  line(cellToCoord(x), cellToCoord(y) + THREE_PIXELS, cellToCoord(x) + THREE_PIXELS, cellToCoord(y) + THREE_PIXELS);
+  // back to default
+  strokeWeight(1);
+  stroke(0);
+}
+
+void drawBottomRightCornerRoute(int x, int y, color c) {
+  stroke(c);
+  strokeWeight(PIXEL_SIZE);
+  // Vertical
+  line(cellToCoord(x) + THREE_PIXELS, cellToCoord(y), cellToCoord(x) + THREE_PIXELS, cellToCoord(y) + THREE_PIXELS);
+  // Horizontal
+  line(cellToCoord(x) + THREE_PIXELS, cellToCoord(y) + THREE_PIXELS, cellToCoord(x) + SEVEN_PIXELS, cellToCoord(y) + THREE_PIXELS);
+  // back to default
+  strokeWeight(1);
+  stroke(0);
+}
+
+
+void drawTopRightCornerRoute(int x, int y, color c) {
+  stroke(c);
+  strokeWeight(PIXEL_SIZE);
+  // Vertical
+  line(cellToCoord(x) + THREE_PIXELS, cellToCoord(y) + THREE_PIXELS, cellToCoord(x) + THREE_PIXELS, cellToCoord(y) + SEVEN_PIXELS);
+  // Horizontal
+  line(cellToCoord(x) + THREE_PIXELS, cellToCoord(y) + THREE_PIXELS, cellToCoord(x) + SEVEN_PIXELS, cellToCoord(y) + THREE_PIXELS);
+  // back to default
+  strokeWeight(1);
+  stroke(0);
+}
+
 
 
 void drawPalletCounter(int x, int y) {
