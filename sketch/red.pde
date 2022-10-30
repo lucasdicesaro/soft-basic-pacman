@@ -15,4 +15,9 @@ class Red extends Ghost {
     targetX = RED_GHOST_SCATTER_GRID_X;
     targetY = RED_GHOST_SCATTER_GRID_Y;
   }
+
+  void respawn() {
+    super.respawn();
+    insideHouse = false;
+  }
 }
