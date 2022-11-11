@@ -61,11 +61,11 @@ class Ghost extends Creature {
       if (showRoute && !insideHouse && tileGrid.isCenterOfTheCell(this)) {
         cleanPreviousRoute();
         route = new ArrayList<>();
-        calculateRoute(name, selectedMovement, getGridCellX(), getGridCellY(), targetX, targetY, currentMode, 60, route); // 60 max iteration allowed (for unreachable targets)
+        calculateRoute(name, selectedMovement, getGridCellX(), getGridCellY(), targetX, targetY, currentMode, route);
       }
 
       // Used for the ghost "IA"
-      selectedMovement = getCalculatedMovement(selectedMovement);
+      selectedMovement = getCalculatedMovement(selectedMovement, getGridCellX(), getGridCellY(), targetX, targetY);
     }
 
     switch(selectedMovement) {
@@ -90,36 +90,35 @@ class Ghost extends Creature {
     }
   }
 
-  int getCalculatedMovement(int selectedMovement) {
+  int getCalculatedMovement(int currentMovement, int currentX, int currentY, int targetX, int targetY) {
 
     int newMovement = -1;
     float min = 99999;
-    int x = getGridCellX();
-    int y = getGridCellY();
     float distance = 0;
-    if (selectedMovement != DOWN && tileGrid.isNotWallOnCreatureUp(this) && isFrightenedOrIsNotUpRestricted()) {
-      distance = dist(x, y-1, targetX, targetY);
+
+    if (currentMovement != DOWN && tileGrid.isNotWallOnCreatureUp(currentX, currentY) && (isFrightened() || !tileGrid.isUpRestricted(currentX, currentY))) {
+      distance = dist(currentX, currentY-1, targetX, targetY);
       if (min > distance) {
         min = distance;
         newMovement = UP;
       }
     }
-    if (selectedMovement != RIGHT && tileGrid.isNotWallOnCreatureLeft(this)) {
-      distance = dist(x-1, y, targetX, targetY);
+    if (currentMovement != RIGHT && tileGrid.isNotWallOnCreatureLeft(currentX, currentY)) {
+      distance = dist(currentX-1, currentY, targetX, targetY);
       if (min > distance) {
         min = distance;
         newMovement = LEFT;
       }
     }
-    if (selectedMovement != UP && tileGrid.isNotWallOnCreatureDown(this)) {
-      distance = dist(x, y+1, targetX, targetY);
+    if (currentMovement != UP && tileGrid.isNotWallOnCreatureDown(currentX, currentY)) {
+      distance = dist(currentX, currentY+1, targetX, targetY);
       if (min > distance) {
         min = distance;
         newMovement = DOWN;
       }
     }
-    if (selectedMovement != LEFT && tileGrid.isNotWallOnCreatureRight(this)) {
-      distance = dist(x+1, y, targetX, targetY);
+    if (currentMovement != LEFT && tileGrid.isNotWallOnCreatureRight(currentX, currentY)) {
+      distance = dist(currentX+1, currentY, targetX, targetY);
       if (min > distance) {
         min = distance;
         newMovement = RIGHT;
@@ -129,48 +128,19 @@ class Ghost extends Creature {
     return newMovement;
   }
 
-  void calculateRoute(String ghostName, int currentMovement, int currentX, int currentY, int targetX, int targetY, int currentMode, int iteration, java.util.List<UnitVector> route) {
+  int calculateRoute(String ghostName, int currentMovement, int currentX, int currentY, int targetX, int targetY, int currentMode, java.util.List<UnitVector> route) {
 
-    if (iteration == 0 || currentX < 0 || currentY < 0 || currentX >= MAX_COLS || currentY >= MAX_ROWS || (currentX == targetX && currentY == targetY)) {
-      return;
+    int newMovement = -1;
+    if (existsTileOnThePath(route, currentX, currentY) || currentX < 0 || currentY < 0 || currentX >= MAX_COLS || currentY >= MAX_ROWS || (currentX == targetX && currentY == targetY)) {
+      ; // Nothing to do, but return
     }
     else {
-      iteration--;
-      int newMovement = -1;
-      int newCurrentX = currentX;
-      int newCurrentY = currentY;
-      float min = 99999;
-      float distance = 0;
-      if (currentMovement != DOWN && tileGrid.isNotWallOnCreatureUp(currentX, currentY) && !tileGrid.isUpRestricted(currentX, currentY)) {
-        distance = dist(currentX, currentY-1, targetX, targetY);
-        if (min > distance) {
-          min = distance;
-          newMovement = UP;
-        }
-      }
-      if (currentMovement != RIGHT && tileGrid.isNotWallOnCreatureLeft(currentX, currentY)) {
-        distance = dist(currentX-1, currentY, targetX, targetY);
-        if (min > distance) {
-          min = distance;
-          newMovement = LEFT;
-        }
-      }
-      if (currentMovement != UP && tileGrid.isNotWallOnCreatureDown(currentX, currentY)) {
-        distance = dist(currentX, currentY+1, targetX, targetY);
-        if (min > distance) {
-          min = distance;
-          newMovement = DOWN;
-        }
-      }
-      if (currentMovement != LEFT && tileGrid.isNotWallOnCreatureRight(currentX, currentY)) {
-        distance = dist(currentX+1, currentY, targetX, targetY);
-        if (min > distance) {
-          min = distance;
-          newMovement = RIGHT;
-        }
-      }
+      newMovement = getCalculatedMovement(currentMovement, currentX, currentY, targetX, targetY);
 
       if (newMovement != -1) {
+
+        int newCurrentX = currentX;
+        int newCurrentY = currentY;
 
         switch(newMovement) {
           case LEFT:
@@ -204,9 +174,19 @@ class Ghost extends Creature {
         }
 
         //println("currentX: " + nf(currentX, 2) + " currentY: " + nf(currentY, 2) + " targetX: " + nf(targetX, 2) + " targetY: " + nf(targetY, 2) + " ghostName: " + ghostName);
-        calculateRoute(ghostName, newMovement, newCurrentX, newCurrentY, targetX, targetY, currentMode, iteration, route);
+         calculateRoute(ghostName, newMovement, newCurrentX, newCurrentY, targetX, targetY, currentMode, route);
       }
     }
+    return newMovement;
+  }
+
+  boolean existsTileOnThePath(java.util.List<UnitVector> route, int currentX, int currentY) {
+    for (UnitVector unitVector : route) {
+      if (unitVector.x == currentX && unitVector.y == currentY) {
+        return true;
+      }
+    }
+    return false;
   }
 
   void changeModeTo(int newMode) {
@@ -227,10 +207,6 @@ class Ghost extends Creature {
 
   boolean isFrightened() {
     return FRIGHTENED == currentMode;
-  }
-
-  boolean isFrightenedOrIsNotUpRestricted() {
-    return isFrightened() || !tileGrid.isUpRestricted(this);
   }
 
   void checkIfShouldChangeMode() {
