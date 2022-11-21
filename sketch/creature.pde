@@ -38,14 +38,15 @@ class Creature {
       drawX = drawX - PIXEL_SIZE;
       drawY = cuantizeCoord(drawY) + (CELL_SIZE / 2); // Forces Pacman to stay in the middle of the corridor
     } else if (drawX <= MAZE_MIN_COORD_X) {
-      // Tp from left to right
+      // Clean background inside maze when creature teleports from left to right
       tileGrid.cleanPreviousPosition(this);
       drawX = MAZE_MAX_COORD_X;
     }
 
+    // Clean background outside maze when creature is tp
     if (getGridCellX() == MAZE_END_X) {
-      // Clean background outside maze when creature is tp
-      drawBlackSquareOutsideMaze(MAZE_MAX_COORD_X, drawY);
+      drawBlackSquareRightSideOutsideMaze(MAZE_MAX_COORD_X, drawY);
+      drawBlackSquareLeftSideOutsideMaze(MAZE_MIN_COORD_X, drawY);
     }
   }
 
@@ -54,14 +55,15 @@ class Creature {
       drawX = drawX + PIXEL_SIZE;
       drawY = cuantizeCoord(drawY) + (CELL_SIZE / 2);
     } else if (drawX >= MAZE_MAX_COORD_X) {
-      // Tp from right to left
+      // Clean background inside maze when creature teleports from right to left
       tileGrid.cleanPreviousPosition(this);
       drawX = MAZE_MIN_COORD_X;
     }
 
+    // Clean background outside maze when creature is tp
     if (getGridCellX() == MAZE_INIT_X) {
-      // Clean background outside maze when creature is tp
-      drawBlackSquareOutsideMaze(MAZE_MAX_COORD_X, drawY);
+      drawBlackSquareRightSideOutsideMaze(MAZE_MAX_COORD_X, drawY);
+      drawBlackSquareLeftSideOutsideMaze(MAZE_MIN_COORD_X, drawY);
     }
   }
   
@@ -127,6 +129,10 @@ class Creature {
   }
 
   void drawYourSelf() {
+    if (showCurrentPosition) {
+      drawCreatureCenter(drawX, drawY);
+      drawPos(getGridCellX(), getGridCellY());
+    }
   }
 
   void debug() {

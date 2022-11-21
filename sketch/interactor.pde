@@ -1,5 +1,10 @@
 int pelletCounter;
 boolean levelCompleted;
+boolean debugEnabled = false;
+boolean showTarget = false;
+boolean showRoute = false;
+boolean showGrid = false;
+boolean showCurrentPosition = false;
 StopWatchTimer powerPelletEffectTimer = new StopWatchTimer();
 
 class Interactor {
@@ -10,7 +15,7 @@ class Interactor {
   void startNextLevel() {
     increaseLevel();
     initializeSpeedVariables();
-    mapFile = new MapFile(CURRENT_LEVEL);
+    mapFile = new MapFile();
     tileGrid = mapFile.fillGrid();
     tileGrid.initializeSpecialVariables();
     tileGrid.renderGrid();
@@ -44,13 +49,8 @@ class Interactor {
     if (levelCompleted) {
       sound.stopAll();
       delay(2000);
-      if (CURRENT_LEVEL < TOTAL_LEVELS) {
-        // TODO: Add 'level completed' maze blinking
-        startNextLevel();
-      } else {
-        println("THE END. BYE");
-        exit();
-      }
+      // TODO: Add 'level completed' maze blinking
+      startNextLevel();
     }
 
     processCollisions();
@@ -116,6 +116,10 @@ class Interactor {
     if (pelletCounter == TOTAL_PELLETS && tileGrid.isCenterOfTheCell(pacman)) {
       levelCompleted = true;
     }
+  }
+
+  void renderGrid() {
+    tileGrid.renderGrid();
   }
 
   boolean hasPowerPelletEffectFinished() {

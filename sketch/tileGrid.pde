@@ -147,14 +147,25 @@ class TileGrid {
         drawCharacters(x, y);
       }
     }
+    refreshCurrentLevel();
+  }
+
+  void refreshCurrentLevel() {
+    // TODO: Make these coordinates to be relative.
+    int x = 10;
+    int y = 0;
+    tileGrid.cleanSection(x, y, x+1, y+1);
+    drawCurrentLevel(x, y);
   }
 
   void refreshGrid() {
     for(Creature creature : creatures) {
       cleanPreviousPosition(creature);
     }
-    for(Ghost ghost : ghosts) {
-      ghost.showTarget();
+    if (showTarget) {
+      for(Ghost ghost : ghosts) {
+        ghost.showTarget();
+      }
     }
     for(Creature creature : creatures) {
       creature.drawYourSelf();
@@ -223,6 +234,9 @@ class TileGrid {
           drawPowerPelletInCellGrid(x, y);
           break;
       }
+    }
+    if (showGrid) {
+      drawTile(x, y);
     }
   }
 
@@ -293,6 +307,24 @@ class TileGrid {
   boolean isNotWallOnCreatureDown(Creature creature) {
     return !isVerticalCenterOfTheCell(creature) || !isWall(creature.getGridCellX(), creature.getGridCellY()+1);
   }
+
+  // Used to calculate the entire route (actually, not used in the ghost logic)
+  boolean isNotWallOnCreatureLeft(int currentX, int currentY) {
+    return !isWall(currentX-1, currentY);
+  }
+
+  boolean isNotWallOnCreatureRight(int currentX, int currentY) {
+    return !isWall(currentX+1, currentY);
+  }
+
+  boolean isNotWallOnCreatureUp(int currentX, int currentY) {
+    return !isWall(currentX, currentY-1);
+  }
+
+  boolean isNotWallOnCreatureDown(int currentX, int currentY) {
+    return !isWall(currentX, currentY+1);
+  }
+
 
   boolean isPellet(Creature creature) {
     return isPellet(creature.getGridCellX(), creature.getGridCellY());

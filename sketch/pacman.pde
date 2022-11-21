@@ -14,8 +14,7 @@ class Pacman extends Creature {
       }
     }
     drawPacman(drawX, drawY, c, selectedMovement, sprite);
-    //drawCreatureCenter(drawX, drawY, color(0, 204, 255));
-    //drawBlackCell(drawX, drawY);
+    super.drawYourSelf();// For debug purposes
   }
 
   void processMovement() {

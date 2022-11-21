@@ -18,22 +18,18 @@ PFont f;
 
 void setup() {
   fullScreen();
-  //size(224 * PIXEL_SIZE, 288 * PIXEL_SIZE);
-  //size(224, 288); // PIXEL_SIZE = 1
-  //size(448, 576); // PIXEL_SIZE = 2
-  //size(672, 864); // PIXEL_SIZE = 3
-  //size(896, 1152); // PIXEL_SIZE = 4
-  //size(1120, 1440); // PIXEL_SIZE = 5
   background(0);
 
   f = createFont("Arial", 16, true);
   initializeScaleVariables();
-  initializeLevelVariables();
 
   keyboard = new Keyboard();
   sound = new Sound();
   interactor = new Interactor();
   interactor.startNextLevel();
+
+  // https://discourse.processing.org/t/keypressed-only-works-sometimes/22340/2
+  surface.setVisible(true);  
 }
 
 void draw() {
@@ -41,7 +37,9 @@ void draw() {
     pacman.setSelectedMovement(keyboard.getUserKeyPressed());
   }
 
-  interactor.processIteration();
+  if (!debugEnabled) {
+    interactor.processIteration();
+  }
 }
 
 void keyPressed() {
@@ -50,6 +48,9 @@ void keyPressed() {
     keyboard.setUserKeyPressed();
     pacman.setSelectedMovement(keyboard.getUserKeyPressed());
 
+    if (debugEnabled) {
+      interactor.processIteration();
+    }
   } else if (key == 'd') {
     printScaleVariables();
     mapFile.debug();
@@ -58,12 +59,31 @@ void keyPressed() {
     for(Creature creature : creatures) {
       creature.debug();
     }
+    debugEnabled = !debugEnabled;
+  } else if (key == 't') {
+    for(Ghost ghost : ghosts) {
+      ghost.cleanTarget();
+    }
+    showTarget = !showTarget;
+  } else if (key == 'r') {
+    for(Ghost ghost : ghosts) {
+      ghost.cleanPreviousRoute();
+    }
+    showRoute = !showRoute;
+  } else if (key == 'p') {
+    showCurrentPosition = !showCurrentPosition;
+  } else if (key == 'g') {
+    showGrid = !showGrid;
+    interactor.renderGrid();
   } else if (key == 'c') {
     interactor.changeGhostsModeTo(CHASE);
   } else if (key == 's') {
     interactor.changeGhostsModeTo(SCATTER);
   } else if (key == 'f') {
     interactor.changeGhostsModeTo(FRIGHTENED);
+  } else if (key == 'q') {
+    println("Terminated by the user. Bye.");
+    exit();
   }
 }
 

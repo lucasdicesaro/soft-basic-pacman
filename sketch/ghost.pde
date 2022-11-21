@@ -15,6 +15,7 @@ class Ghost extends Creature {
   int currentMode;
   int previousMode;
   boolean inTunnel;
+  java.util.List<UnitVector> route = new ArrayList<>();
   StopWatchTimer changeModeTimer = new StopWatchTimer();
 
   Ghost (int drawX, int drawY, int type, String name, color c) {  
@@ -31,7 +32,7 @@ class Ghost extends Creature {
     } else {
       drawFrightenedGhost(drawX, drawY);
     }
-    //drawBlackCell(drawX, drawY);
+    super.drawYourSelf();// For debug purposes
   }
   
   void processMovement() {
@@ -54,7 +55,17 @@ class Ghost extends Creature {
       if (tileGrid.isTunnelBounds(this)) {
         inTunnel = !inTunnel;
       }
-      selectedMovement = getCalculatedMovement(selectedMovement);
+      setTarget();
+
+      // Not used for the ghost "IA"
+      if (showRoute && !insideHouse && tileGrid.isCenterOfTheCell(this)) {
+        cleanPreviousRoute();
+        route = new ArrayList<>();
+        calculateRoute(name, selectedMovement, getGridCellX(), getGridCellY(), targetX, targetY, currentMode, route);
+      }
+
+      // Used for the ghost "IA"
+      selectedMovement = getCalculatedMovement(selectedMovement, getGridCellX(), getGridCellY(), targetX, targetY);
     }
 
     switch(selectedMovement) {
@@ -73,38 +84,41 @@ class Ghost extends Creature {
     }
   }
 
-  int getCalculatedMovement(int selectedMovement) {
+  void cleanPreviousRoute() {
+    for (UnitVector cell : route) {
+      tileGrid.cleanCell(cell.x, cell.y);
+    }
+  }
 
-    setTarget();
+  int getCalculatedMovement(int currentMovement, int currentX, int currentY, int targetX, int targetY) {
 
     int newMovement = -1;
     float min = 99999;
-    int x = getGridCellX();
-    int y = getGridCellY();
     float distance = 0;
-    if (selectedMovement != DOWN && tileGrid.isNotWallOnCreatureUp(this) && isFrightenedOrIsNotUpRestricted()) {
-      distance = dist(x, y-1, targetX, targetY);
+
+    if (currentMovement != DOWN && tileGrid.isNotWallOnCreatureUp(currentX, currentY) && (isFrightened() || !tileGrid.isUpRestricted(currentX, currentY))) {
+      distance = dist(currentX, currentY-1, targetX, targetY);
       if (min > distance) {
         min = distance;
         newMovement = UP;
       }
     }
-    if (selectedMovement != RIGHT && tileGrid.isNotWallOnCreatureLeft(this)) {
-      distance = dist(x-1, y, targetX, targetY);
+    if (currentMovement != RIGHT && tileGrid.isNotWallOnCreatureLeft(currentX, currentY)) {
+      distance = dist(currentX-1, currentY, targetX, targetY);
       if (min > distance) {
         min = distance;
         newMovement = LEFT;
       }
     }
-    if (selectedMovement != UP && tileGrid.isNotWallOnCreatureDown(this)) {
-      distance = dist(x, y+1, targetX, targetY);
+    if (currentMovement != UP && tileGrid.isNotWallOnCreatureDown(currentX, currentY)) {
+      distance = dist(currentX, currentY+1, targetX, targetY);
       if (min > distance) {
         min = distance;
         newMovement = DOWN;
       }
     }
-    if (selectedMovement != LEFT && tileGrid.isNotWallOnCreatureRight(this)) {
-      distance = dist(x+1, y, targetX, targetY);
+    if (currentMovement != LEFT && tileGrid.isNotWallOnCreatureRight(currentX, currentY)) {
+      distance = dist(currentX+1, currentY, targetX, targetY);
       if (min > distance) {
         min = distance;
         newMovement = RIGHT;
@@ -112,6 +126,67 @@ class Ghost extends Creature {
     }
 
     return newMovement;
+  }
+
+  int calculateRoute(String ghostName, int currentMovement, int currentX, int currentY, int targetX, int targetY, int currentMode, java.util.List<UnitVector> route) {
+
+    int newMovement = -1;
+    if (existsTileOnThePath(route, currentX, currentY) || currentX < 0 || currentY < 0 || currentX >= MAX_COLS || currentY >= MAX_ROWS || (currentX == targetX && currentY == targetY)) {
+      ; // Nothing to do, but return
+    }
+    else {
+      newMovement = getCalculatedMovement(currentMovement, currentX, currentY, targetX, targetY);
+
+      if (newMovement != -1) {
+
+        int newCurrentX = currentX;
+        int newCurrentY = currentY;
+
+        switch(newMovement) {
+          case LEFT:
+            newCurrentX = currentX-1;
+            break;
+          case RIGHT:
+            newCurrentX = currentX+1;
+            break;
+          case UP:
+            newCurrentY = currentY-1;
+            break;
+          case DOWN:
+            newCurrentY = currentY+1;
+            break;
+        }
+
+        route.add(new UnitVector(currentX, currentY, currentMovement));
+
+        if ((currentMovement == DOWN && newMovement == LEFT) || (currentMovement == RIGHT && newMovement == UP)) {
+          drawBottomLeftCornerRoute(currentX, currentY, c);
+        } else if ((currentMovement == UP && newMovement == LEFT) || (currentMovement == RIGHT && newMovement == DOWN)) {
+          drawTopLeftCornerRoute(currentX, currentY, c);
+        } else if ((currentMovement == DOWN && newMovement == RIGHT) || (currentMovement == LEFT && newMovement == UP)) {
+          drawBottomRightCornerRoute(currentX, currentY, c);
+        } else if ((currentMovement == UP && newMovement == RIGHT) || (currentMovement == LEFT && newMovement == DOWN)) {
+          drawTopRightCornerRoute(currentX, currentY, c);
+        } else if (newMovement == LEFT || newMovement == RIGHT) {
+          drawHorizontalRoute(currentX, currentY, c);
+        } else if (newMovement == UP || newMovement == DOWN) {
+          drawVerticalRoute(currentX, currentY, c);
+        }
+
+        //println("currentX: " + nf(currentX, 2) + " currentY: " + nf(currentY, 2) + " targetX: " + nf(targetX, 2) + " targetY: " + nf(targetY, 2) + " ghostName: " + ghostName);
+         calculateRoute(ghostName, newMovement, newCurrentX, newCurrentY, targetX, targetY, currentMode, route);
+      }
+    }
+    return newMovement;
+  }
+
+  boolean existsTileOnThePath(java.util.List<UnitVector> route, int currentX, int currentY) {
+    for (UnitVector unitVector : route) {
+      if (unitVector.x == currentX && unitVector.y == currentY) {
+        return true;
+      }
+    }
+    return false;
   }
 
   void changeModeTo(int newMode) {
@@ -132,10 +207,6 @@ class Ghost extends Creature {
 
   boolean isFrightened() {
     return FRIGHTENED == currentMode;
-  }
-
-  boolean isFrightenedOrIsNotUpRestricted() {
-    return isFrightened() || !tileGrid.isUpRestricted(this);
   }
 
   void checkIfShouldChangeMode() {
@@ -195,8 +266,6 @@ class Ghost extends Creature {
   }
 
   void setTarget() {
-    previousTargetX = targetX;
-    previousTargetY = targetY;
     switch(currentMode) {
       case CHASE:
         setChaseTarget();
@@ -320,9 +389,15 @@ class Ghost extends Creature {
     return previousTargetY;
   }
 
-  void showTarget() {
+  void cleanTarget() {
     tileGrid.cleanCell(previousTargetX, previousTargetY);
+  }
+
+  void showTarget() {
+    cleanTarget();
     if (targetX >= 0 && targetX < MAX_COLS && targetY >= 0 && targetY < MAX_ROWS) {
+      previousTargetX = targetX;
+      previousTargetY = targetY;
       drawTarget(targetX, targetY, c);
     }
   }
@@ -337,6 +412,10 @@ class Ghost extends Creature {
 
   void debug() {
     super.debug();
-    println("inTunnel: " + inTunnel + " changeModeTimer.second(): " + changeModeTimer.second() + " tileGrid.isUpRestricted(this): " + tileGrid.isUpRestricted(this));
+    println("inTunnel: " + inTunnel + " changeModeTimer.second(): " + changeModeTimer.second() + " tileGrid.isUpRestricted(this): " + tileGrid.isUpRestricted(this) + " insideHouse: " + insideHouse);
+    println("route: ");
+    for (UnitVector cell : route) {
+      println("x: " + cell.x + " y: " + cell.y);
+    }
   }
 } 
