@@ -33,7 +33,7 @@ Note: If you want a Pac-Man with sound, please checkout <a href="https://github.
 
 ### Pacman keys
 
-Keyboard arrows
+Pacman movement: keyboard arrow keys.
 
 
 ### Debug keys
@@ -51,9 +51,10 @@ Keyboard arrows
 
 ## Credits
 
- All my efforts in this work are thanks to:
- - Chad Birch and his beautiful article <a href="https://gameinternals.com/understanding-pac-man-ghost-behavior" target="_blank">Understanding Pac-Man Ghost Behavior</a> and 
- - Jamey Pittman and his great and detailed article <a href="https://www.gamedeveloper.com/design/the-pac-man-dossier" target="_blank">The Pac-Man Dossier</a>
+ Special thanks to Chad Birch and Jamey Pittman for sharing your investigations:
+ - Chad Birch's article <a href="https://gameinternals.com/understanding-pac-man-ghost-behavior" target="_blank">Understanding Pac-Man Ghost Behavior</a> and 
+ - Jamey Pittman's article <a href="https://www.gamedeveloper.com/design/the-pac-man-dossier" target="_blank">The Pac-Man Dossier</a>
+
 
 ![Screenshot3](sketch/demo/demo3.png) 
 
