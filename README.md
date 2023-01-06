@@ -38,15 +38,15 @@ Keyboard arrows
 
 ### Debug keys
 
-p - Position: Shows the current tile for each character.
-t - Target: Shows ghost targets
-r - Route: Shows ghost routes
-g - Grid: Shows screen grid
-d - Debug: Shows frame by frame on key-press
-c - Chase: Forces the chase mode.
-s - Scatter: Forces the scatter mode.
-f - Frightened: Forces the Frightened mode.
-q - Quit.
+- p - Position: Shows the current tile for each character.
+- t - Target: Shows ghost targets
+- r - Route: Shows ghost routes
+- g - Grid: Shows screen grid
+- d - Debug: Shows frame by frame on key-press
+- c - Chase: Forces the chase mode.
+- s - Scatter: Forces the scatter mode.
+- f - Frightened: Forces the Frightened mode.
+- q - Quit.
 
 
 ## Credits
