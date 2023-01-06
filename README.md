@@ -5,7 +5,7 @@
 ![](gifs/power-pill.gif)
 ![](gifs/eaten.gif)
 
-### Ghosts targets and routes (press 't' or 'r'. See list of keys )
+### Ghosts targets and routes (press 't' or 'r'. Please, see the key list below)
 
 ![](gifs/ghosts-routes.gif)
 ![](gifs/scatter-mode.gif)
