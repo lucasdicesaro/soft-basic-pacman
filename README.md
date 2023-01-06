@@ -1,15 +1,20 @@
 # soft-basic-pacman
 
-![Screenshot1](sketch/demo/demo1.png)
-
+Power pills
 ![](gifs/power-pill.gif)
 ![](gifs/eaten.gif)
+
+Ghosts targets and/or routes (press T or R)
 ![](gifs/ghosts-routes.gif)
 ![](gifs/scatter-mode.gif)
+
+Ghosts loop
 ![](gifs/known-loop.gif)
 
 
 ## Instructions
+
+![Screenshot1](sketch/demo/demo1.png)
 
 1. Download <a href="https://github.com/lucasdicesaro/soft-basic-pacman/archive/refs/heads/main.zip" target="_blank">this code</a> and unzip it.
 2. Download <a href="https://processing.org/download" target="_blank">Processing</a> and unzip it (<a href="https://www.youtube.com/watch?v=cVyy5EUVt4g" target="_blank">See how to download and install Processing</a>)
@@ -43,6 +48,7 @@ Note: If you want a Pac-Man with sound, please checkout <a href="https://github.
 - ~~Slow down ghosts speed when they walk through teleport tunnel~~
 - ~~Increasing speed, decreasing mode times, infinite levels~~
 - Limit Pacman lives
+- Blinking ghosts when power pill effect finishes
 - Add timer for ghost go out from its home
 - Pacman animation when he is eaten
 - Ghost animation when it enters to ghosts house
