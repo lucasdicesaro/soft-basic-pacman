@@ -1,4 +1,4 @@
-# Yet another basic Pacman
+# Yet another Pacman...
 
 ### Power pills
 
