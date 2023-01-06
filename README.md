@@ -1,14 +1,17 @@
 # soft-basic-pacman
 
-Power pills
+### Power pills
+
 ![](gifs/power-pill.gif)
 ![](gifs/eaten.gif)
 
-Ghosts targets and/or routes (press T or R)
+### Ghosts targets and/or routes (press T or R)
+
 ![](gifs/ghosts-routes.gif)
 ![](gifs/scatter-mode.gif)
 
-Ghosts loop
+### Ghosts loop
+
 ![](gifs/known-loop.gif)
 
 
