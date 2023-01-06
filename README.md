@@ -2,6 +2,13 @@
 
 ![Screenshot1](sketch/demo/demo1.png)
 
+![](gifs/power-pill.gif)
+![](gifs/eaten.gif)
+![](gifs/ghosts-routes.gif)
+![](gifs/scatter-mode.gif)
+![](gifs/known-loop.gif)
+
+
 ## Instructions
 
 1. Download <a href="https://github.com/lucasdicesaro/soft-basic-pacman/archive/refs/heads/main.zip" target="_blank">this code</a> and unzip it.
