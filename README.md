@@ -1,16 +1,16 @@
-# soft-basic-pacman
+# Yet another basic Pacman
 
 ### Power pills
 
 ![](gifs/power-pill.gif)
 ![](gifs/eaten.gif)
 
-### Ghosts targets and/or routes (press T or R)
+### Ghosts targets and routes (press 't' or 'r'. See list of keys )
 
 ![](gifs/ghosts-routes.gif)
 ![](gifs/scatter-mode.gif)
 
-### Ghosts loop
+### The <a href="https://www.youtube.com/watch?v=4Wvp0q64Q08" target="_blank">ghosts loop</a>
 
 ![](gifs/known-loop.gif)
 
@@ -28,6 +28,26 @@
 Note: If you want a Pac-Man with sound, please checkout <a href="https://github.com/lucasdicesaro/soft-basic-pacman/tree/pacman_with_sound" target="_blank">this branch</a>.
 
 ![Screenshot2](sketch/demo/demo2.png)
+
+## <a href="https://github.com/lucasdicesaro/soft-basic-pacman/blob/main/sketch/sketch.pde#L52" target="_blank">Keys</a>
+
+### Pacman keys
+
+Keyboard arrows
+
+
+### Debug keys
+
+p - Position: Shows the current tile for each character.
+t - Target: Shows ghost targets
+r - Route: Shows ghost routes
+g - Grid: Shows screen grid
+d - Debug: Shows frame by frame on key-press
+c - Chase: Forces the chase mode.
+s - Scatter: Forces the scatter mode.
+f - Frightened: Forces the Frightened mode.
+q - Quit.
+
 
 ## Credits
 
